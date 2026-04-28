@@ -1,0 +1,16 @@
+# Obsidian — machine-specific
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+.obsidian/cache
+
+# OS
+.DS_Store
+.Trashed-*
+
+# Editor swaps
+*.swp
+*.swo
+*.tmp
+
+# Drafts in progress (optional — comment out if you want to track them)
+# output/.drafts/
