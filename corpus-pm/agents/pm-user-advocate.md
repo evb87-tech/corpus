@@ -119,8 +119,10 @@ Format recommandé pour cette section :
 
 ```bash
 DRAFT_BASENAME=$(basename "$1" .md)   # ex. 2026-04-28-feature-notifications-prd
+# Retirer le préfixe de date YYYY-MM-DD- si présent (cohérence avec pm-strategist et review-feasibility)
+DRAFT_SLUG=$(echo "$DRAFT_BASENAME" | sed 's/^[0-9]\{4\}-[0-9]\{2\}-[0-9]\{2\}-//')
 TODAY=$(date +%Y-%m-%d)
-STRESS_SLUG="stress-test-${DRAFT_BASENAME}-user-${TODAY}"
+STRESS_SLUG="stress-test-${DRAFT_SLUG}-user-${TODAY}"
 STRESS_PATH="$CORPUS_VAULT/wiki/${STRESS_SLUG}.md"
 DRAFT_RELATIVE=$(realpath --relative-to="$CORPUS_VAULT" "$1")
 ```
