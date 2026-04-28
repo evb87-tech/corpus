@@ -5,28 +5,28 @@ core-version: "^0.1.0"
 entity-types:
   - name: persona
     template: templates/persona.md
-    sections: []
-    extra-frontmatter: []
+    sections: [Profil, Motivations, Frictions, Verbatims, Sources]
+    extra-frontmatter: [pains, goals]
   - name: segment
     template: templates/segment.md
-    sections: []
+    sections: [Définition, Critères, Taille estimée, Personas associés, Sources]
     extra-frontmatter: []
   - name: competitor
     template: templates/competitor.md
-    sections: []
-    extra-frontmatter: []
+    sections: [Positionnement, Forces, Faiblesses, Last observed, Sources]
+    extra-frontmatter: [last-observed]
   - name: interview
     template: templates/interview.md
-    sections: []
-    extra-frontmatter: []
+    sections: [Date, Profil interviewé, Verbatims, Insights, Sources]
+    extra-frontmatter: [interview-date]
   - name: feature
     template: templates/feature.md
-    sections: []
+    sections: [Problème, Hypothèse de solution, Personas concernés, Décisions liées, Sources]
     extra-frontmatter: []
   - name: decision
     template: templates/decision.md
-    sections: []
-    extra-frontmatter: []
+    sections: [Date, Question, Décision, Alternatives écartées, Personnes impliquées, Sources]
+    extra-frontmatter: [decision-date]
 
 review-angles:
   - name: strategy
