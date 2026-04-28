@@ -1,0 +1,37 @@
+.DS_Store
+*.log
+.env
+.env.*
+!.env.example
+
+# Claude / agent local state
+.claude/context/
+.claude/worktrees/
+.claude/scheduled_tasks.lock
+.claude/tracking/
+.claude/settings.local.json
+CLAUDE.local.md
+
+# Beads — keep config + JSONL, ignore local DB / runtime artifacts
+.beads/dolt/
+.beads/embeddeddolt/
+.beads/embeddeddolt.*/
+.beads/dolt.*/
+.beads/dolt-server.*
+.beads/issues.db
+.beads/last-touched
+.beads/active-bead.txt
+.beads/backup/
+.beads/*.tgz
+.beads/*.corrupt-*
+.beads/*.pre-repair-*
+.beads/*.stale-*
+
+# Raw inbox is local-only by default — uncomment to commit raw sources
+# (raw/ is intentionally tracked here so the structure ships with the repo;
+#  remove the .gitkeep and add `raw/` to ignore actual contents if preferred)
+
+# Beads / Dolt files (added by bd init)
+.dolt/
+*.db
+.beads-credential-key
