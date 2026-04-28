@@ -1,0 +1,22 @@
+name: pack-alpha
+extends: corpus-core
+core-version: "^0.1"
+
+entity-types:
+  - name: case-note
+    template: templates/case-note.md
+    sections: [Contexte, Observations, Sources]
+    extra-frontmatter: []
+
+review-angles:
+  - name: alpha-review
+    command: /alpha-review
+    agent: null
+    target-types: [prd]
+
+beads-handoffs:
+  - name: alpha-epic
+    command: /alpha-epic
+    agent: null
+    input-type: prd
+    output-shape: single-issue
