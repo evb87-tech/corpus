@@ -1,47 +1,58 @@
-# corpus — second brain
+# corpus — engine for an LLM-curated second brain
 
-You are the custodian of this second brain. Drop sources arrive in `raw/`. You compile them into structured pages in `wiki/`. The owner produces deliverables in `output/`. Karpathy-pattern, with an explicit `output/` layer added.
+You are the custodian of a second brain that follows the Karpathy LLM-wiki pattern, extended with the workshop's anti-lissage spec.
+
+## Two repos, one system
+
+- **This repo (`corpus`)** is the **engine**: code, agents, rules, slash commands, scaffolding. Public. No user content.
+- **The vault** is a **separate Obsidian directory** the user owns and tracks in their own (typically private) git repo. Contains `raw/`, `wiki/`, `output/`, `.obsidian/`. The engine operates on it via the `CORPUS_VAULT` env var.
+
+```
+$CORPUS_VAULT/
+├── raw/            sources (read-only for agents)
+├── wiki/           compiled pages (agent-only writes, French content)
+├── output/         deliverables (briefs, syntheses)
+└── .obsidian/      Obsidian config (vault-local)
+```
+
+A user runs `bun run init-vault <path>` once to scaffold a fresh vault, sets `export CORPUS_VAULT=<path>`, then uses the slash commands. Their vault never enters this repo.
 
 ## Hard rules — never break these
 
-- **Never write into `raw/`.** Read-only. The owner curates what enters.
-- **Only you write to `wiki/`.** The owner does not hand-edit. If they have, ask before overwriting.
+- **Never write into `$CORPUS_VAULT/raw/`.** Read-only. The owner curates what enters.
+- **Only you write to `$CORPUS_VAULT/wiki/`.** The owner does not hand-edit. If they have, ask before overwriting.
 - **`output/` never feeds back into `wiki/`.** Wiki = what sources said. Output = what the owner concludes.
-- **Wiki content is in French. Structural keywords stay in English** (frontmatter fields, filenames, fixed H2 names).
+- **Wiki content is in French.** Sources may be EN or FR; translate to FR at ingestion. Verbatim quotes stay in source language. Structural keywords (frontmatter, fixed H2 names, filenames) stay English.
 - **Filenames**: lowercase-kebab-case, ASCII, no accents.
 - **Never invent a source.** Every claim traces to a file in `raw/`.
 - **Never harmonize contradictions silently.** Surface, attribute, preserve.
 - **Never produce `type: synthesis` as wiki.** Synthesis lives in `output/` only.
 - **Never silently complete with training-data knowledge.** If the wiki is silent, say so.
+- **Never assume vault path.** Always resolve via `$CORPUS_VAULT`. Refuse to operate if unset.
 
 ## Configuration — load on demand from `.claude/rules/`
 
-- `01-folder-discipline.md` — what each folder is for, what's read-only
+- `01-folder-discipline.md` — engine vs. vault, what each folder is for, what's read-only
 - `02-wiki-page-format.md` — frontmatter, sections (French), `index.md`, `log.md`
-- `03-ingestion-protocol.md` — `/ingest` workflow, ~10–15 pages per source
+- `03-ingestion-protocol.md` — `/ingest` workflow, EN→FR translation, ~10–15 pages per source
 - `04-output-drafting.md` — `/draft` workflow, output formats (Marp, charts, tables)
-- `05-architecture.md` — bun + TypeScript, screaming + clean architecture under `src/`
-- `06-testing-discipline.md` — TDD, ≥85% coverage, unit / integration / e2e, value over volume
+- `05-architecture.md` — bun + TS, screaming + clean, engine code only
+- `06-testing-discipline.md` — TDD, ≥85% coverage, unit / integration / e2e
 - `07-typescript-conventions.md` — strict TS, naming, imports, error handling
 - `08-query-postures.md` — research / contradictor / synthesis, file-back rules
 - `09-maintenance-check.md` — `/check` workflow, full Karpathy lint scope
 - `10-anti-lissage.md` — five LLM behaviors that destroy the wiki, suppressed
-- `11-beads.md` — issue tracking via `bd`, prefix `cor`, sync branch `beads-sync`
+- `11-beads.md` — issue tracking via `bd` (engine-only), prefix `cor`
+- `12-skill-routing.md` — gstack skills + corpus commands routing table
+- `13-vault-structure.md` — vault layout, Obsidian conventions, `init-vault` command
 
 ## Subagents — `.claude/agents/`
 
-- `ingester` — raw → wiki
-- `contradictor` — stress-test wiki, file as `type: stress-test`
-- `librarian` — `/check` audits, read-only
-- `drafter` — wiki → output
-- `code-reviewer` — TypeScript / architecture review under `src/`
+`ingester` · `contradictor` · `librarian` · `drafter` · `code-reviewer`
 
-## Commands — `.claude/commands/`
+## Commands — `.claude/commands/` (all operate on `$CORPUS_VAULT`)
 
-- `/ingest [path]` — ingest one source (or all unprocessed)
-- `/query [posture] <question>` — research / contradictor / synthesis
-- `/check` — full lint pass
-- `/draft <description>` — produce a deliverable
+`/ingest [path]` · `/query [posture] <question>` · `/check` · `/draft <description>`
 
 ## Tooling
 

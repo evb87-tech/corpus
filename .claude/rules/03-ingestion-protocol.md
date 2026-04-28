@@ -1,5 +1,7 @@
 # Ingestion protocol — `/ingest`
 
+> All paths below are relative to `$CORPUS_VAULT`. Refuse to operate if unset or the vault marker is missing. See [13-vault-structure.md](./13-vault-structure.md).
+
 When the owner runs `/ingest` (or asks to "ingest raw/X"):
 
 ## 1. Identify pending sources
@@ -47,6 +49,15 @@ Tell the owner, briefly:
 ## Calibration
 
 Karpathy notes that **a single source might touch 10–15 wiki pages**. If your run touches only 1–2, you're probably under-extracting entities; sweep the source again. If it touches 30+, you're probably creating pages for trivial mentions; consolidate.
+
+## Language
+
+Sources in `raw/` may be in any language (typically EN or FR). **Wiki page bodies are always in French.** If the source is in English, translate at ingestion: paraphrased claims, summaries, and connections go into French prose. Two carve-outs:
+
+- **Verbatim quotes stay in their original language**, between guillemets `« … »` for FR or `"…"` for EN, with an inline citation. Translating a quote silently is a form of lissage — see `10-anti-lissage.md`.
+- **Owner-authored sources** (personal notes, takeaways, positions): preserve the owner's exact phrasing in its original language. Anti-lissage rule 4 overrides the French-content rule for owner voice.
+
+Structural keywords (frontmatter fields, fixed H2 names, filenames) remain English regardless.
 
 ## Non-negotiables
 

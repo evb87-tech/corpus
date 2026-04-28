@@ -2,7 +2,9 @@
 description: Run a structural + content-level lint pass over the wiki
 ---
 
-Run the maintenance protocol on `wiki/`. Delegate to the **librarian** subagent (see `.claude/agents/librarian.md`).
+**Pre-flight:** verify `$CORPUS_VAULT` is set and `$CORPUS_VAULT/.corpus-vault` exists. If not, refuse and tell the owner to run `bun run init-vault <path>` then `export CORPUS_VAULT=<path>`. See `.claude/rules/13-vault-structure.md`.
+
+Run the maintenance protocol on `$CORPUS_VAULT/wiki/`. Delegate to the **librarian** subagent (see `.claude/agents/librarian.md`).
 
 Full protocol: `.claude/rules/09-maintenance-check.md`. Cover **both** scopes:
 
