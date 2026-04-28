@@ -264,11 +264,13 @@ claude
 **Frame focus :** sortie terminal montrant les pages wiki lues, puis le chemin du fichier produit.
 
 **VO (FR) :**
-> Le PRD est déposé dans `output/` avec la date du jour dans le nom : `output/2026-04-28-export-des-decisions-vers-notion-prd.md`. Chaque section contient des références wiki entre doubles crochets — `[[wiki/persona-alice-pm]]`, `[[wiki/interview-pm-alice-2026-04]]` — qui sont des liens Obsidian cliquables. La section `Sources wiki` à la fin liste exhaustivement les pages consultées et les lacunes signalées.
+> Le PRD est déposé dans `output/` avec la date du jour dans le nom : `output/2026-04-28-export-des-decisions-vers-notion-prd.md`. Chaque section contient des références wiki entre doubles crochets — `[[wiki/persona-alice-pm]]` — qui sont des liens Obsidian cliquables. La section `Sources wiki` à la fin liste exhaustivement les pages consultées et les lacunes signalées.
 
 **Frame focus :** ouvrir le fichier PRD dans l'éditeur — frontmatter (`type: prd`, `status: draft`), puis faire défiler rapidement jusqu'à la section `## User stories` et `## Sources wiki`.
 
-> **TODO (dry run) :** vérifier que l'ingestion du shot 5 a bien produit des pages `persona-*` ou `interview-*` à partir de `interview-pm-alice-2026-04.md` — sans cela, `/pm-spec` signalera une lacune sur les user stories et le shot sera moins démonstratif. Si nécessaire, ajuster le contenu du fichier d'interview source avant tournage.
+> **Note :** `/pm-spec` lit les pages `persona-*`, `competitor-*`, `decision-*` et `feature-*` du wiki — pas les pages `interview-*`. Pour que les User stories soient étayées, il faut que l'ingestion de `interview-pm-alice-2026-04.md` ait produit une page `wiki/persona-alice-pm.md` (l'ingester extrait les personas des transcripts d'entretien). C'est cette page persona, pas l'interview directement, que `/pm-spec` citera.
+
+> **TODO (dry run) :** vérifier que l'ingestion du shot 5 a bien produit une page `wiki/persona-*.md` à partir de `interview-pm-alice-2026-04.md`. Si l'ingester ne crée pas de page persona (par exemple s'il crée seulement une page `interview-*`), il faudra soit ajuster le contenu de l'interview pour qu'il soit plus explicite sur le profil du locuteur, soit déposer séparément une fiche persona dans `raw/`.
 
 ---
 
@@ -320,7 +322,9 @@ claude
 **VO (FR) :**
 > Le récapitulatif affiche l'epic créé — appelons-le `COR-42` — et ses issues enfants liées : `COR-43` pour l'export OAuth, `COR-44` pour le mapping des décisions wiki vers les propriétés Notion. Chaque issue contient une note `PRD: [[2026-04-28-export-des-decisions-vers-notion-prd]]` pour la traçabilité. Les issues P2, jugées différables, sont ignorées par l'agent — seules les P0 et P1 entrent dans le backlog.
 
-> **TODO (dry run) :** vérifier que `bd create`, `bd dep add` et `bd lint` sont disponibles et fonctionnels dans l'environnement de tournage. Si beads n'est pas installé, le sous-agent échouera au premier appel `bd create` — noter dans ce cas une variante en mode simulation (affichage du script sans exécution).
+> **Note technique :** le format des exigences dans le PRD produit par `/pm-spec` (`- [P0] description`) et le format attendu par `pm-decomposer` (`### P0 — libellé`) peuvent diverger selon la version du SKILL. Vérifier avant tournage que le decomposer identifie bien les blocs P0/P1 dans le PRD généré — sinon le dry run du shot 13 aboutira à zéro issue créée.
+
+> **TODO (dry run) :** vérifier que `bd create`, `bd dep add` et `bd lint` sont disponibles et fonctionnels dans l'environnement de tournage. Vérifier que le format des exigences dans le PRD produit (shot 11) est reconnu par le decomposer. Si beads n'est pas installé, le sous-agent échouera au premier appel `bd create` — prévoir dans ce cas une variante en mode simulation.
 
 ---
 
@@ -336,12 +340,12 @@ claude
 bd ready
 ```
 
-**Frame focus :** sortie de `bd ready` — liste des issues sans bloqueurs, dont les enfants de l'epic `COR-42` créé à l'instant.
+**Frame focus :** sortie de `bd ready` — liste des issues sans bloqueurs ouverts sur ce projet.
 
 **VO (FR) :**
-> Les issues `COR-43` et `COR-44` apparaissent — elles n'ont pas de dépendances non résolues. Un développeur peut les réclamer avec `bd update COR-43 --claim` et commencer à travailler. L'epic `COR-42` apparaît aussi, bloqué par ses enfants — c'est correct, il se débloquera quand les tâches seront closes.
+> L'epic `COR-42` apparaît disponible — il n'est pas bloqué par une dépendance externe. Un développeur peut le réclamer avec `bd update COR-42 --claim` et commencer à travailler sur la coordination globale. Les issues enfants `COR-43` et `COR-44` ont été créées avec une dépendance sur l'epic : elles ne seront pleinement visibles comme débloquées qu'une fois l'epic marqué comme en cours ou fermé selon la politique du projet — ce que le VO ou le plan de tournage doit ajuster selon le comportement réel observé en dry run.
 >
-> Voilà ce que corpus fait en moins de dix minutes : un vault structuré, des sources ingérées en pages wiki françaises, les contradictions préservées, un PRD ancré dans la recherche utilisateur, un stress-test anti-lissage, et un backlog beads prêt à l'exécution.
+> Voilà ce que corpus fait en moins de dix minutes : un vault structuré, des sources ingérées en pages wiki françaises, les contradictions préservées, un PRD ancré dans la recherche utilisateur, un stress-test anti-lissage, et un backlog beads structuré prêt à l'exécution.
 
 **Action :** aucune. Plan fixe.
 
@@ -383,5 +387,6 @@ Les points suivants n'ont pas été validés par une exécution réelle dans un 
 2. **Shot 5 — Ingestion de l'interview :** vérifier que `/ingest` sur `interview-pm-alice-2026-04.md` produit une page `wiki/interview-pm-alice-2026-04.md` avec un champ `## Verbatims` non vide. Sans verbatims ingérés, le shot 12 sera moins démonstratif.
 3. **Shot 11 — /pm-spec avec wiki peuplé :** vérifier que l'ingestion des quatre sources produit suffisamment de pages `persona-*` et/ou `interview-*` pour que `/pm-spec` puisse rédiger les sections User stories et Problème sans les marquer toutes en lacune. Ajuster le contenu de l'interview si nécessaire.
 4. **Shot 12 — /pm-review-user :** vérifier que le sous-agent pm-user-advocate produit une page stress-test dans `wiki/` avec le nom exact attendu (`stress-test-2026-04-28-export-des-decisions-vers-notion-prd-user-2026-04-28.md`), que la section `## Verbatims contradictoires` contient au moins un verbatim citant la page `[[wiki/interview-pm-alice-2026-04]]`, et que le tableau `## Niveau de confiance par claim` est rempli.
-5. **Shot 13 — /pm-epic :** vérifier que `bd` est installé et accessible dans le shell de tournage. Vérifier que `bd create --type epic`, `bd create --type task`, `bd dep add`, et `bd lint` fonctionnent. Si beads n'est pas disponible, prévoir une variante où le sous-agent affiche uniquement le plan des issues sans les créer (mode simulation).
-6. **Shot 14 — bd ready :** vérifier que `bd ready` liste bien les issues enfants créées au shot 13 et que l'epic apparaît correctement bloqué par ses enfants. Si la commande ne différencie pas les états bloqué/disponible dans sa sortie, ajuster le VO en conséquence.
+5. **Shot 13 — /pm-epic format des exigences :** `feature-spec` (skill de `/pm-spec`) génère les exigences sous forme de liste `- [P0] description`, mais `pm-decomposer` cherche des blocs `### P0 —`. Vérifier que le decomposer identifie bien les exigences dans le PRD réellement produit ; si ce n'est pas le cas, le script doit noter que zéro issue sera créée jusqu'à la correction du format.
+6. **Shot 13 — /pm-epic beads :** vérifier que `bd` est installé et accessible dans le shell de tournage. Vérifier que `bd create --type epic`, `bd create --type task`, `bd dep add`, et `bd lint` fonctionnent. Si beads n'est pas disponible, prévoir une variante où le sous-agent affiche uniquement le plan des issues sans les créer (mode simulation).
+7. **Shot 14 — bd ready et direction des dépendances :** avec `bd dep add <CHILD> <EPIC>`, les issues enfants ont l'epic comme dépendance (elles sont bloquées par l'epic, pas l'inverse). Vérifier le comportement réel de `bd ready` dans l'environnement de tournage et ajuster le VO pour décrire fidèlement quelles issues apparaissent débloquées et dans quel ordre.
