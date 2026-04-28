@@ -1,6 +1,6 @@
 ---
 type: brainstorm
-idea: notifications push pour les utilisateurs mobiles inactifs depuis 7 jours
+idea: "notifications push pour les utilisateurs mobiles inactifs depuis 7 jours"
 date: 2026-04-28
 status: draft
 verdict: à affiner
