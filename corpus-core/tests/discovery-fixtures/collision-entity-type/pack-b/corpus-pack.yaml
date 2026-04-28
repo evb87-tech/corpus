@@ -1,0 +1,13 @@
+name: collision-et-pack-b
+extends: corpus-core
+core-version: "^0.1"
+
+entity-types:
+  - name: persona
+    template: templates/persona.md
+    sections: [Identité, Sources]
+    extra-frontmatter: [role]
+
+review-angles: []
+
+beads-handoffs: []

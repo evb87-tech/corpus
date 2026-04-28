@@ -1,0 +1,22 @@
+name: pack-b
+extends: corpus-core
+core-version: "^0.1"
+
+entity-types:
+  - name: gadget
+    template: templates/gadget.md
+    sections: [Description, Specs, Sources]
+    extra-frontmatter: [vendor]
+
+review-angles:
+  - name: gadget-review
+    command: /gadget-review
+    agent: null
+    target-types: [roadmap]
+
+beads-handoffs:
+  - name: gadget-epic
+    command: /gadget-epic
+    agent: null
+    input-type: roadmap
+    output-shape: epic-with-children

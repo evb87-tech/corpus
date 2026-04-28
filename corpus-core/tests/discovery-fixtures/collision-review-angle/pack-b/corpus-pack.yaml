@@ -1,0 +1,13 @@
+name: collision-ra-pack-b
+extends: corpus-core
+core-version: "^0.1"
+
+entity-types: []
+
+review-angles:
+  - name: strategy
+    command: /ra-b-strategy
+    agent: null
+    target-types: [roadmap]
+
+beads-handoffs: []

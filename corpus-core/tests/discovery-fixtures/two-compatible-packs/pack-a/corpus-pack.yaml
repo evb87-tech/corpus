@@ -1,0 +1,22 @@
+name: pack-a
+extends: corpus-core
+core-version: "^0.1"
+
+entity-types:
+  - name: widget
+    template: templates/widget.md
+    sections: [Description, Usages, Sources]
+    extra-frontmatter: []
+
+review-angles:
+  - name: widget-review
+    command: /widget-review
+    agent: null
+    target-types: [prd]
+
+beads-handoffs:
+  - name: widget-epic
+    command: /widget-epic
+    agent: null
+    input-type: prd
+    output-shape: flat-batch
