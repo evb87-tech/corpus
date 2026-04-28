@@ -8,6 +8,16 @@ goals: []
 
 # Nom du persona
 
+## Résumé
+
+## Ce que disent les sources
+
+## Connexions
+
+## Contradictions
+
+## Questions ouvertes
+
 ## Profil
 
 ## Motivations

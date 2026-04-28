@@ -19,12 +19,13 @@ fi
 
 # 2. Resolve absolute path (expand ~)
 VAULT_PATH="${ARGUMENTS/#\~/$HOME}"
-VAULT_PATH="$(cd "$(dirname "$VAULT_PATH")" 2>/dev/null && pwd)/$(basename "$VAULT_PATH")" || true
-# If parent doesn't exist yet, we can't cd into it — handle that case
-if [ ! -d "$(dirname "$VAULT_PATH")" ]; then
-  echo "Error: parent directory does not exist: $(dirname "$VAULT_PATH")"
+VAULT_PARENT="$(dirname "$VAULT_PATH")"
+VAULT_BASE="$(basename "$VAULT_PATH")"
+if [ ! -d "$VAULT_PARENT" ]; then
+  echo "Error: parent directory does not exist: $VAULT_PARENT"
   exit 1
 fi
+VAULT_PATH="$(cd "$VAULT_PARENT" && pwd)/$VAULT_BASE"
 
 # 3. Already a vault?
 if [ -f "${VAULT_PATH}/.corpus-vault" ]; then

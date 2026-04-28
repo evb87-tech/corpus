@@ -21,7 +21,8 @@ Ce répertoire est un **vault corpus** — un second cerveau structuré, géré 
 
 ```bash
 export CORPUS_VAULT="$(pwd)"
-/ingest raw/ma-source.md
+# Déposer une source dans raw/, puis :
+/ingest ma-source.md   # chemin relatif résolu sous $CORPUS_VAULT/raw/
 /query research "ma question"
 ```
 

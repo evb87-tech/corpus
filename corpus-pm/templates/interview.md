@@ -7,6 +7,16 @@ interview-date: 1970-01-01
 
 # Entretien — Nom du participant
 
+## Résumé
+
+## Ce que disent les sources
+
+## Connexions
+
+## Contradictions
+
+## Questions ouvertes
+
 ## Date
 
 ## Profil interviewé
