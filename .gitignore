@@ -12,7 +12,9 @@
 .claude/settings.local.json
 CLAUDE.local.md
 
-# Beads — keep config + JSONL, ignore local DB / runtime artifacts
+# Beads — keep config, ignore local DB / runtime artifacts / exported JSONL
+# (issues.jsonl lives on the orphan branch `beads-sync`, not on code branches)
+.beads/issues.jsonl
 .beads/dolt/
 .beads/embeddeddolt/
 .beads/embeddeddolt.*/

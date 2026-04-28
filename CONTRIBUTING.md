@@ -47,7 +47,18 @@ bd prime                # full command reference + session protocol
 - Use `bd` for **all** task tracking on this repo. Do not use markdown TODO lists or `TodoWrite` for cross-session work.
 - Use `bd remember "<insight>" --key <key>` for persistent project knowledge instead of standalone memory files.
 - File a bead **before** you start coding. If the work doesn't trace to a bead, file one first.
-- When ending a session: ensure beads is exported and pushed (`bd dolt push`).
+- When ending a session: ensure beads is exported and pushed (`bd dolt push` for the dolt store, `corpus-core/bin/sync-beads.sh` for the JSONL stream).
+
+### Beads JSONL lives on the `beads-sync` orphan branch
+
+`.beads/issues.jsonl` is **not** tracked on `main` or feature branches — it's gitignored. It's auto-rewritten by every `bd` write, which would conflict every PR. Instead, the JSONL stream is maintained on a dedicated orphan branch `beads-sync`.
+
+```bash
+corpus-core/bin/sync-beads.sh            # push current export to origin/beads-sync
+corpus-core/bin/sync-beads.sh --pull     # pull origin/beads-sync into local .beads/issues.jsonl
+```
+
+Run `sync-beads.sh` at session end (after `bd dolt push`) so other clones can pull the latest issue snapshot without merging `main`.
 
 ### Session-end protocol
 
@@ -57,6 +68,7 @@ bd prime                # full command reference + session protocol
    ```bash
    git pull --rebase
    bd dolt push
+   corpus-core/bin/sync-beads.sh    # push JSONL to beads-sync branch
    git push
    ```
 4. Verify `git status` is clean and "up to date with origin."
