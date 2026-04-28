@@ -1,0 +1,14 @@
+# EXPECT: review-angles[0].command: must start with '/'
+name: review-bad-command-pack
+extends: corpus-core
+core-version: "^0.1"
+
+entity-types: []
+
+review-angles:
+  - name: my-angle
+    command: my-review-command
+    agent: null
+    target-types: [prd]
+
+beads-handoffs: []
