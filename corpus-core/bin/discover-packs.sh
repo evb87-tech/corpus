@@ -8,9 +8,14 @@ set -euo pipefail
 # Usage: discover-packs.sh
 #   (run from any directory; resolves paths automatically)
 #
-# Input scanning:
-#   If CLAUDE_PLUGIN_PATHS is set (colon-separated dirs), scan those.
-#   Otherwise fall back to the repo root (git rev-parse --show-toplevel).
+# Input scanning (tiered fallback):
+#   1. CLAUDE_PLUGIN_PATHS (colon-separated dirs) — explicit override.
+#   2. ~/.claude/plugins/cache/ — Claude Code's installed-plugin cache. This is
+#      where /plugin install puts marketplace plugins, so this is the production
+#      lookup path when /ingest, /check, etc. run inside a Claude Code session
+#      that does not happen to be in a git repo.
+#   3. Repo root via git rev-parse --show-toplevel — last-ditch dev fallback,
+#      only useful when working on the corpus repo itself.
 #
 # Exit 0: registry emitted on stdout.
 # Exit 1: validation failure or collision (details on stderr).
@@ -41,13 +46,17 @@ USING_PLUGIN_PATHS=0
 if [[ -n "${CLAUDE_PLUGIN_PATHS:-}" ]]; then
   IFS=':' read -ra SEARCH_ROOTS <<< "$CLAUDE_PLUGIN_PATHS"
   USING_PLUGIN_PATHS=1
-else
-  # Fall back to repo root
-  REPO_ROOT="$(git rev-parse --show-toplevel 2>/dev/null)" || {
-    echo "Error: CLAUDE_PLUGIN_PATHS is not set and not inside a git repo" >&2
-    exit 1
-  }
+elif [[ -d "${HOME}/.claude/plugins/cache" ]]; then
+  # Production fallback: Claude Code installs plugins under
+  # ~/.claude/plugins/cache/<marketplace>/<plugin>/<version>/. Each leaf is a
+  # plugin root that may contain corpus-pack.yaml.
+  SEARCH_ROOTS=("${HOME}/.claude/plugins/cache")
+elif REPO_ROOT="$(git rev-parse --show-toplevel 2>/dev/null)"; then
+  # Dev fallback: working inside the corpus repo itself.
   SEARCH_ROOTS=("$REPO_ROOT")
+else
+  echo "Error: no search root available (CLAUDE_PLUGIN_PATHS unset, no plugin cache at ~/.claude/plugins/cache, not inside a git repo)" >&2
+  exit 1
 fi
 
 # ── Find all corpus-pack.yaml files ──────────────────────────────────────────
