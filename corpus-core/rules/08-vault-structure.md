@@ -95,6 +95,16 @@ All file paths in the agent rules are relative to `$CORPUS_VAULT`. When you read
 2. Verify `$CORPUS_VAULT/.corpus-vault` exists.
 3. Refuse to proceed otherwise. Tell the owner to run `/init-vault <path>` and `export CORPUS_VAULT=<path>`.
 
+### Env var precedence
+
+`$CORPUS_VAULT` is the canonical variable. When corpus is installed as a plugin, the runtime also exposes the `vaultPath` userConfig as `$CLAUDE_PLUGIN_OPTION_VAULT_PATH`. Every command resolves the vault with the following expression so both paths work — local dev wins on conflict:
+
+```bash
+CORPUS_VAULT="${CORPUS_VAULT:-$CLAUDE_PLUGIN_OPTION_VAULT_PATH}"
+```
+
+If neither variable is set after this resolution, the command refuses with a non-zero exit and instructs the owner to run `/init-vault <path>` to scaffold a fresh vault.
+
 ## Multiple vaults
 
 Users may have multiple vaults (work, personal, research). They switch by exporting a different `CORPUS_VAULT`. The engine has no concept of "the active vault" beyond the env var — there's no global state.
