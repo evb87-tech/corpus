@@ -35,8 +35,8 @@ review-angles:
     target-types: []
   - name: user
     command: /pm-review-user
-    agent: null
-    target-types: []
+    agent: pm-user-advocate
+    target-types: [prd, roadmap]
   - name: feasibility
     command: /pm-review-feasibility
     agent: null
