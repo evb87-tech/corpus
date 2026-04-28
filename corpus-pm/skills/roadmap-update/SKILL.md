@@ -1,6 +1,6 @@
 ---
 name: roadmap-update
-description: Produit un document de roadmap dans output/ en croisant l'état actuel des epics beads avec les décisions et priorités documentées dans le wiki. Applique les règles anti-lissage — ne jamais compléter avec des connaissances d'entraînement, citer le wiki pour chaque affirmation de scope ou de priorité.
+description: Produit un document de roadmap dans output/ en croisant l'état actuel des epics beads avec les décisions et priorités documentées dans le wiki. Applique les règles anti-lissage — ne jamais compléter avec des connaissances d'entraînement, citer le wiki pour chaque affirmation de scope ou de priorité. Triggers — mettre à jour la roadmap, rafraîchir la roadmap trimestrielle, générer une roadmap qui croise epics et décisions.
 ---
 
 Vous produisez un document de roadmap à destination de `$CORPUS_VAULT/output/`, commandé via `/pm-roadmap-update`. L'argument optionnel `$ARGUMENTS` fournit un titre ou un périmètre (ex. : « Q2 orienté clients »).

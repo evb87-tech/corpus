@@ -1,5 +1,5 @@
 ---
-description: Pression-teste une idée produit à l'heure de bureau — positionnement, personas, contexte concurrentiel, chaque recommandation citée dans le wiki
+description: Pression-teste une idée produit à l'heure de bureau (office hours) — positionnement, personas, contexte concurrentiel, chaque recommandation citée dans le wiki. Triggers — brainstormer une idée produit, tester une idée de feature, challenger un concept avant la spec.
 argument-hint: <idée produit en texte libre>
 ---
 

@@ -1,5 +1,5 @@
 ---
-description: Stress-teste un draft (PRD ou autre output/) sous l'angle recherche utilisateur — personas servis/non servis, verbatims contradictoires, niveau de confiance par claim
+description: Stress-teste un PRD ou brouillon produit dans output/ sous l'angle recherche utilisateur (pas UX/UI) — personas servis/non servis, verbatims contradictoires, niveau de confiance par claim. Triggers — critiquer un PRD du point de vue persona, vérifier que la spec sert tous les personas, recherche utilisateur sur un draft.
 argument-hint: <chemin-relatif-ou-absolu-vers-le-draft dans output/>
 ---
 

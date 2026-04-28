@@ -1,5 +1,5 @@
 ---
-description: Décompose un PRD en epic + issues enfants dans beads (délègue au pm-decomposer)
+description: Décompose un PRD en epic + issues enfants dans beads (délègue au pm-decomposer). Triggers — décomposer un PRD en tickets, transformer une spec en epic beads, créer les issues actionnables d'une feature.
 argument-hint: <chemin-relatif-ou-absolu-vers-le-PRD dans output/>
 ---
 

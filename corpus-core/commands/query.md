@@ -1,5 +1,5 @@
 ---
-description: Query the wiki under one of three postures — research, contradictor, synthesis
+description: Query the wiki under one of three postures — research, contradictor, synthesis. Trigger FR — interroger le wiki, consulter le wiki, rechercher dans le wiki, contredire une thèse, synthétiser ce qu'on sait.
 argument-hint: [posture] [question]   e.g. "research What does the wiki say about X?"
 ---
 

@@ -1,5 +1,5 @@
 ---
-description: Stress-teste un brouillon (PRD, roadmap ou autre output/) sous l'angle faisabilité technique — claims de complexité, dépendances, risques d'intégration et décisions d'architecture antérieures
+description: Stress-teste un brouillon (PRD, roadmap ou autre output/) sous l'angle faisabilité technique — claims de complexité, dépendances, risques d'intégration et décisions d'architecture antérieures. Triggers — est-ce techniquement faisable, auditer la faisabilité, vérifier la cohérence avec l'archi.
 argument-hint: <chemin-relatif-ou-absolu-vers-le-brouillon dans output/>
 ---
 

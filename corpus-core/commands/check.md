@@ -1,5 +1,5 @@
 ---
-description: Run a structural + content-level lint pass over the wiki
+description: Run a structural + content-level lint pass over the wiki. Trigger FR — vérifier la cohérence du wiki, auditer le wiki, linter le wiki, détecter les liens brisés et contradictions oubliées.
 ---
 
 **Pre-flight:**
