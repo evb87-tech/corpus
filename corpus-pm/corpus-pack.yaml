@@ -39,8 +39,8 @@ review-angles:
     target-types: [prd, roadmap]
   - name: feasibility
     command: /pm-review-feasibility
-    agent: null
-    target-types: []
+    skill: corpus-pm:review-feasibility
+    target-types: [prd, roadmap]
 
 commands:
   - name: pm-roadmap-update
