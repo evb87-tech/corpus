@@ -30,13 +30,22 @@ A user runs `bun run init-vault <path>` once to scaffold a fresh vault, sets `ex
 9. Never produce `type: synthesis` as a wiki page. Synthesis goes to `output/` only.
 10. Never assume the vault path. Resolve via `$CORPUS_VAULT`. Refuse to operate if unset.
 
+## Repo layout — monorepo of two plugins
+
+- `corpus-core/` — the engine plugin (rules, agents, commands, plugin manifest)
+- `corpus-pm/` — first use-case pack, depends on corpus-core
+- `marketplace.json` at repo root publishes both
+- Repo-wide docs at `docs/`, `CLAUDE.md`, `AGENTS.md`, `CONTRIBUTING.md`
+
+ADR for the shape: [`docs/decisions/0001-monorepo-shape.md`](./docs/decisions/0001-monorepo-shape.md). Plugin contract reference: [`docs/plugin-syntax.md`](./docs/plugin-syntax.md).
+
 ## Where the spec lives
 
 All detail is in modular files loaded on demand:
 
-- `.claude/rules/01-folder-discipline.md` ... `15-contribution-workflow.md`
-- `.claude/agents/<name>.md` (subagent definitions, also readable by other agents as role specs)
-- `.claude/commands/<name>.md` (slash commands: `/ingest`, `/query`, `/check`, `/draft`)
+- `corpus-core/rules/01-folder-discipline.md` ... `15-contribution-workflow.md`
+- `corpus-core/agents/<name>.md` (subagent definitions, also readable by other agents as role specs)
+- `corpus-core/commands/<name>.md` (slash commands: `/ingest`, `/query`, `/check`, `/draft`)
 
 ## Tooling
 
