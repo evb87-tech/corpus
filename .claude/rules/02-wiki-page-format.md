@@ -1,48 +1,92 @@
 # Wiki page format
 
-Every page in `wiki/` follows this shape. Deviations make the corpus harder to query and re-ingest.
+Every page in `wiki/` follows this exact format. Deviations break querying and re-ingestion.
 
-## Template
+## Page template
 
 ```markdown
 ---
-type: person | org | concept | framework | thesis | case-study | event | place
-aliases: [Alt Name 1, Alt Name 2]
-created: YYYY-MM-DD
-updated: YYYY-MM-DD
+type: person | concept | company | framework | thesis | case-study | reference | stress-test
+sources: [list of files from raw/ that contributed]
+last_updated: YYYY-MM-DD
 ---
 
-# <Display name>
+# Nom de l'entité
 
-One-paragraph summary of the entity, written in the agent's voice, citing the strongest source.
+## Résumé
+2 à 4 phrases qui définissent l'entité de manière discriminante.
 
-## Key facts
+## Ce que disent les sources
+Points structurés par source. Chaque affirmation doit être traçable à une source précise.
 
-- **Field:** value [source: [[raw/2026-04-12-some-article]]]
-- **Field:** value [source: [[raw/2026-04-15-podcast-transcript]]]
+## Connexions
+- [[autre-page-1]] : nature du lien
+- [[autre-page-2]] : nature du lien
 
-## Relations
+## Contradictions
+Si deux sources se contredisent, le conflit est listé ici explicitement.
 
-- See also: [[other-entity]], [[another-entity]]
-- Part of: [[parent-concept]]
-
-## Notes
-
-Free-form prose. When sources disagree, surface the disagreement:
-
-> Source A claims X. Source B claims Y. Both are recorded; the user has not adjudicated.
-
-## Sources
-
-- `raw/2026-04-12-some-article.md` — first introduction of this entity; primary on background.
-- `raw/2026-04-15-podcast-transcript.md` — adds the X/Y contradiction.
+## Questions ouvertes
+Ce que les sources laissent sans réponse.
 ```
 
-## Rules
+## Language rule
 
-- **Frontmatter is required.** `type`, `created`, `updated` minimum.
-- **`updated` must be bumped on every edit.**
-- **Source citations** appear inline (after each claim) AND in the `## Sources` list.
+- **Wiki page content is in French.**
+- **Structural keywords stay in English**: frontmatter field names (`type`, `sources`, `last_updated`), section names (`## Résumé`, etc. — wait, those are French; the H1 and frontmatter remain English), filenames.
+- The H2 section names listed above (`Résumé`, `Ce que disent les sources`, `Connexions`, `Contradictions`, `Questions ouvertes`) are French and **fixed** — do not translate or rename them.
+- Frontmatter field names (`type`, `sources`, `last_updated`) are English and fixed.
+
+## Type taxonomy
+
+- `person`, `concept`, `company`, `framework`, `thesis`, `case-study` — created by ingestion.
+- `reference` — created by **research** queries that produce a reusable lookup (table, taxonomy). See `07-query-postures.md`.
+- `stress-test` — created by **contradictor** queries. Strengthens the wiki by surfacing weaknesses.
+- **Never create `type: synthesis` pages.** Synthesis goes to `output/` only. See `09-anti-lissage.md`.
+
+## Reserved files
+
+### `wiki/index.md`
+
+Content-oriented catalog of every wiki page, grouped by type. Updated on every ingest. One line per page: link, one-line summary, optional source count.
+
+```markdown
+# Wiki Index
+
+## Persons
+- [[andrej-karpathy]] : chercheur, à l'origine du pattern LLM wiki (5 sources)
+
+## Concepts
+- [[llm-wiki]] : pattern pour bases de connaissances personnelles via LLM (8 sources)
+
+## References (from research queries)
+- [[pkm-tools-comparison-2026]] : tableau comparatif des approches PKM mentionnées
+
+## Stress-tests (from contradictor queries)
+- [[llm-wiki-weaknesses]] : pages où le pattern est confronté à des contre-arguments
+```
+
+### `wiki/log.md`
+
+Append-only chronological record. Each entry starts with `## [YYYY-MM-DD] <op> | <title>` so it parses with `grep "^## \[" wiki/log.md`.
+
+```markdown
+## [2026-04-20] ingest | karpathy-gist-llm-wiki.md
+Pages touched: [[andrej-karpathy]], [[llm-wiki]], [[rag-limitations]]
+Contradictions flagged: none
+
+## [2026-04-20] query | Comment ce pattern se compare-t-il à NotebookLM ?
+Pages consulted: [[llm-wiki]], [[notebooklm]]
+Answer filed as: [[notebooklm-vs-llm-wiki-comparison]]
+
+## [2026-04-21] lint | full pass
+Orphans: 2  Broken links: 0  Stale (>6m): 1
+```
+
+## Hard rules
+
+- **Frontmatter is required.** `type`, `sources`, `last_updated` minimum.
+- **`last_updated` must be bumped on every edit.**
+- **Wikilinks** to other wiki pages: `[[entity-name]]`. To raw sources: `[[raw/filename]]`.
 - **Never delete a source citation** even if the claim is later overwritten — append, don't erase.
-- **Wikilinks** to other wiki pages: `[[entity-name]]`. Wikilinks to raw sources: `[[raw/filename]]`.
-- **Do not include the user's opinions.** If a source quotes the user, that's fine; but the wiki records what *was said*, not what the user *concluded*.
+- **Quote the owner's voice verbatim** when sources in `raw/` are authored by the owner. See `09-anti-lissage.md`.

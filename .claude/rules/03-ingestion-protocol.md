@@ -1,44 +1,57 @@
-# Ingestion protocol
+# Ingestion protocol — `/ingest`
 
-When the user says "ingest raw/X" or "process raw/X":
+When the owner runs `/ingest` (or asks to "ingest raw/X"):
 
-## 1. Read the source
+## 1. Identify pending sources
 
-Use the Read tool. If it's a PDF, use the `pages` argument for large files. If it's audio/video, the user must transcribe first — don't pretend to ingest binary you can't read.
+List every file in `raw/` that does not appear in any wiki page's `sources:` frontmatter field. Those are the unprocessed sources.
 
-## 2. Extract entities
+If the user names a specific file, scope the run to that file only.
 
-List every distinct entity referenced: people, organizations, concepts, frameworks, theses, places, events. For each, pick a canonical name (kebab-case, lowercase, ASCII).
+## 2. For each new source
 
-## 3. For each entity
+a. **Read it in full.** PDFs: use `Read` with `pages:` for large files. Audio/video: refuse — the owner must transcribe first.
 
+b. **Identify entities**: persons, concepts, companies, frameworks, theses, places, events. Pick a canonical name per entity (lowercase-kebab-case, ASCII-safe, no accents).
+
+c. **For each entity**:
+- If `wiki/<canonical-name>.md` exists → **update it**: append the source to frontmatter `sources:`, enrich the `## Ce que disent les sources` section, create or strengthen `## Connexions`, flag conflicts under `## Contradictions`. Bump `last_updated`.
+- Else → **create a new page** using the template in `02-wiki-page-format.md`. French content, English structural keywords.
+
+## 3. Sweep links
+
+After processing all sources, walk the modified pages and verify every `[[...]]` link points to an existing page. Broken links go in the final report — do not auto-fix.
+
+## 4. Update `wiki/index.md`
+
+Reflect new pages and edited summaries. Group by type. One scannable line per page.
+
+## 5. Append to `wiki/log.md`
+
+```markdown
+## [YYYY-MM-DD] ingest | <source filename>
+Pages touched: [[a]], [[b]], [[c]]
+Contradictions flagged: <list or "none">
 ```
-exists = Glob wiki/<canonical-name>.md
-if exists:
-    read it
-    update relevant sections, bump frontmatter `updated`, append to ## Sources
-else:
-    create new page from template
-```
 
-## 4. Cite
+## 6. Final report
 
-Every fact must cite the originating raw file, inline and in `## Sources`.
+Tell the owner, briefly:
+- Files ingested
+- Pages created (list)
+- Pages modified (list)
+- Contradictions detected (list)
+- Broken links (list)
+- Entities mentioned but deliberately skipped (trivial mentions)
 
-## 5. Surface contradictions
+## Calibration
 
-If the new source contradicts an existing claim, do not overwrite. Add a parallel claim, attribute both, and flag in the `## Notes` section.
+Karpathy notes that **a single source might touch 10–15 wiki pages**. If your run touches only 1–2, you're probably under-extracting entities; sweep the source again. If it touches 30+, you're probably creating pages for trivial mentions; consolidate.
 
-## 6. Wikilink generously
+## Non-negotiables
 
-Mention of another entity → `[[that-entity]]`. The wiki becomes useful through linkage. It's fine for a link to point to a not-yet-existing page; that page will appear when the entity is next ingested.
-
-## 7. Report back
-
-Tell the user, briefly:
-- New pages created: list them
-- Existing pages updated: list them
-- Contradictions surfaced: list them
-- Entities mentioned but not given pages (deliberately, e.g. trivial mentions): list them
-
-Do **not** modify the source file in `raw/`. Do **not** write into `output/` during ingestion.
+- **Do not modify `raw/`.**
+- **Do not write into `output/` during ingestion.**
+- **Do not invent sources.** If you cannot trace a claim to a file in `raw/`, do not write it.
+- **Surface contradictions; do not resolve them silently.** Both claims, both attributed.
+- **Preserve the owner's voice verbatim** when ingesting owner-authored sources. See `09-anti-lissage.md`.

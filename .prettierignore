@@ -1,0 +1,18 @@
+node_modules
+dist
+coverage
+bun.lockb
+bun.lock
+
+# Knowledge folders — never reformat user-authored markdown
+raw/
+wiki/
+output/
+
+# Agent instruction files — Prettier reformats code blocks and breaks inline refs
+AGENTS.md
+CLAUDE.md
+.claude/agents/
+.claude/rules/
+.claude/skills/
+.claude/commands/

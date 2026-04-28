@@ -1,32 +1,54 @@
 # Output drafting
 
-When the user asks for a brief, note, article, decision memo, meeting prep, etc.:
+When the owner asks for a brief, decision memo, article draft, meeting prep, or **synthesis**:
 
 ## Always write into `output/`
 
-Never `wiki/`. Even if the user says "add this to the wiki," push back: positions and conclusions belong in `output/`. The wiki is for what *sources* said.
+Never `wiki/`. Even if the owner says "add this to the wiki," push back: positions and conclusions belong in `output/`. The wiki is for what *sources* said.
 
 ## Pull from `wiki/` first
 
-1. Identify the entities the deliverable touches.
-2. Read their wiki pages.
-3. Cite wiki pages in the output doc: `[[wiki/entity-name]]`.
+1. Read `wiki/index.md` to identify relevant pages.
+2. Read those pages and adjacent ones if needed.
+3. Cite wiki pages: `[[wiki/entity-name]]`.
 
 ## Flag wiki gaps
 
-If you find yourself wanting to write a fact that isn't supported by any wiki page, **stop**. Tell the user: "I want to claim X, but no wiki page supports it. Should I (a) leave it out, (b) ask you to drop a source into raw/ for ingestion, or (c) cite my training-data knowledge with a `[unverified]` tag?"
+If you want to write a fact that no wiki page supports, **stop**. Tell the owner:
+- (a) leave it out,
+- (b) ask the owner to drop a source into `raw/` for ingestion,
+- (c) cite training-data knowledge with an explicit `[unverified]` tag.
 
-Do not silently pull from your training data into a deliverable.
+Never silently pull from training data into a deliverable.
 
-## Output filename convention
+## Filename convention
 
-`output/YYYY-MM-DD-<slug>.md` for dated deliverables. `output/<slug>.md` for evergreen ones.
+- `output/YYYY-MM-DD-<slug>.md` for dated work.
+- `output/<slug>.md` for evergreen.
 
-## What output is for
+## Output formats
 
-- Briefs the user will share with a client or team
-- Decision memos that capture *the user's* judgment
-- Article drafts where the user is the author
-- Meeting prep where the user is the attendee
+Karpathy explicitly supports a wider set of output formats beyond plain prose. All live in `output/`:
 
-The user owns `output/`. You are a co-author here, not a sole writer.
+- **Markdown prose** — briefs, decision memos.
+- **Comparison tables** — markdown tables aggregating across wiki pages (often produced by *research* posture; can be filed back as `type: reference` if the table is reusable).
+- **Marp slide decks** — markdown with Marp directives. Filename `output/<slug>.marp.md`.
+- **Charts** — generated via a script (e.g. `scripts/chart-<topic>.ts`) that emits a PNG/SVG to `output/<slug>.png`. The script lives in `scripts/`, the output in `output/`.
+- **Canvas / mind-map** — Obsidian `.canvas` JSON files if the owner uses Obsidian.
+
+The format choice belongs to the owner. Suggest one if the request is ambiguous; never silently switch formats.
+
+## Synthesis is special
+
+If the owner asks for a synthesis (an averaged view across multiple sources):
+- Produce it in `output/`.
+- **Flag it explicitly** at the top: `> Note: this is a statistical average across sources, not the owner's singular position.`
+- **Never file it back as a wiki page.** Synthesis erases singular angles. See `09-anti-lissage.md`.
+
+## When done
+
+Report:
+- Output file path
+- Wiki pages cited
+- Gaps flagged
+- For synthesis output: confirm it is NOT being filed back into `wiki/`.

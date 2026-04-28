@@ -1,24 +1,22 @@
 ---
-description: Ingest a source from raw/ into the wiki
-argument-hint: <path-to-raw-file>
+description: Ingest a source from raw/ into the wiki (delegates to the ingester subagent)
+argument-hint: [path-to-raw-file or empty for "all unprocessed"]
 ---
 
-Ingest the source at `$ARGUMENTS` into the wiki.
+Run the ingestion protocol on: $ARGUMENTS
 
-Follow the ingestion protocol in `.claude/rules/03-ingestion-protocol.md`:
+If $ARGUMENTS is empty, ingest every file in `raw/` whose path does not appear in any wiki page's `sources:` frontmatter field.
 
-1. Read the source from `raw/`.
-2. Extract every distinct entity (person, org, concept, framework, thesis, place, event).
-3. For each entity:
-   - If `wiki/<entity>.md` exists → update it; bump `updated:` frontmatter; append to `## Sources`.
-   - Else → create from the template in `.claude/rules/02-wiki-page-format.md`.
-4. Cite the source file inline next to every claim, and in the `## Sources` section.
-5. Add `[[wikilinks]]` to related entities (links to non-existent pages are fine).
-6. Surface contradictions — don't silently overwrite.
-7. **Do not modify `raw/`.** **Do not write into `output/`.**
+Delegate to the **ingester** subagent (see `.claude/agents/ingester.md`).
 
-Report back briefly:
-- Pages created
-- Pages updated
-- Contradictions surfaced
-- Entities mentioned but skipped
+The full protocol is in `.claude/rules/03-ingestion-protocol.md`. Hard constraints:
+
+- French content in wiki pages, English structural keywords.
+- One entity = one page. Update existing pages; do not duplicate.
+- Cite every source in frontmatter `sources:` AND inline.
+- Surface contradictions; do not resolve silently.
+- Update `wiki/index.md` and append to `wiki/log.md`.
+- **Never modify `raw/`. Never write into `output/`.**
+- Anti-lissage: see `.claude/rules/10-anti-lissage.md`.
+
+When done, report: files ingested, pages created, pages modified, contradictions detected, broken `[[links]]`, entities skipped.
