@@ -37,7 +37,7 @@ A user runs `/init-vault <path>` once to scaffold a fresh vault, sets `export CO
 - `marketplace.json` at repo root publishes both
 - Repo-wide docs at `docs/`, `CLAUDE.md`, `AGENTS.md`, `CONTRIBUTING.md`
 
-ADR for the shape: [`docs/decisions/0001-monorepo-shape.md`](./docs/decisions/0001-monorepo-shape.md). Plugin contract reference: [`docs/plugin-syntax.md`](./docs/plugin-syntax.md).
+ADR for the shape: [`docs/decisions/0001-monorepo-shape.md`](./docs/decisions/0001-monorepo-shape.md). Plugin contract reference: [`docs/plugin-syntax.md`](./docs/plugin-syntax.md). Design overview with diagrams: [`ARCHITECTURE.md`](./ARCHITECTURE.md).
 
 ## Where the spec lives
 
