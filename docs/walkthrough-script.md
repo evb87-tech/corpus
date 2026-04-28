@@ -1,7 +1,7 @@
-# Walkthrough vidéo — corpus-core
+# Walkthrough vidéo — corpus-core + corpus-pm
 
-Script voiceover + shot list pour la vidéo de présentation du moteur corpus-core.
-Durée cible : 7–8 minutes. Cadence de tournage : shot par shot, dans l'ordre.
+Script voiceover + shot list pour la vidéo de présentation du moteur corpus-core et du pack PM corpus-pm.
+Durée cible : 9–10 minutes. Cadence de tournage : shot par shot, dans l'ordre.
 
 ---
 
@@ -16,17 +16,18 @@ Exécuter une fois **avant de commencer à filmer**. Le vault doit être dans ce
 
 ### Sources à préparer dans un dossier staging (ex. `~/Desktop/sources-demo/`)
 
-Créer trois fichiers avant tournage :
+Créer **quatre** fichiers avant tournage (le quatrième est nouveau — nécessaire pour la démo PM) :
 
 | Fichier | Type recommandé | Contenu suggéré |
 |---|---|---|
 | `karpathy-llm-wiki.md` | Markdown | Résumé du gist LLM-wiki de Karpathy (2–3 paragraphes, EN). Coller depuis le gist public. |
 | `critique-pkm-llm.md` | Markdown | Article court (EN ou FR) critiquant les approches PKM à base de LLM — ex. risque de lissage, de sur-résumé. 2–3 paragraphes suffisent. |
 | `note-personnelle-second-brain.md` | Markdown | Note personnelle (FR, voix du propriétaire) sur pourquoi un second cerveau curé. Utiliser la première personne. Doit contenir au moins une formule singulière que l'agent ne devra pas lisser. |
+| `interview-pm-alice-2026-04.md` | Markdown | Transcript (simulé) d'un entretien utilisateur avec une PM fictive (Alice, PM senior). Doit contenir des verbatims directs entre guillemets, des frictions explicites avec les outils de PKM actuels, et au moins un besoin exprimé autour de la traçabilité des décisions produit. Environ 15–20 lignes suffisent. |
 
-Ces trois fichiers génèrent assez de matière pour produire 3–5 pages wiki, dont au moins une contradiction visible entre `karpathy-llm-wiki.md` et `critique-pkm-llm.md`.
+Ces quatre fichiers génèrent assez de matière pour produire 4–6 pages wiki, dont au moins une contradiction visible entre `karpathy-llm-wiki.md` et `critique-pkm-llm.md`, et une page `interview-*` que `/pm-review-user` pourra citer dans le shot 12.
 
-> **Note au caméraman :** les fichiers exacts n'ont pas d'importance ; ce qui compte c'est qu'au moins deux sources prennent des positions divergentes sur le même concept (ex. "les LLM améliorent la PKM" vs. "les LLM lissent la PKM"). La contradiction doit être visible dans `wiki/` pour le shot 7.
+> **Note au caméraman :** les fichiers exacts n'ont pas d'importance ; ce qui compte c'est qu'au moins deux sources prennent des positions divergentes sur le même concept (ex. "les LLM améliorent la PKM" vs. "les LLM lissent la PKM"). La contradiction doit être visible dans `wiki/` pour le shot 7. Et l'interview doit contenir des verbatims exploitables par le stress-test du shot 12.
 
 ---
 
@@ -50,17 +51,18 @@ Ces trois fichiers génèrent assez de matière pour produire 3–5 pages wiki, 
 **Frame focus :** terminal.
 
 **VO (FR) :**
-> corpus s'installe en une commande depuis Claude Code. Le moteur de base s'appelle corpus-core.
+> corpus s'installe en deux commandes depuis Claude Code. Le moteur de base s'appelle corpus-core. corpus-pm est le pack use-case orienté gestion de produit — on l'installe en même temps.
 
 **Action — taper dans le terminal :**
 ```
 /plugin marketplace add evb87-tech/corpus
 /plugin install corpus-core@corpus
+/plugin install corpus-pm@corpus
 ```
 
-**Frame focus :** sortie terminal montrant la confirmation d'installation.
+**Frame focus :** sortie terminal montrant la confirmation d'installation des deux plugins.
 
-> **TODO (dry run) :** vérifier que la sortie d'installation est lisible et non-ambiguë avant tournage. Si la commande demande une confirmation interactive, noter ici la touche à presser.
+> **TODO (dry run) :** vérifier que la sortie d'installation est lisible et non-ambiguë avant tournage. Si la commande demande une confirmation interactive, noter ici la touche à presser. Vérifier que `corpus-pm@corpus` résout correctement depuis le marketplace.
 
 ---
 
@@ -109,12 +111,12 @@ claude
 **VO (FR) :**
 > Maintenant on dépose des sources dans `raw/`. Ce dossier est en lecture seule pour les agents — eux ne peuvent pas y écrire. C'est vous qui décidez ce qui entre.
 
-**Action :** glisser les trois fichiers de `~/Desktop/sources-demo/` vers `~/Documents/demo-corpus/raw/` dans le Finder.
+**Action :** glisser les quatre fichiers de `~/Desktop/sources-demo/` vers `~/Documents/demo-corpus/raw/` dans le Finder.
 
-**Frame focus :** `raw/` maintenant peuplé de trois fichiers `.md`.
+**Frame focus :** `raw/` maintenant peuplé de quatre fichiers `.md`.
 
 **VO (FR) :**
-> Trois fichiers suffisent pour cette démo : un résumé du pattern LLM-wiki de Karpathy, une critique de ce pattern, et une note personnelle. On va voir ce que le moteur en fait.
+> Quatre fichiers pour cette démo : un résumé du pattern LLM-wiki de Karpathy, une critique de ce pattern, une note personnelle — et un transcript d'entretien utilisateur avec Alice, une PM senior. Ce dernier fichier alimentera les commandes PM plus loin dans la démo.
 
 ---
 
@@ -244,21 +246,119 @@ claude
 
 ---
 
-### Shot 11 — Wrap (7:20–8:00)
+### Shot 11 — /pm-spec : rédiger le PRD (7:20–8:10)
+
+**Frame focus :** terminal.
+
+**VO (FR) :**
+> corpus-pm est le premier pack use-case. Il s'installe en même temps que corpus-core — il suffit d'ajouter une ligne lors de l'installation du plugin. Ses commandes opèrent sur le même vault. La première commande PM : `/pm-spec`. On lui donne le nom d'une fonctionnalité, et elle produit un PRD complet dans `output/`, ancré dans les entités du wiki.
+
+**Action — taper dans le terminal :**
+```
+/pm-spec export des décisions vers Notion
+```
+
+**VO (FR) :**
+> La commande délègue à l'agent feature-spec. Celui-ci commence par scanner le wiki : pages `persona-*`, `competitor-*`, `decision-*`, `feature-*`. Pour chaque section du PRD — Problème, User stories, Exigences, Critères d'acceptation, Métriques de succès — il cite les pages wiki qui supportent le contenu. Si une section ne peut pas être étayée, il la marque explicitement comme lacune plutôt que de l'inventer.
+
+**Frame focus :** sortie terminal montrant les pages wiki lues, puis le chemin du fichier produit.
+
+**VO (FR) :**
+> Le PRD est déposé dans `output/` avec la date du jour dans le nom : `output/2026-04-28-export-des-decisions-vers-notion-prd.md`. Chaque section contient des références wiki entre doubles crochets — `[[wiki/persona-alice-pm]]`, `[[wiki/interview-pm-alice-2026-04]]` — qui sont des liens Obsidian cliquables. La section `Sources wiki` à la fin liste exhaustivement les pages consultées et les lacunes signalées.
+
+**Frame focus :** ouvrir le fichier PRD dans l'éditeur — frontmatter (`type: prd`, `status: draft`), puis faire défiler rapidement jusqu'à la section `## User stories` et `## Sources wiki`.
+
+> **TODO (dry run) :** vérifier que l'ingestion du shot 5 a bien produit des pages `persona-*` ou `interview-*` à partir de `interview-pm-alice-2026-04.md` — sans cela, `/pm-spec` signalera une lacune sur les user stories et le shot sera moins démonstratif. Si nécessaire, ajuster le contenu du fichier d'interview source avant tournage.
+
+---
+
+### Shot 12 — /pm-review-user : stress-test utilisateur (8:10–8:55)
+
+**Frame focus :** terminal.
+
+**VO (FR) :**
+> Le PRD est un brouillon. Avant de l'exposer à l'équipe, `/pm-review-user` le stress-teste sous l'angle de la recherche utilisateur. La commande prend le chemin du PRD en argument et délègue au sous-agent pm-user-advocate.
+
+**Action — taper dans le terminal :**
+```
+/pm-review-user output/2026-04-28-export-des-decisions-vers-notion-prd.md
+```
+
+**VO (FR) :**
+> Le sous-agent lit le PRD, identifie tous les claims utilisateur, puis les croise avec les pages `persona-*` et `interview-*` du wiki. Il produit une analyse en quatre axes : quels personas sont servis, quels personas sont ignorés, quels verbatims du wiki contredisent les claims du PRD, et quel est le niveau de confiance de chaque claim — fort, moyen, faible, ou non documenté.
+
+**Frame focus :** sortie terminal du sous-agent — rapport structuré montrant les personas et le tableau de confiance.
+
+**VO (FR) :**
+> Le résultat est écrit comme page wiki de type `stress-test` : `wiki/stress-test-2026-04-28-export-des-decisions-vers-notion-prd-user-2026-04-28.md`. Cette page n'est pas une opinion — c'est une archive structurée des angles morts du PRD, citant les verbatims mot pour mot depuis les pages `interview-*` du wiki. On voit ici qu'Alice a dit exactement : « Je perds une heure par sprint à chercher pourquoi une décision a été prise. » — un claim que le PRD sous-exploite.
+>
+> Si le wiki ne contenait aucune page `persona-*` ni `interview-*`, le sous-agent aurait refusé d'opérer plutôt que d'inventer des personas. C'est la règle anti-lissage en action.
+
+**Frame focus :** ouvrir la page stress-test dans l'éditeur — section `## Verbatims contradictoires` et tableau `## Niveau de confiance par claim`.
+
+> **TODO (dry run) :** vérifier que l'interview ingérée contient bien des verbatims directs et que la page `wiki/interview-pm-alice-2026-04.md` a une section `## Verbatims` remplie après ingestion. Sans verbatims, le sous-agent le signale comme lacune — utile à montrer mais moins spectaculaire.
+
+---
+
+### Shot 13 — /pm-epic : décomposer en tâches beads (8:55–9:35)
+
+**Frame focus :** terminal.
+
+**VO (FR) :**
+> Le PRD est validé sous l'angle utilisateur. On passe à l'exécution : `/pm-epic` décompose le PRD en issues dans beads — l'outil de gestion de tickets intégré à l'environnement de développement. La commande crée un epic parent et une issue enfant par exigence P0 et P1.
+
+**Action — taper dans le terminal :**
+```
+/pm-epic output/2026-04-28-export-des-decisions-vers-notion-prd.md
+```
+
+**VO (FR) :**
+> Le sous-agent pm-decomposer parse le PRD : titre, problème, objectifs, exigences, critères d'acceptation. Avant de créer quoi que ce soit, il vérifie que chaque exigence P0 a ses critères d'acceptation. Si un critère P0 manque, il s'arrête et refuse de créer des issues incomplètes — encore une fois, anti-lissage.
+
+**Frame focus :** sortie terminal — récapitulatif final : ID de l'epic, IDs des issues enfants, liens de dépendance.
+
+**VO (FR) :**
+> Le récapitulatif affiche l'epic créé — appelons-le `COR-42` — et ses issues enfants liées : `COR-43` pour l'export OAuth, `COR-44` pour le mapping des décisions wiki vers les propriétés Notion. Chaque issue contient une note `PRD: [[2026-04-28-export-des-decisions-vers-notion-prd]]` pour la traçabilité. Les issues P2, jugées différables, sont ignorées par l'agent — seules les P0 et P1 entrent dans le backlog.
+
+> **TODO (dry run) :** vérifier que `bd create`, `bd dep add` et `bd lint` sont disponibles et fonctionnels dans l'environnement de tournage. Si beads n'est pas installé, le sous-agent échouera au premier appel `bd create` — noter dans ce cas une variante en mode simulation (affichage du script sans exécution).
+
+---
+
+### Shot 14 — bd ready : fermer la boucle (9:35–10:00)
+
+**Frame focus :** terminal.
+
+**VO (FR) :**
+> La boucle est fermée. En une commande beads, on voit le travail maintenant disponible.
+
+**Action — taper dans le terminal :**
+```
+bd ready
+```
+
+**Frame focus :** sortie de `bd ready` — liste des issues sans bloqueurs, dont les enfants de l'epic `COR-42` créé à l'instant.
+
+**VO (FR) :**
+> Les issues `COR-43` et `COR-44` apparaissent — elles n'ont pas de dépendances non résolues. Un développeur peut les réclamer avec `bd update COR-43 --claim` et commencer à travailler. L'epic `COR-42` apparaît aussi, bloqué par ses enfants — c'est correct, il se débloquera quand les tâches seront closes.
+>
+> Voilà ce que corpus fait en moins de dix minutes : un vault structuré, des sources ingérées en pages wiki françaises, les contradictions préservées, un PRD ancré dans la recherche utilisateur, un stress-test anti-lissage, et un backlog beads prêt à l'exécution.
+
+**Action :** aucune. Plan fixe.
+
+---
+
+### Shot 15 — Wrap (10:00–10:20)
 
 **Frame focus :** terminal ou bureau propre.
 
 **VO (FR) :**
-> Voilà ce que corpus fait en moins de dix minutes : un vault structuré, des sources ingérées en pages wiki françaises, les contradictions préservées, un lint de maintenance, une attaque contradictor — et une vue graphe dans Obsidian.
->
-> Le moteur ne synthétise pas à votre place. Il ne comble pas les silences avec ses connaissances d'entraînement. Il ne lisse pas les positions contradictoires. Ce qu'il fait, c'est archiver ce que vous avez lu, avec la fidélité d'un greffier.
+> Le moteur ne synthétise pas à votre place. Il ne comble pas les silences avec ses connaissances d'entraînement. Il ne lisse pas les positions contradictoires. Ce qu'il fait, c'est archiver ce que vous avez lu, avec la fidélité d'un greffier — et transformer ces archives en livrables PM traçables.
 >
 > Le vault vous appartient — c'est un dossier git privé. Le moteur est open source. Et les deux ne se mélangent jamais.
+>
+> corpus-core est le moteur. corpus-pm est le premier pack use-case. Les deux s'installent depuis Claude Code. Liens dans la description.
 
 **Action :** aucune. Plan fixe.
-
-**VO (FR) :**
-> corpus-core est le moteur. corpus-pm est le premier pack use-case, orienté gestion de produit. Les deux s'installent depuis Claude Code. Liens dans la description.
 
 ---
 
@@ -268,5 +368,20 @@ claude
 - **Couleur du terminal :** fond sombre conseillé pour le contraste avec la sortie agent.
 - **Obsidian :** fermer les panneaux non nécessaires (Daily Notes, Tags) avant les shots 9–10 pour ne montrer que Graph View et Properties.
 - **Vitesse de frappe :** taper les commandes lentement et distinctement. Faire une pause d'une seconde après chaque `Entrée` avant de continuer le VO.
-- **Montage :** les shots 5 et 8 peuvent nécessiter un cut si l'agent prend plus de 20 secondes. Prévoir une version accélérée (2×) de la sortie terminal pour ces deux shots.
+- **Montage :** les shots 5, 8, 11 et 12 peuvent nécessiter un cut si l'agent prend plus de 20 secondes. Prévoir une version accélérée (2×) de la sortie terminal pour ces shots.
 - **Sous-titres :** le VO est en français. Ajouter des sous-titres FR pour l'accessibilité et pour les contextes audio-off.
+- **Shot 11 :** les IDs d'issues beads (`COR-42`, `COR-43`, `COR-44`) sont des exemples fictifs dans le script. Les IDs réels produits lors du tournage peuvent différer — les substituer en post-prod dans les sous-titres si nécessaire. L'essentiel est que la structure epic + enfants soit visible à l'écran.
+- **Shot 12 :** le verbatim cité dans le VO (« Je perds une heure par sprint à chercher pourquoi une décision a été prise. ») doit figurer mot pour mot dans `interview-pm-alice-2026-04.md` pour que la démo soit honnête. Si le fichier d'interview est modifié avant tournage, ajuster le VO en conséquence.
+
+---
+
+## TODO — dry runs non validés de bout en bout
+
+Les points suivants n'ont pas été validés par une exécution réelle dans un vault de démo. Ils doivent faire l'objet d'un dry run avant tournage.
+
+1. **Shot 2 — Installation corpus-pm :** vérifier que `/plugin install corpus-pm@corpus` résout correctement depuis le marketplace et que les deux plugins s'installent sans conflits. Vérifier la sortie terminale (interactivité, confirmations).
+2. **Shot 5 — Ingestion de l'interview :** vérifier que `/ingest` sur `interview-pm-alice-2026-04.md` produit une page `wiki/interview-pm-alice-2026-04.md` avec un champ `## Verbatims` non vide. Sans verbatims ingérés, le shot 12 sera moins démonstratif.
+3. **Shot 11 — /pm-spec avec wiki peuplé :** vérifier que l'ingestion des quatre sources produit suffisamment de pages `persona-*` et/ou `interview-*` pour que `/pm-spec` puisse rédiger les sections User stories et Problème sans les marquer toutes en lacune. Ajuster le contenu de l'interview si nécessaire.
+4. **Shot 12 — /pm-review-user :** vérifier que le sous-agent pm-user-advocate produit une page stress-test dans `wiki/` avec le nom exact attendu (`stress-test-2026-04-28-export-des-decisions-vers-notion-prd-user-2026-04-28.md`), que la section `## Verbatims contradictoires` contient au moins un verbatim citant la page `[[wiki/interview-pm-alice-2026-04]]`, et que le tableau `## Niveau de confiance par claim` est rempli.
+5. **Shot 13 — /pm-epic :** vérifier que `bd` est installé et accessible dans le shell de tournage. Vérifier que `bd create --type epic`, `bd create --type task`, `bd dep add`, et `bd lint` fonctionnent. Si beads n'est pas disponible, prévoir une variante où le sous-agent affiche uniquement le plan des issues sans les créer (mode simulation).
+6. **Shot 14 — bd ready :** vérifier que `bd ready` liste bien les issues enfants créées au shot 13 et que l'epic apparaît correctement bloqué par ses enfants. Si la commande ne différencie pas les états bloqué/disponible dans sa sortie, ajuster le VO en conséquence.
