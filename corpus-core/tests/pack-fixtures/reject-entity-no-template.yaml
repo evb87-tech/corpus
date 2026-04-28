@@ -1,0 +1,12 @@
+# EXPECT: entity-types[0].template: required string field is missing or empty
+name: entity-no-template-pack
+extends: corpus-core
+core-version: "^0.1"
+
+entity-types:
+  - name: widget
+    sections: []
+    extra-frontmatter: []
+
+review-angles: []
+beads-handoffs: []

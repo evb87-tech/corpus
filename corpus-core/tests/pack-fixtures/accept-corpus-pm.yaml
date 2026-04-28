@@ -1,0 +1,50 @@
+name: corpus-pm
+extends: corpus-core
+core-version: "^0.1.0"
+
+entity-types:
+  - name: persona
+    template: templates/persona.md
+    sections: [Profil, Motivations, Frictions, Verbatims, Sources]
+    extra-frontmatter: [pains, goals]
+  - name: segment
+    template: templates/segment.md
+    sections: [Définition, Critères, Taille estimée, Personas associés, Sources]
+    extra-frontmatter: []
+  - name: competitor
+    template: templates/competitor.md
+    sections: [Positionnement, Forces, Faiblesses, Last observed, Sources]
+    extra-frontmatter: [last-observed]
+  - name: interview
+    template: templates/interview.md
+    sections: [Date, Profil interviewé, Verbatims, Insights, Sources]
+    extra-frontmatter: [interview-date]
+  - name: feature
+    template: templates/feature.md
+    sections: [Problème, Hypothèse de solution, Personas concernés, Décisions liées, Sources]
+    extra-frontmatter: []
+  - name: decision
+    template: templates/decision.md
+    sections: [Date, Question, Décision, Alternatives écartées, Personnes impliquées, Sources]
+    extra-frontmatter: [decision-date]
+
+review-angles:
+  - name: strategy
+    command: /pm-review-strategy
+    agent: null
+    target-types: []
+  - name: user
+    command: /pm-review-user
+    agent: null
+    target-types: []
+  - name: feasibility
+    command: /pm-review-feasibility
+    agent: null
+    target-types: []
+
+beads-handoffs:
+  - name: pm-epic
+    command: /pm-epic
+    agent: null
+    input-type: prd
+    output-shape: epic-with-children

@@ -1,0 +1,8 @@
+# EXPECT: extends: must be 'corpus-core'
+name: bad-extends-pack
+extends: something-else
+core-version: "^0.1"
+
+entity-types: []
+review-angles: []
+beads-handoffs: []

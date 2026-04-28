@@ -212,6 +212,25 @@ beads-handoffs:
 
 A reader of this manifest plus the four contract sections above can build a corpus pack from scratch, with corpus-core untouched. That is the test of whether the contract is real.
 
+## Validating a pack manifest
+
+Use `corpus-core/bin/validate-pack.sh` to check that a `corpus-pack.yaml` satisfies the schema defined in this rule.
+
+```bash
+# From the pack root (or any directory):
+bash /path/to/corpus-core/bin/validate-pack.sh corpus-pack.yaml
+```
+
+Exit 0 means the manifest is valid. Exit 1 prints every schema violation to stderr (one per line, format `<field-path>: <message>`), so CI can capture them cleanly.
+
+The script requires [Mike Farah's Go yq](https://github.com/mikefarah/yq) (`brew install yq` on macOS). It validates all required top-level fields, the semver-range format of `core-version`, the `extends: corpus-core` constraint, and the sub-shapes of all three arrays. Arrays may be empty; all sub-shape checks are skipped when the array is empty (a pack with no entity-types is still valid at the manifest level).
+
+Fixture-based tests live in `corpus-core/tests/pack-fixtures/`. Run them with:
+
+```bash
+bash corpus-core/tests/pack-fixtures/run.sh
+```
+
 ## What this rule does NOT cover
 
 - Pack-contributed slash commands that are NOT review or beads handoff (e.g. `/pm-spec`, `/pm-brainstorm`). These are ordinary Claude Code commands; they live in the pack's `commands/` and follow no special corpus contract beyond writing into `output/` and respecting anti-lissage when reading wiki.
