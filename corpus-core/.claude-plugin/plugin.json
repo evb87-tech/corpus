@@ -2,7 +2,10 @@
   "name": "corpus-core",
   "version": "0.1.0",
   "description": "Engine for an LLM-curated second brain. Karpathy LLM-wiki pattern with anti-lissage spec, FR-by-default content, three query postures.",
-  "author": "evb87-tech",
+  "author": {
+    "name": "evb87-tech",
+    "url": "https://github.com/evb87-tech"
+  },
   "homepage": "https://github.com/evb87-tech/corpus",
   "repository": "https://github.com/evb87-tech/corpus",
   "license": "MIT",
@@ -10,6 +13,8 @@
   "dependencies": [],
   "userConfig": {
     "vaultPath": {
+      "type": "directory",
+      "title": "Corpus vault path",
       "description": "Absolute path to your corpus vault directory (raw/, wiki/, output/). Run /init-vault to scaffold one if needed.",
       "sensitive": false
     }
