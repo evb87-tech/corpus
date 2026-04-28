@@ -1,5 +1,5 @@
 ---
-description: Rédige un PRD (Product Requirements Document) dans output/ à partir des entités du wiki
+description: Rédige un PRD (Product Requirements Document) dans output/ à partir des entités du wiki. Triggers — écrire un PRD, rédiger une spec produit, produire un brief produit basé sur les entités wiki.
 argument-hint: <nom de la fonctionnalité>
 ---
 

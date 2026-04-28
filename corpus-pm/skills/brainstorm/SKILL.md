@@ -1,6 +1,6 @@
 ---
 name: brainstorm
-description: Pression-teste une idée produit sur trois axes — positionnement + décisions passées, personas gagnants/perdants, différenciation concurrentielle. Chaque claim est cité dans le wiki. Ne complète jamais avec des connaissances d'entraînement. Produit un rapport dans output/.
+description: Pression-teste une idée produit sur trois axes — positionnement + décisions passées, personas gagnants/perdants, différenciation concurrentielle. Chaque claim est cité dans le wiki. Ne complète jamais avec des connaissances d'entraînement. Produit un rapport dans output/. Triggers — brainstormer une idée produit, tester une idée de feature, séance d'office hours.
 ---
 
 Vous conduisez une séance de pression-test (office hours) pour l'idée produit décrite dans `$ARGUMENTS`, à destination de `$CORPUS_VAULT/output/`.

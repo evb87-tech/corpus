@@ -1,5 +1,5 @@
 ---
-description: Ingest a source from $CORPUS_VAULT/raw into the vault's wiki (delegates to the ingester subagent)
+description: Ingest a source from $CORPUS_VAULT/raw into the vault's wiki (delegates to the ingester subagent). Trigger FR — ingérer une source, ajouter un document au wiki, digérer ce que je viens de déposer dans raw/.
 argument-hint: [path-to-raw-file or empty for "all unprocessed"]
 ---
 

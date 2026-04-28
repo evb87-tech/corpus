@@ -1,6 +1,6 @@
 ---
 name: feature-spec
-description: Rédige un PRD structuré (Product Requirements Document) en français à partir des entités wiki — personas, concurrents, décisions, fonctionnalités connexes. Applique les règles anti-lissage : ne jamais inventer de persona ou de concurrent absent du wiki, signaler toute lacune explicitement.
+description: Rédige un PRD structuré (Product Requirements Document) en français à partir des entités wiki — personas, concurrents, décisions, fonctionnalités connexes. Applique les règles anti-lissage : ne jamais inventer de persona ou de concurrent absent du wiki, signaler toute lacune explicitement. Triggers — écrire un PRD, rédiger une spec produit, produire un brief produit basé sur le wiki.
 ---
 
 Vous rédigez un PRD pour la fonctionnalité décrite dans `$ARGUMENTS`, à destination de `$CORPUS_VAULT/output/`.

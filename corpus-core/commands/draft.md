@@ -1,5 +1,5 @@
 ---
-description: Draft an output document, pulling from the wiki
+description: Draft an output document, pulling from the wiki. Trigger FR — rédiger un livrable, draft un document, produire un brief, générer une synthèse à partir du wiki.
 argument-hint: <description of what to draft>
 ---
 

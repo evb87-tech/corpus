@@ -1,5 +1,5 @@
 ---
-description: Scaffold a fresh corpus vault at the given path
+description: Scaffold a fresh corpus vault at the given path. Trigger FR — initialiser un vault corpus, créer un nouveau second cerveau, scaffolder un dossier vault.
 argument-hint: <path>
 ---
 

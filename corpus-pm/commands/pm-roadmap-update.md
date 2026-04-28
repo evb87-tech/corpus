@@ -1,5 +1,5 @@
 ---
-description: Produit un document de roadmap dans output/ à partir des epics beads + des pages wiki/decision-*
+description: Produit un document de roadmap dans output/ à partir des epics beads + des pages wiki/decision-*. Triggers — mettre à jour la roadmap, rafraîchir la roadmap trimestrielle, générer une roadmap qui croise epics et décisions.
 argument-hint: "[titre ou périmètre — ex. : Q2 orienté clients]"
 ---
 

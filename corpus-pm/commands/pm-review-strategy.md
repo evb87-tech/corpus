@@ -1,5 +1,5 @@
 ---
-description: Stress-teste un brouillon (PRD, roadmap ou autre output/) sous l'angle stratégie/périmètre et dépose un stress-test dans wiki/
+description: Stress-teste un brouillon (PRD, roadmap ou autre output/) sous l'angle stratégie/périmètre et dépose un stress-test dans wiki/. Triggers — attaquer un PRD sous l'angle stratégie, challenger la roadmap, vérifier que ça reste dans le périmètre.
 argument-hint: <chemin-relatif-ou-absolu-vers-le-brouillon dans output/>
 ---
 
