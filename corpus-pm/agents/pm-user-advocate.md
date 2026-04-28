@@ -130,6 +130,21 @@ Si `realpath` n'est pas disponible (macOS), utiliser :
 DRAFT_RELATIVE="${1#$CORPUS_VAULT/}"
 ```
 
+### Étape 4bis — Calculer le champ `sources` (raw/ uniquement)
+
+Per `corpus-core/rules/02-wiki-page-format.md`, le champ `sources:` d'une page wiki ne liste **que** des fichiers de `raw/` — pas d'autres pages wiki. Pour un stress-test, c'est l'**union** des fichiers `raw/` cités par chaque page wiki consultée.
+
+Pour chaque page `wiki/persona-*` ou `wiki/interview-*` lue à l'étape 3, extraire son champ `sources:` (frontmatter YAML) et accumuler dans un ensemble. Le champ final est le tri unique de l'union.
+
+```bash
+# Pour chaque page wiki lue, extraire son champ sources via yq :
+yq eval '.sources[]' "$CORPUS_VAULT/wiki/persona-marie-pm.md" 2>/dev/null
+# Accumuler dans un fichier temporaire, dédupliquer, trier :
+sort -u "$TMPDIR/sources-raw.txt"
+```
+
+Si une page wiki consultée a un `sources: []` vide, signaler une **violation** dans la section `## Questions ouvertes` du stress-test : « la page wiki/X a été consultée mais ne cite aucune source raw/ — provenance cassée ». Continuer quand même la génération.
+
 ### Étape 5 — Écrire la page de stress-test
 
 Écrire dans `$CORPUS_VAULT/wiki/${STRESS_SLUG}.md` :
@@ -137,10 +152,10 @@ DRAFT_RELATIVE="${1#$CORPUS_VAULT/}"
 ```markdown
 ---
 type: stress-test
-sources: [<liste des slugs de pages wiki/persona-* et wiki/interview-* citées>]
+sources: [<union des fichiers raw/ cités par chaque page wiki/persona-* et wiki/interview-* consultée — voir étape 4bis ci-dessous>]
 last_updated: <YYYY-MM-DD>
 draft: <chemin relatif du draft sous output/>
-angle: user
+review-angle: user
 ---
 
 # Stress-test utilisateur — <titre du draft>

@@ -198,10 +198,10 @@ au maintien du contrôle de la PM sur la décision finale.
 ```markdown
 ---
 type: stress-test
-sources: [persona-marie-pm, interview-marie-pm-2026-03]
+sources: [raw/entretien-marie-pm-2026-03.md, raw/survey-pm-tools-2025.md]
 last_updated: 2026-04-28
 draft: output/2026-04-28-feature-ai-suggestions-prd.md
-angle: user
+review-angle: user
 ---
 
 # Stress-test utilisateur — PRD Suggestions de tâches par IA
