@@ -79,13 +79,22 @@ Ces trois fichiers génèrent assez de matière pour produire 3–5 pages wiki, 
 **VO (FR) :**
 > La commande crée la structure : `raw/` pour vos sources, `wiki/` pour les pages compilées, `output/` pour vos livrables, et un dossier `.obsidian/` déjà configuré. Un marqueur `.corpus-vault` rend le dossier reconnaissable par le moteur.
 
-**Action — taper dans le terminal :**
+**VO (FR) :**
+> Le moteur a besoin de savoir où vit votre vault. Deux options : exporter `CORPUS_VAULT` dans votre shell **avant** de lancer Claude Code, ou configurer l'option `vaultPath` du plugin. La variable lue à l'intérieur d'une session déjà ouverte ne se propagera pas aux slash commands suivantes — il faut donc le faire dans le shell parent ou via l'UI du plugin.
+
+**Action — quitter Claude Code (Ctrl+C ou /exit), puis dans le shell parent :**
 ```
 export CORPUS_VAULT=~/Documents/demo-corpus
+echo 'export CORPUS_VAULT=~/Documents/demo-corpus' >> ~/.zshrc   # persist
+claude
 ```
 
+**Frame focus :** terminal pendant la sortie + relance, puis Claude Code redémarré dans la session avec le vault configuré.
+
+**TODO (dry run) :** vérifier exactement comment l'option `vaultPath` se configure côté plugin — si une commande Claude Code la rend manipulable sans relancer le shell, préférer cette voie pour la démo (un cut au montage suffit).
+
 **VO (FR) :**
-> Cette variable d'environnement est le seul lien entre le moteur et votre vault. Toutes les commandes la lisent. Si elle n'est pas définie, les commandes refusent de s'exécuter — c'est voulu.
+> La variable est maintenant visible par toutes les commandes du moteur. Si elle n'est pas définie, les commandes refusent de s'exécuter — c'est voulu.
 
 **Action :** ouvrir le Finder ou un explorateur de fichiers montrant la structure créée.
 
