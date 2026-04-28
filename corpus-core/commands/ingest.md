@@ -3,7 +3,7 @@ description: Ingest a source from $CORPUS_VAULT/raw into the vault's wiki (deleg
 argument-hint: [path-to-raw-file or empty for "all unprocessed"]
 ---
 
-**Pre-flight:** verify `$CORPUS_VAULT` is set and `$CORPUS_VAULT/.corpus-vault` exists. If not, refuse and tell the owner to run `/init-vault <path>` then `export CORPUS_VAULT=<path>`. See `corpus-core/rules/13-vault-structure.md`.
+**Pre-flight:** verify `$CORPUS_VAULT` is set and `$CORPUS_VAULT/.corpus-vault` exists. If not, refuse and tell the owner to run `/init-vault <path>` then `export CORPUS_VAULT=<path>`. See `corpus-core/rules/08-vault-structure.md`.
 
 Run the ingestion protocol on: $ARGUMENTS
 
@@ -20,6 +20,6 @@ The full protocol is in `corpus-core/rules/03-ingestion-protocol.md`. Hard const
 - Surface contradictions; do not resolve silently.
 - Update `wiki/index.md` and append to `wiki/log.md`.
 - **Never modify `raw/`. Never write into `output/`.**
-- Anti-lissage: see `corpus-core/rules/10-anti-lissage.md`.
+- Anti-lissage: see `corpus-core/rules/07-anti-lissage.md`.
 
 When done, report: files ingested, pages created, pages modified, contradictions detected, broken `[[links]]`, entities skipped.

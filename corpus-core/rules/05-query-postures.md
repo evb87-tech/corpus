@@ -1,6 +1,6 @@
 # Query postures
 
-> All paths below are relative to `$CORPUS_VAULT`. Refuse to operate if unset or the vault marker is missing. See [13-vault-structure.md](./13-vault-structure.md).
+> All paths below are relative to `$CORPUS_VAULT`. Refuse to operate if unset or the vault marker is missing. See [08-vault-structure.md](./08-vault-structure.md).
 
 A question to the wiki can be asked in three very different postures. Treat each one differently — the failure modes are not the same.
 

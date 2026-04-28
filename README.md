@@ -59,14 +59,13 @@ The actual rules live in [`corpus-core/rules/`](corpus-core/rules/), loaded on d
 - `02-wiki-page-format.md` — frontmatter, fixed sections, French content
 - `03-ingestion-protocol.md` — `/ingest` workflow, EN→FR translation rule
 - `04-output-drafting.md` — `/draft` workflow, output formats
-- `08-query-postures.md` — research / contradictor / synthesis
-- `09-maintenance-check.md` — `/check` lint, full Karpathy scope
-- `10-anti-lissage.md` — five LLM behaviors that destroy the wiki
-- `13-vault-structure.md` — vault layout, Obsidian conventions, `init-vault`
-- `14-extension-contract.md` — how use-case packs extend corpus-core
-- `15-contribution-workflow.md` — bead → branch → PR → review → merge
+- `05-query-postures.md` — research / contradictor / synthesis
+- `06-maintenance-check.md` — `/check` lint, full Karpathy scope
+- `07-anti-lissage.md` — five LLM behaviors that destroy the wiki
+- `08-vault-structure.md` — vault layout, Obsidian conventions, `init-vault`
+- `09-extension-contract.md` — how use-case packs extend corpus-core
+- `10-contribution-workflow.md` — bead → branch → PR → review → merge
 
-Rules will be renumbered contiguously in cor-cqa.
 
 [`CLAUDE.md`](./CLAUDE.md) and [`AGENTS.md`](./AGENTS.md) are the slim manifests that point at those rules. [`ARCHITECTURE.md`](./ARCHITECTURE.md) covers the load-bearing design decisions and includes diagrams of the data flow and the extension model.
 

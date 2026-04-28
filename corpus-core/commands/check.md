@@ -2,11 +2,11 @@
 description: Run a structural + content-level lint pass over the wiki
 ---
 
-**Pre-flight:** verify `$CORPUS_VAULT` is set and `$CORPUS_VAULT/.corpus-vault` exists. If not, refuse and tell the owner to run `/init-vault <path>` then `export CORPUS_VAULT=<path>`. See `corpus-core/rules/13-vault-structure.md`.
+**Pre-flight:** verify `$CORPUS_VAULT` is set and `$CORPUS_VAULT/.corpus-vault` exists. If not, refuse and tell the owner to run `/init-vault <path>` then `export CORPUS_VAULT=<path>`. See `corpus-core/rules/08-vault-structure.md`.
 
 Run the maintenance protocol on `$CORPUS_VAULT/wiki/`. Delegate to the **librarian** subagent (see `corpus-core/agents/librarian.md`).
 
-Full protocol: `corpus-core/rules/09-maintenance-check.md`. Cover **both** scopes:
+Full protocol: `corpus-core/rules/06-maintenance-check.md`. Cover **both** scopes:
 
 **Structural (mechanical):**
 - broken `[[wikilinks]]`

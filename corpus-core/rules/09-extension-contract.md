@@ -72,7 +72,7 @@ A pack adds new values to the `type:` taxonomy in wiki frontmatter. corpus-core'
 
 - Rename or reorder corpus-core's universal H2 sections.
 - Override the language rule (wiki body in French, structural keywords in English).
-- Bypass anti-lissage. Every rule in `10-anti-lissage.md` applies to pack-introduced pages identically.
+- Bypass anti-lissage. Every rule in `07-anti-lissage.md` applies to pack-introduced pages identically.
 - Override frontmatter requirements (`type`, `sources`, `last_updated` are mandatory regardless of pack).
 
 ## 3. Review angle extensions
@@ -93,7 +93,7 @@ A pack registers a review command that follows corpus-core's review primitive: *
 3. Read `wiki/index.md` and identified pages.
 4. Cite every claim with `[[wiki-page]]`.
 5. File findings as a wiki page with `type: stress-test` and frontmatter `review-angle: <name>` so `/check` can group them.
-6. Append to `wiki/log.md` per `08-query-postures.md`.
+6. Append to `wiki/log.md` per `05-query-postures.md`.
 
 **What review commands cannot do:**
 

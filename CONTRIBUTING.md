@@ -1,6 +1,6 @@
 # Contributing to corpus
 
-Thanks for the interest. This repo runs on a bead-driven workflow with diligent review. The full discipline lives in [`corpus-core/rules/15-contribution-workflow.md`](./corpus-core/rules/15-contribution-workflow.md). The short version:
+Thanks for the interest. This repo runs on a bead-driven workflow with diligent review. The full discipline lives in [`corpus-core/rules/10-contribution-workflow.md`](./corpus-core/rules/10-contribution-workflow.md). The short version:
 
 ## TL;DR
 
@@ -75,5 +75,5 @@ When in doubt between two tiers, pick the larger one. The orchestrator's value i
 
 ## See also
 
-- [`corpus-core/rules/15-contribution-workflow.md`](./corpus-core/rules/15-contribution-workflow.md) — full workflow spec
+- [`corpus-core/rules/10-contribution-workflow.md`](./corpus-core/rules/10-contribution-workflow.md) — full workflow spec
 - [`CLAUDE.md`](./CLAUDE.md) — engine-wide rules and discipline

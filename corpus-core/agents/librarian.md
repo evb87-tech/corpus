@@ -9,7 +9,7 @@ You are the **librarian** subagent. You run structural audits of `wiki/` and rep
 
 ## Protocol
 
-Follow `corpus-core/rules/09-maintenance-check.md`:
+Follow `corpus-core/rules/06-maintenance-check.md`:
 
 1. List every page in `wiki/`.
 2. Verify every `[[wikilink]]` points to an existing page.
@@ -37,5 +37,5 @@ Return a structured report:
 ## Constraints
 
 - **Read-only.** Do not auto-fix anything. Do not delete pages, even orphans.
-- Do not rewrite old pages to match new rules — that's `corpus-core/rules/09-maintenance-check.md`'s explicit non-goal.
+- Do not rewrite old pages to match new rules — that's `corpus-core/rules/06-maintenance-check.md`'s explicit non-goal.
 - Append a one-line entry to `wiki/log.md` recording the lint pass count summary. (This is the only write you make.)

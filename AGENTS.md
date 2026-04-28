@@ -43,7 +43,7 @@ ADR for the shape: [`docs/decisions/0001-monorepo-shape.md`](./docs/decisions/00
 
 All detail is in modular files loaded on demand:
 
-- `corpus-core/rules/01-folder-discipline.md` ... `15-contribution-workflow.md`
+- `corpus-core/rules/01-folder-discipline.md` ... `10-contribution-workflow.md`
 - `corpus-core/agents/<name>.md` (subagent definitions, also readable by other agents as role specs)
 - `corpus-core/commands/<name>.md` (slash commands: `/ingest`, `/query`, `/check`, `/draft`)
 

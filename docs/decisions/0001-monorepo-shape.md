@@ -46,7 +46,7 @@ One repo, two plugin subdirectories, one marketplace manifest, shared release pr
 
 **Pros:**
 
-- Cross-cutting changes (e.g. extending the extension contract in `corpus-core/rules/14-extension-contract.md` AND adopting it in `corpus-pm/corpus-pack.yaml`) land in a single PR. No coordination dance.
+- Cross-cutting changes (e.g. extending the extension contract in `corpus-core/rules/09-extension-contract.md` AND adopting it in `corpus-pm/corpus-pack.yaml`) land in a single PR. No coordination dance.
 - Single CI configuration, single CHANGELOG, single beads tracker (`cor-` prefix already established).
 - Simpler for first contributors: clone one repo, see both plugins side by side, learn the pattern by reading corpus-pm as the worked example of how to build against corpus-core.
 - Single git history audits the co-evolution of the contract and its first consumer.
@@ -75,7 +75,7 @@ One repo, two plugin subdirectories, one marketplace manifest, shared release pr
 Three reasons:
 
 1. **Velocity at v0 is paramount.** The audience is a small private community. Cross-cutting iteration speed matters more than independent versioning. We're going to change the extension contract many times before it stabilizes.
-2. **The contract is unproven.** corpus-pm IS the test of `rules/14-extension-contract.md`. If the contract is wrong, both move together. Splitting them prematurely freezes a contract we haven't validated.
+2. **The contract is unproven.** corpus-pm IS the test of `rules/09-extension-contract.md`. If the contract is wrong, both move together. Splitting them prematurely freezes a contract we haven't validated.
 3. **Future split is cheap.** `git filter-branch` (or `git subtree split`) extracts a subdirectory's history into a new repo when corpus-pm's velocity diverges from corpus-core. We can re-evaluate at v1.
 
 ## Implications
