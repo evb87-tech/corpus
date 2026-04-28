@@ -2,6 +2,27 @@
 
 Moteur de second cerveau curé par LLM. Vous déposez des sources dans un dossier ; Claude compile des pages wiki que vous interrogez sous trois postures et dont vous tirez des livrables. Schéma [LLM-wiki de Karpathy](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f) étendu avec une couche `output/` explicite et une spec anti-lissage.
 
+## Installation
+
+Dans une session Claude Code :
+
+```
+/plugin marketplace add evb87-tech/corpus
+/plugin install corpus-core@corpus      # moteur seul
+/plugin install corpus-pm@corpus        # pack PM (tire corpus-core automatiquement)
+```
+
+`/plugin marketplace add` lit le `marketplace.json` à la racine du repo public ; aucune publication centralisée n'est requise. Pour épingler une version, utilisez un tag : `/plugin marketplace add evb87-tech/corpus@v0.1.0`.
+
+Pour installer depuis un clone local (dev sur le moteur), voir [`docs/plugin-syntax.md`](./docs/plugin-syntax.md).
+
+Ensuite, créer un vault :
+
+```
+/init-vault ~/Documents/mon-vault
+export CORPUS_VAULT=~/Documents/mon-vault
+```
+
 ## Forme du repo
 
 Deux plugins Claude Code dans un seul monorepo :
@@ -36,23 +57,7 @@ flowchart LR
 
 Le moteur vit dans ce repo. Le vault et son contenu vivent séparément.
 
-## Installation
-
-Une fois la marketplace publiée :
-
-```bash
-claude plugin install corpus-core      # moteur seul
-claude plugin install corpus-pm        # pack PM (tire corpus-core automatiquement)
-```
-
-Tant que la marketplace n'est pas publiée, installez depuis un clone local — voir [`docs/plugin-syntax.md`](./docs/plugin-syntax.md).
-
-## Bootstrap du vault
-
-```bash
-/init-vault ~/Documents/mon-vault
-export CORPUS_VAULT=~/Documents/mon-vault
-```
+## Structure du vault
 
 `/init-vault` crée le dossier, le marker `.corpus-vault`, et la structure suivante :
 
