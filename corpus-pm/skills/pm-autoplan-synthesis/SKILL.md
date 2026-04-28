@@ -76,11 +76,14 @@ Collecter toutes les questions ouvertes et lacunes signalées par les trois angl
 - Citer la source wiki concernée si applicable.
 - Ne pas proposer de réponse.
 
-### Étape 4 — Dériver le nom du fichier de sortie
+### Étape 4 — Dériver le nom du fichier de sortie + chemin relatif
 
 ```bash
 OUTPUT_PATH="$CORPUS_VAULT/output/${TODAY}-autoplan-${DRAFT_SLUG}.md"
+DRAFT_RELATIVE="${DRAFT_PATH#$CORPUS_VAULT/}"
 ```
+
+`DRAFT_RELATIVE` est utilisé pour le backlink dans `wiki/log.md` à l'étape 6.
 
 ### Étape 5 — Écrire la synthèse dans output/
 

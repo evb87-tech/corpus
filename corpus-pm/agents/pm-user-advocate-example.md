@@ -193,7 +193,7 @@ au maintien du contrôle de la PM sur la décision finale.
 
 ## Page de stress-test produite
 
-**`wiki/stress-test-2026-04-28-feature-ai-suggestions-prd-user-2026-04-28.md`**
+**`wiki/stress-test-feature-ai-suggestions-prd-user-2026-04-28.md`**
 
 ```markdown
 ---
@@ -384,7 +384,7 @@ Sources consultées : [[wiki/persona-marie-pm]], [[wiki/interview-marie-pm-2026-
 ```
 === Stress-test utilisateur terminé ===
 Draft analysé  : /vault/output/2026-04-28-feature-ai-suggestions-prd.md
-Page produite  : /vault/wiki/stress-test-2026-04-28-feature-ai-suggestions-prd-user-2026-04-28.md
+Page produite  : /vault/wiki/stress-test-feature-ai-suggestions-prd-user-2026-04-28.md
 Pages wiki lues: wiki/persona-marie-pm.md, wiki/interview-marie-pm-2026-03.md
 Personas servis: 0 (alignement partiel uniquement sur le problème, pas la solution)
 Personas non servis: 1 documenté + 1 lacune (persona-thomas-dev absent du wiki)
