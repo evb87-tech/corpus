@@ -38,3 +38,4 @@ CLAUDE.local.md
 
 # Beads exported JSONL (re-generated on every commit by hook)
 issues.jsonl
+.omx/

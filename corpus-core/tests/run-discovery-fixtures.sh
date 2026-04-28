@@ -157,6 +157,58 @@ else
   fi
 fi
 
+# ── Unit: semver_satisfies ────────────────────────────────────────────────────
+# Direct unit tests against semver.sh. Fixtures alone can't exercise major-only
+# ranges (^1, ~1) or cross-minor cases (^0.1 vs 0.2.0) because the running
+# corpus-core version is fixed at discovery time. Lock down the parser's
+# contract semantics (rules/09 §6) against future regressions.
+
+SEMVER_LIB="$SCRIPT_DIR/../bin/semver.sh"
+# shellcheck disable=SC1090
+source "$SEMVER_LIB"
+
+if declare -f semver_satisfies >/dev/null; then
+  semver_case() {
+    local desc="$1" version="$2" range="$3" expected="$4"
+    local got="ok"
+    semver_satisfies "$version" "$range" || got="fail"
+    if [[ "$got" == "$expected" ]]; then
+      pass "semver: $desc ($version vs $range → $expected)"
+    else
+      fail "semver: $desc ($version vs $range)" "expected $expected, got $got"
+    fi
+  }
+
+  # Caret per corpus contract: same major, version >= range
+  semver_case "caret major-only ^1 vs 1.0.0" "1.0.0" "^1" "ok"
+  semver_case "caret major-only ^1 vs 1.5.3" "1.5.3" "^1" "ok"
+  semver_case "caret major-only ^1 vs 2.0.0" "2.0.0" "^1" "fail"
+  semver_case "caret major-only ^1 vs 0.9.9" "0.9.9" "^1" "fail"
+  semver_case "caret 0.x accepts minor bumps ^0.1 vs 0.2.0" "0.2.0" "^0.1" "ok"
+  semver_case "caret 0.x rejects major bumps ^0.1 vs 1.0.0" "1.0.0" "^0.1" "fail"
+  semver_case "caret 0.x rejects below range ^0.2 vs 0.1.5" "0.1.5" "^0.2" "fail"
+  semver_case "caret incompatible ^99.0.0 vs 0.1.0" "0.1.0" "^99.0.0" "fail"
+  semver_case "caret happy path ^0.1.0 vs 0.1.0" "0.1.0" "^0.1.0" "ok"
+
+  # Tilde: pins minor only when minor is explicit
+  semver_case "tilde major-only ~1 vs 1.5.0" "1.5.0" "~1" "ok"
+  semver_case "tilde major-only ~1 vs 2.0.0" "2.0.0" "~1" "fail"
+  semver_case "tilde minor-pinned ~0.1 vs 0.1.5" "0.1.5" "~0.1" "ok"
+  semver_case "tilde minor-pinned ~0.1 vs 0.2.0" "0.2.0" "~0.1" "fail"
+
+  # Inequality operators
+  semver_case ">=0.1.0 vs 0.1.0" "0.1.0" ">=0.1.0" "ok"
+  semver_case ">=0.1.0 vs 0.0.9" "0.0.9" ">=0.1.0" "fail"
+  semver_case "<1.0.0 vs 0.9.9" "0.9.9" "<1.0.0" "ok"
+  semver_case "<1.0.0 vs 1.0.0" "1.0.0" "<1.0.0" "fail"
+
+  # Exact match
+  semver_case "exact 0.1.0 vs 0.1.0" "0.1.0" "0.1.0" "ok"
+  semver_case "exact 0.1.0 vs 0.1.1" "0.1.1" "0.1.0" "fail"
+else
+  fail "semver_satisfies sourcing" "function not defined after sourcing semver.sh"
+fi
+
 # ── Summary ───────────────────────────────────────────────────────────────────
 
 echo ""

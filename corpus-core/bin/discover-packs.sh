@@ -123,89 +123,14 @@ fi
 
 RUNNING_CORE_VERSION="$(bash "$CORE_VERSION_SCRIPT")"
 
-# semver_satisfies <version> <range>
-# Returns 0 (true) if <version> satisfies <range>, 1 otherwise.
-# Supported range forms (matching validate-pack.sh's SEMVER_RE):
-#   ^X[.Y[.Z]]   — caret: same major, >= minor.patch
-#   ~X[.Y[.Z]]   — tilde: same major.minor (or just major when Y omitted), >= patch
-#   X[.Y[.Z]]    — exact match (with optional leading =)
-#   >=, <=, >, < — inequality operators
-# Missing minor/patch components default to 0.
-semver_satisfies() {
-  local version="$1"
-  local range="$2"
-
-  # Parse version into numeric components
-  local v_major v_minor v_patch
-  v_major="$(echo "$version" | cut -d. -f1 | tr -dc '0-9')"
-  v_minor="$(echo "$version" | cut -d. -f2 | tr -dc '0-9')"
-  v_patch="$(echo "$version" | cut -d. -f3 | tr -dc '0-9')"
-  v_major="${v_major:-0}"; v_minor="${v_minor:-0}"; v_patch="${v_patch:-0}"
-
-  local op=""
-  local range_ver="$range"
-
-  # Extract operator prefix
-  if [[ "$range" =~ ^(\^|~|>=|<=|>|<|=)(.+)$ ]]; then
-    op="${BASH_REMATCH[1]}"
-    range_ver="${BASH_REMATCH[2]}"
-  fi
-
-  # Parse range version (missing components default to 0)
-  local r_major r_minor r_patch
-  r_major="$(echo "$range_ver" | cut -d. -f1 | tr -dc '0-9')"
-  local r_minor_raw r_patch_raw
-  r_minor_raw="$(echo "$range_ver" | cut -d. -f2)"
-  r_patch_raw="$(echo "$range_ver" | cut -d. -f3)"
-  r_minor="$(echo "$r_minor_raw" | tr -dc '0-9')"; r_minor="${r_minor:-0}"
-  r_patch="$(echo "$r_patch_raw" | tr -dc '0-9')"; r_patch="${r_patch:-0}"
-  r_major="${r_major:-0}"
-
-  # Numeric tuple comparison helpers (return 0=lt, 1=eq, 2=gt)
-  # Inline comparison using arithmetic
-  local v_int r_int
-  v_int=$(( v_major * 1000000 + v_minor * 1000 + v_patch ))
-  r_int=$(( r_major * 1000000 + r_minor * 1000 + r_patch ))
-
-  case "$op" in
-    "^")
-      # Caret: same major (pre-1.0: same major.minor), version >= range_ver
-      if [[ "$r_major" -eq 0 ]]; then
-        # Pre-1.0: pin to same minor
-        [[ "$v_major" -eq "$r_major" && "$v_minor" -eq "$r_minor" && "$v_int" -ge "$r_int" ]]
-      else
-        [[ "$v_major" -eq "$r_major" && "$v_int" -ge "$r_int" ]]
-      fi
-      ;;
-    "~")
-      # Tilde: same major.minor (if minor given), version >= range_ver
-      if [[ -n "$r_minor_raw" ]]; then
-        [[ "$v_major" -eq "$r_major" && "$v_minor" -eq "$r_minor" && "$v_int" -ge "$r_int" ]]
-      else
-        [[ "$v_major" -eq "$r_major" && "$v_int" -ge "$r_int" ]]
-      fi
-      ;;
-    ">=")
-      [[ "$v_int" -ge "$r_int" ]]
-      ;;
-    "<=")
-      [[ "$v_int" -le "$r_int" ]]
-      ;;
-    ">")
-      [[ "$v_int" -gt "$r_int" ]]
-      ;;
-    "<")
-      [[ "$v_int" -lt "$r_int" ]]
-      ;;
-    "="|"")
-      [[ "$v_int" -eq "$r_int" ]]
-      ;;
-    *)
-      # Unknown operator — conservative fail
-      return 1
-      ;;
-  esac
-}
+# Load semver_satisfies (parser semantics documented in corpus-core/rules/09 §6).
+SEMVER_LIB="$SCRIPT_DIR/semver.sh"
+if [[ ! -f "$SEMVER_LIB" ]]; then
+  echo "Error: semver.sh not found at $SEMVER_LIB" >&2
+  exit 1
+fi
+# shellcheck disable=SC1090
+source "$SEMVER_LIB"
 
 VERSION_FAIL=0
 for manifest in "${MANIFESTS[@]}"; do
