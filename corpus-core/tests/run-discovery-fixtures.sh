@@ -5,12 +5,13 @@ set -euo pipefail
 # fixture directory and assert expected outcomes.
 #
 # Fixture naming convention:
-#   single-pack/           → must exit 0 and contain pack name in "packs" array
-#   two-compatible-packs/  → must exit 0 and contain two entries in "packs"
-#   collision-entity-type/ → must exit 1 and stderr must mention "entity-types collision"
-#   collision-review-angle/→ must exit 1 and stderr must mention "review-angles collision"
-#   invalid-pack/          → must exit 1 (validate-pack.sh rejects it)
-#   no-packs/              → must exit 0 and emit empty arrays
+#   single-pack/              → must exit 0 and contain pack name in "packs" array
+#   two-compatible-packs/     → must exit 0 and contain two entries in "packs"
+#   collision-entity-type/    → must exit 1 and stderr must mention "entity-types collision"
+#   collision-review-angle/   → must exit 1 and stderr must mention "review-angles collision"
+#   invalid-pack/             → must exit 1 (validate-pack.sh rejects it)
+#   incompatible-version/     → must exit 1 and stderr must name the offending pack
+#   no-packs/                 → must exit 0 and emit empty arrays
 #
 # Usage: bash corpus-core/tests/run-discovery-fixtures.sh
 #   (run from repo root, or any directory — script resolves paths via $0)
@@ -120,6 +121,20 @@ else
     pass "invalid-pack: exits 1, stderr mentions validation failed"
   else
     fail "invalid-pack: stderr mentions validation failed" \
+      "stderr was: $DISCOVER_STDERR"
+  fi
+fi
+
+# ── Fixture: incompatible-version ────────────────────────────────────────────
+
+run_discover "$FIXTURES_DIR/incompatible-version"
+if [[ "$DISCOVER_EXIT" -eq 0 ]]; then
+  fail "incompatible-version: exit 1" "got exit 0 (incompatible core-version not detected)"
+else
+  if echo "$DISCOVER_STDERR" | grep -qF "pack-incompat"; then
+    pass "incompatible-version: exits 1, stderr names the pack (pack-incompat)"
+  else
+    fail "incompatible-version: stderr names the pack" \
       "stderr was: $DISCOVER_STDERR"
   fi
 fi
