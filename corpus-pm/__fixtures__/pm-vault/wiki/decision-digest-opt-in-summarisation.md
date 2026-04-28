@@ -2,7 +2,7 @@
 type: decision
 sources: [raw/stakeholder-prd-draft-digest-v0.md, raw/interview-sophie-martin-2026-02.md, raw/interview-luc-bernard-2026-03.md]
 last_updated: 2026-03-25
-decision-date: 1970-01-01
+decision-date: null  # aucune décision formelle prise à ce jour
 ---
 
 # Décision — Opt-in vs opt-out pour la summarisation IA du digest

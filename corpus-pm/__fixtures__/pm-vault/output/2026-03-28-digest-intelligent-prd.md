@@ -3,7 +3,7 @@ type: prd
 feature: digest-intelligent
 date: 2026-03-28
 status: draft
-wiki-sources: [persona-sophie-em, persona-luc-devops, persona-camille-tech-lead, feature-digest-intelligent, decision-digest-opt-in-summarisation, competitor-alertflow, competitor-digestbot]
+wiki-sources: [persona-sophie-em, persona-luc-devops, persona-camille-tech-lead, persona-marie-ciso, feature-digest-intelligent, decision-digest-opt-in-summarisation, competitor-alertflow, competitor-digestbot]
 ---
 
 # PRD — Digest Intelligent
