@@ -59,20 +59,32 @@ Si aucun epic n'existe dans la base, signalez-le et produisez quand même le doc
 Glob $CORPUS_VAULT/wiki/decision-*.md
 ```
 
-Pour chaque fichier trouvé, lisez le frontmatter complet + la section `## Décision`. Ne lisez pas les sections moins prioritaires sauf si le périmètre de l'argument `$ARGUMENTS` les rend explicitement pertinentes.
+Pour chaque fichier trouvé, lisez le frontmatter complet + ces sections :
+
+- `## Décision` — l'orientation prise.
+- `## Alternatives écartées` — contraintes implicites (ex. « pas d'XML ») dont la roadmap doit hériter.
+- `## Contradictions` — tensions documentées qu'il faut surfaces, pas lisser. Anti-lissage rule 07.
 
 Si aucune page `decision-*` n'existe, notez la lacune — la section Vision sera explicitement vide.
 
-### Fonctionnalités et segments (optionnel)
+### Fonctionnalités et segments
 
-Si `$ARGUMENTS` mentionne un périmètre spécifique (ex. : « onboarding », « B2B »), scannez également :
+Scannez systématiquement les fichiers `feature-*` et `segment-*` :
 
 ```bash
 Glob $CORPUS_VAULT/wiki/feature-*.md
 Glob $CORPUS_VAULT/wiki/segment-*.md
 ```
 
-Lisez uniquement les pages dont le titre ou le frontmatter correspond au périmètre indiqué. Ne lisez pas tout le wiki si le scope n'est pas précisé.
+Pour chaque epic récupéré à l'étape 2, cherchez :
+
+1. les pages `feature-*` dont le titre ou les `tags`/frontmatter font écho au titre/description de l'epic ;
+2. les pages `segment-*` citées dans le frontmatter `personas-associés` de ces features ;
+3. les pages référencées sous `## Décisions liées` des features.
+
+Cela permet à la roadmap de citer le contexte d'un epic spécifique (ex. `feature-onboarding`) même quand `$ARGUMENTS` est large ou absent.
+
+Si `$ARGUMENTS` mentionne un périmètre supplémentaire (ex. : « Q2 orienté clients »), incluez aussi les pages dont le titre ou le frontmatter correspond à ce périmètre, en plus du matching epic→feature.
 
 ## Étape 4 — Produire la roadmap
 
