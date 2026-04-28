@@ -132,7 +132,9 @@ fi
 #    Stage in a sibling temp directory (same filesystem → mv is atomic) so
 #    a ctrl-C never leaves a half-built vault at the target path.
 STAGING="$(mktemp -d "${VAULT_PARENT}/.corpus-vault-staging-XXXXXX")"
-trap 'rm -rf "$STAGING"' EXIT
+# Catch INT/TERM too — bare EXIT does not fire reliably under signals on
+# every shell. We always want the staging dir cleaned up.
+trap 'rm -rf "$STAGING"' EXIT INT TERM
 
 mkdir -p \
   "$STAGING/raw" \
@@ -152,7 +154,19 @@ if [ -d "$VAULT_PATH" ]; then
 fi
 
 mv "$STAGING" "$VAULT_PATH"
-trap - EXIT
+
+# Verify the move landed correctly. If a third party created $VAULT_PATH
+# between rmdir and mv, mv would have nested STAGING inside it instead of
+# replacing it — detect that and bail loudly rather than leave a malformed
+# vault at the path.
+if [ ! -f "$VAULT_PATH/.corpus-vault" ]; then
+  echo "Error: vault scaffold did not land at expected path (race during mv?)"
+  echo "  Path: $VAULT_PATH"
+  echo "  Inspect and clean up manually."
+  exit 1
+fi
+
+trap - EXIT INT TERM
 
 echo "Vault created: ${VAULT_PATH}"
 echo "  export CORPUS_VAULT=${VAULT_PATH}"
