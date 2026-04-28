@@ -9,9 +9,9 @@ How work moves through this repo. Encoded as a rule so humans, agents, and subag
 3. Implement. One bead per branch. One branch per PR.
 4. Open a PR. Title format: `<bead-id>: <title>`.
 5. Diligent review. Read every file. Run every test. Fix or push back.
-6. Squash-merge when the bar is met. Close the bead. `bd dolt push`.
+6. Squash-merge **through GitHub** (`gh pr merge --squash --delete-branch`). Close the bead. `bd dolt push`.
 
-For commands and definitions, see `11-beads.md`.
+For beads commands and definitions, see [`CONTRIBUTING.md`](../../CONTRIBUTING.md#issue-tracking--beads).
 
 ## Bead → branch → PR → review → merge
 
@@ -58,32 +58,31 @@ A PR that doesn't tell the reviewer how to verify is not ready for review.
 Review is not a rubber stamp. The reviewer's job:
 
 - **Read every changed file.** Not just the diff. Adjacent code matters for context.
-- **Run the tests locally.** `bun run ci` or the equivalent gate. Coverage below 85% fails.
-- **Run the feature.** If the change is a command, invoke it on a fixture vault. If it's a rule, read it as an essay and check it for internal consistency with the other rules.
+- **Run the feature.** If the change is a command, invoke it on a fixture vault. If it's a rule, read it as an essay and check it for internal consistency with the other rules. There is no test suite — corpus is a Claude Code plugin, not application code; the closest thing to a test is running the command end-to-end on the fixture vault (cor-rds, cor-txi cover anti-lissage and FR translation evals).
 - **Check it against the bead's acceptance criteria.** Every criterion ticked, or explicitly deferred to a follow-up bead.
 - **Fix small issues directly.** Typos, formatting, an obvious naming improvement — push the fix to the PR branch, mention it in the review.
 - **Push back on judgment calls.** Architecture, naming choices, missing edge cases, weak tests — leave a comment, request changes, do not merge.
 
 A merged PR with a known weakness is debt. The bar is "I would defend this commit to a future contributor reading the log." If you can't defend it, don't merge it.
 
-### 6. Squash-merge
+### 6. Squash-merge through GitHub
 
-When the bar is met:
+When the bar is met, merge via the GitHub API so the PR is recorded as **Merged** (not just Closed) and the commit ↔ PR link survives in the audit trail:
 
 ```bash
-git checkout main
-git pull
-git merge --squash feat/<id>-<short-slug>
-git commit -m "<id>: <title>
-
+gh pr merge <N> --squash --delete-branch \
+  --subject "<id>: <title>" \
+  --body "$(cat <<'EOF'
 <one-paragraph summary of what shipped and why>
-"
-git push
-git branch -d feat/<id>-<short-slug>
+EOF
+)"
 
+git checkout main && git pull
 bd close <id>
 bd dolt push
 ```
+
+`gh pr merge --squash` runs the squash on GitHub's side, fast-forwards `origin/main`, deletes the feature branch, and flips the PR badge to **Merged** with the merge SHA. Without this, a local `git merge --squash` + `git push` lands the change but leaves the PR in **Closed** purgatory and breaks the audit trail.
 
 Squash-merge keeps `main` linear and one-bead-per-commit. Branch history (work-in-progress commits, rebase fixups) is noise; the squashed commit message is the durable artifact.
 
@@ -165,5 +164,4 @@ The cost is overhead per change. The payoff is a repo where every commit can be 
 
 ## See also
 
-- `11-beads.md` — beads commands, prefix, sync workflow
-- `12-skill-routing.md` — which skill or command handles which intent
+- [`CONTRIBUTING.md`](../../CONTRIBUTING.md) — beads commands, prefix, sync workflow, three-tier dispatch reference

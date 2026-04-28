@@ -15,7 +15,7 @@ $CORPUS_VAULT/
 └── .obsidian/      Obsidian config (vault-local)
 ```
 
-A user runs `bun run init-vault <path>` once to scaffold a fresh vault, sets `export CORPUS_VAULT=<path>`, then uses the slash commands. Their vault never enters this repo.
+A user runs `/init-vault <path>` once to scaffold a fresh vault, sets `export CORPUS_VAULT=<path>`, then uses the slash commands. Their vault never enters this repo.
 
 ## Hard rules — never break these
 
@@ -45,26 +45,23 @@ ADR for the shape: [`docs/decisions/0001-monorepo-shape.md`](./docs/decisions/00
 - `02-wiki-page-format.md` — frontmatter, sections (French), `index.md`, `log.md`
 - `03-ingestion-protocol.md` — `/ingest` workflow, EN→FR translation, ~10–15 pages per source
 - `04-output-drafting.md` — `/draft` workflow, output formats (Marp, charts, tables)
-- `05-architecture.md` — bun + TS, screaming + clean, engine code only
-- `06-testing-discipline.md` — TDD, ≥85% coverage, unit / integration / e2e
-- `07-typescript-conventions.md` — strict TS, naming, imports, error handling
 - `08-query-postures.md` — research / contradictor / synthesis, file-back rules
 - `09-maintenance-check.md` — `/check` workflow, full Karpathy lint scope
 - `10-anti-lissage.md` — five LLM behaviors that destroy the wiki, suppressed
-- `11-beads.md` — issue tracking via `bd` (engine-only), prefix `cor`
-- `12-skill-routing.md` — gstack skills + corpus commands routing table
 - `13-vault-structure.md` — vault layout, Obsidian conventions, `init-vault` command
 - `14-extension-contract.md` — how use-case packs (e.g. corpus-pm) extend corpus-core
 - `15-contribution-workflow.md` — bead → branch → PR → review → merge cycle
 
+Rules will be renumbered contiguously in cor-cqa. Engine-dev concerns (beads, contribution workflow) live in [`CONTRIBUTING.md`](./CONTRIBUTING.md).
+
 ## Subagents — `corpus-core/agents/`
 
-`ingester` · `contradictor` · `librarian` · `drafter` · `code-reviewer`
+`ingester` · `contradictor` · `librarian`
 
 ## Commands — `corpus-core/commands/` (all operate on `$CORPUS_VAULT`)
 
 `/ingest [path]` · `/query [posture] <question>` · `/check` · `/draft <description>`
 
-## Tooling
+## License
 
-bun + TypeScript code under `src/` (screaming features × clean layers). License: MIT.
+MIT.

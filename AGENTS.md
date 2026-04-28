@@ -15,7 +15,7 @@ $CORPUS_VAULT/
 └── .obsidian/      Obsidian config
 ```
 
-A user runs `bun run init-vault <path>` once to scaffold a fresh vault, sets `export CORPUS_VAULT=<path>`, then uses the slash commands. Their vault never enters this repo.
+A user runs `/init-vault <path>` once to scaffold a fresh vault, sets `export CORPUS_VAULT=<path>`, then uses the slash commands. Their vault never enters this repo.
 
 ## Hard rules
 
@@ -49,16 +49,13 @@ All detail is in modular files loaded on demand:
 
 ## Tooling
 
-- Runtime: bun ≥ 1.1
-- Language: TypeScript (strict)
-- Tests: bun test, ≥85% coverage, TDD, three layers (unit / integration / e2e)
-- Issue tracking: `bd` (beads, engine-only), prefix `cor`, sync branch `beads-sync`
+- Issue tracking: `bd` (beads, engine-only), prefix `cor`, sync branch `beads-sync`. See [`CONTRIBUTING.md`](./CONTRIBUTING.md).
 - License: MIT
 - Remote: `github.com/evb87-tech/corpus`
 
 ## What this project is NOT
 
-- Not a software-engineering project at heart — it's the engine for a knowledge system. The TS code in `src/` automates ingestion / linting / drafting on the user's vault.
+- Not a software-engineering project. It's a Claude Code plugin: prompts, rules, agents, slash commands. No runtime code, no test suite, no build.
 - Not integrated with `dogmata` or any cloud service. Independent.
 - Not a vault. Not a wiki. Vaults live elsewhere, one per user.
 - Not a personal journal. The wiki mirrors *sources*, not the owner's positions.
