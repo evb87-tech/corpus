@@ -29,12 +29,13 @@ Run `bd prime` after a fresh clone or session restart for the full command refer
 
 ## Subagent dispatch
 
-Agent-driven work uses subagents:
+Agent-driven work uses subagents. Match the tier to the task:
 
-- **Sonnet** for judgment (rule authoring, feature implementation, code review)
-- **Haiku** for mechanical tasks (renames, frontmatter edits, fixture generation)
+- **Opus** for the hardest design and architecture (spec authoring, ADRs, cross-cutting reviews)
+- **Sonnet** for judgment (feature implementation, code review, routine rule authoring) — default
+- **Haiku** for mechanical work (renames, cross-ref updates, frontmatter edits, fixture generation)
 
-The orchestrator's value is review discipline, not throughput.
+When in doubt between two tiers, pick the larger one. The orchestrator's value is review discipline, not throughput.
 
 ## See also
 

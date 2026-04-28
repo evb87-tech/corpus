@@ -89,17 +89,30 @@ Squash-merge keeps `main` linear and one-bead-per-commit. Branch history (work-i
 
 ## Subagent dispatch
 
-Agent-driven work uses subagents for execution. Match the tier to the task.
+Agent-driven work uses subagents for execution. Match the tier to the task. The orchestrator is responsible for choosing the right model — under-dispatching wastes hours of review on weak output, over-dispatching wastes tokens on work a smaller model handles cleanly.
+
+### Opus — hardest design and architecture
+
+Use Opus when the failure mode is "we ship a wrong abstraction and pay for it for months":
+
+- Spec authoring (extension contracts, anti-lissage rules, ADRs that lock major decisions)
+- Cross-cutting reviews where the judgment call is whether two systems compose cleanly
+- Restructuring the rule taxonomy or rewriting a load-bearing rule
+- Resolving a contradiction between two sources during ingestion when both authors are domain experts
+
+Opus is the right tier when you'd rather burn tokens than have to rewrite the result.
 
 ### Sonnet — judgment work
 
 Use Sonnet for tasks that require taste, design choices, reading code in context, or producing prose for human readers:
 
-- Authoring or revising rules
 - Implementing a feature with non-obvious design calls
-- Code review on a PR
+- Code review on a PR (read diffs, run tests, push back on weakness)
+- Authoring or revising routine rules and docs
 - Writing wiki pages (when ingestion involves real synthesis of source content)
 - Producing FR-language deliverables where audience-appropriate phrasing matters
+
+Sonnet is the default. Reach for Opus when the cost of being wrong is high; reach for Haiku when the work is mechanical.
 
 ### Haiku — mechanical work
 
@@ -111,7 +124,7 @@ Use Haiku for tasks where the output shape is fully specified and the cost of er
 - Generating fixture data from a template
 - Running structural lint and reporting findings (no judgment, just facts)
 
-When in doubt, Sonnet. The premium is small; the cost of a bad judgment call is large.
+When in doubt between two tiers, pick the larger one. The premium is small; the cost of a bad judgment call compounds.
 
 ### What the orchestrator does
 
