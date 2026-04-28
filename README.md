@@ -68,7 +68,7 @@ The actual rules live in [`corpus-core/rules/`](corpus-core/rules/), loaded on d
 
 Rules will be renumbered contiguously in cor-cqa.
 
-[`CLAUDE.md`](./CLAUDE.md) and [`AGENTS.md`](./AGENTS.md) are the slim manifests that point at those rules.
+[`CLAUDE.md`](./CLAUDE.md) and [`AGENTS.md`](./AGENTS.md) are the slim manifests that point at those rules. [`ARCHITECTURE.md`](./ARCHITECTURE.md) covers the load-bearing design decisions and includes diagrams of the data flow and the extension model.
 
 ## Hard rules (excerpt)
 
