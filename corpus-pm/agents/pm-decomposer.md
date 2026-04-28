@@ -79,45 +79,77 @@ Aucune issue n'a été créée.
 
 ## Création des issues beads
 
-### Étape 1 — Créer l'epic
+### Étape 0 — Sécurité du quoting (obligatoire)
+
+Le contenu du PRD est verbatim et peut contenir des guillemets, backticks, `$()`, `\`, etc. **Ne jamais interpoler ce contenu directement dans une chaîne shell entre guillemets.** Toujours passer par des fichiers temporaires lus via `--body-file`, `--design-file`, ou un heredoc cité.
+
+Préparer un répertoire temporaire en début de run :
 
 ```bash
-EPIC_ID=$(bd create \
-  --type epic \
-  --title "<titre extrait du H1>" \
-  --description "<résumé Problème + Objectifs, 3-5 phrases max>
+TMPDIR_PM=$(mktemp -d)
+trap 'rm -rf "$TMPDIR_PM"' EXIT
+```
+
+### Étape 1 — Créer l'epic
+
+Écrire le corps de l'epic dans des fichiers, puis appeler `bd create` avec les variantes `--body-file` / `--design-file` (aucune interpolation shell du contenu PRD) :
+
+```bash
+# Description : résumé Problème+Objectifs + heading Success Criteria + Métriques verbatim
+cat > "$TMPDIR_PM/epic-desc.md" <<'PRD_DESC_EOF'
+<résumé Problème + Objectifs, 3-5 phrases max>
 
 ## Success Criteria
 
-<contenu verbatim de la section ## Métriques de succès du PRD>" \
-  --design "<contenu de la section Exigences (P0+P1+P2) verbatim>" \
+<contenu verbatim de la section ## Métriques de succès du PRD>
+PRD_DESC_EOF
+
+# Design : section Exigences (P0+P1+P2) verbatim
+cat > "$TMPDIR_PM/epic-design.md" <<'PRD_DESIGN_EOF'
+<contenu de la section Exigences verbatim>
+PRD_DESIGN_EOF
+
+EPIC_ID=$(bd create \
+  --type epic \
+  --title "<titre extrait du H1>" \
+  --body-file "$TMPDIR_PM/epic-desc.md" \
+  --design-file "$TMPDIR_PM/epic-design.md" \
   --silent)
 ```
 
-- `--silent` : affiche uniquement l'ID pour le capturer dans `$EPIC_ID`.
-- `--description` : résumer Problème + Objectifs en prose courte, **suivi d'un heading `## Success Criteria`** contenant les Métriques de succès verbatim. Ce heading littéral est exigé par `bd lint` pour les epics ; ne pas le traduire ni le renommer.
-- `--design` : coller le texte de la section Exigences tel quel (toutes priorités).
+- Le délimiteur du heredoc est cité (`<<'PRD_DESC_EOF'`) : aucune expansion shell sur le contenu.
+- Le titre vient du H1 du PRD ; il est court et rarement problématique, mais s'il contient des guillemets, écrire aussi le titre dans un fichier temporaire et utiliser un autre mécanisme (en pratique, l'ascii-kebab du H1 est sûr).
+- Le heading littéral `## Success Criteria` est exigé par `bd lint` pour les epics ; ne pas le traduire ni le renommer.
 - Si le PRD ne contient pas de section `## Métriques de succès`, **refuser** avec un message équivalent au refus P0-sans-critères : un epic sans critères de succès mesurables ne passe pas la validation. Aucune issue créée.
 
 ### Étape 2 — Créer une issue enfant par exigence P0 et P1
 
-Pour chaque exigence P0 / P1, dans l'ordre d'apparition dans le PRD :
+Pour chaque exigence P0 / P1, dans l'ordre d'apparition dans le PRD, écrire description et critères dans des fichiers, puis créer l'issue. `bd create` n'a pas de `--acceptance-file`, donc on lit le contenu via `"$(cat ...)"` à l'intérieur d'une commande où **seuls les fichiers** contiennent du texte PRD :
 
 ```bash
-CHILD_ID=$(bd create \
+# Pour chaque exigence numérotée N (1, 2, …) :
+cat > "$TMPDIR_PM/child-${N}-desc.md" <<'CHILD_DESC_EOF'
+<corps de l'exigence verbatim>
+CHILD_DESC_EOF
+
+cat > "$TMPDIR_PM/child-${N}-acc.md" <<'CHILD_ACC_EOF'
+<critères d'acceptation correspondants verbatim>
+CHILD_ACC_EOF
+
+CHILD_${N}=$(bd create \
   --type task \
   --title "<libellé de l'exigence>" \
-  --priority <priorité: 0 pour P0, 1 pour P1> \
-  --description "<corps de l'exigence verbatim>" \
-  --acceptance "<critères d'acceptation correspondants verbatim>" \
+  --priority <0 pour P0, 1 pour P1> \
+  --body-file "$TMPDIR_PM/child-${N}-desc.md" \
+  --acceptance "$(cat "$TMPDIR_PM/child-${N}-acc.md")" \
   --notes "PRD: [[<prd-slug>]]" \
   --silent)
 ```
 
-- `--priority 0` pour P0, `--priority 1` pour P1.
-- `--acceptance` : texte **verbatim** extrait du PRD. Ne jamais reformuler ni compléter.
-- `--notes "PRD: [[<prd-slug>]]"` : ligne de traçabilité sur chaque issue.
-- Capturer l'ID dans une variable nommée (ex. `CHILD_1`, `CHILD_2`, …) pour le récapitulatif.
+- `--body-file` lit le fichier (zéro interpolation).
+- `--acceptance "$(cat <fichier>)"` : `$(cat ...)` est sûr car la sortie est passée comme un seul argument à `bd create`. C'est `bd` qui parse, pas le shell.
+- `--notes "PRD: [[<prd-slug>]]"` : `<prd-slug>` est dérivé d'un nom de fichier ASCII (cf. règle 08-vault-structure : kebab-case ASCII), donc sûr en quoting.
+- Capturer l'ID dans une variable nommée (`CHILD_1`, `CHILD_2`, …) pour le récapitulatif final.
 
 ### Étape 3 — Lier chaque enfant à l'epic
 
