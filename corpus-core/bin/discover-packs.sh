@@ -22,9 +22,15 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 VALIDATOR="$SCRIPT_DIR/validate-pack.sh"
+CORE_VERSION_SCRIPT="$SCRIPT_DIR/core-version.sh"
 
 if [[ ! -f "$VALIDATOR" ]]; then
   echo "Error: validate-pack.sh not found at $VALIDATOR" >&2
+  exit 1
+fi
+
+if [[ ! -f "$CORE_VERSION_SCRIPT" ]]; then
+  echo "Error: core-version.sh not found at $CORE_VERSION_SCRIPT" >&2
   exit 1
 fi
 
@@ -108,6 +114,37 @@ for manifest in "${MANIFESTS[@]}"; do
 done
 
 if [[ "$FAIL" -eq 1 ]]; then
+  exit 1
+fi
+
+# ── Core-version compatibility check ─────────────────────────────────────────
+# Resolve the running corpus-core version once, then check each pack's
+# core-version range against it.
+
+RUNNING_CORE_VERSION="$(bash "$CORE_VERSION_SCRIPT")"
+
+# Load semver_satisfies (parser semantics documented in corpus-core/rules/09 §6).
+SEMVER_LIB="$SCRIPT_DIR/semver.sh"
+if [[ ! -f "$SEMVER_LIB" ]]; then
+  echo "Error: semver.sh not found at $SEMVER_LIB" >&2
+  exit 1
+fi
+# shellcheck disable=SC1090
+source "$SEMVER_LIB"
+
+VERSION_FAIL=0
+for manifest in "${MANIFESTS[@]}"; do
+  pack_name="$(yq eval '.name // ""' "$manifest")"
+  pack_core_version="$(yq eval '.core-version // ""' "$manifest")"
+  if [[ -n "$pack_core_version" ]]; then
+    if ! semver_satisfies "$RUNNING_CORE_VERSION" "$pack_core_version"; then
+      echo "Error: pack '${pack_name}' requires corpus-core ${pack_core_version} but running version is ${RUNNING_CORE_VERSION} (manifest: $manifest)" >&2
+      VERSION_FAIL=1
+    fi
+  fi
+done
+
+if [[ "$VERSION_FAIL" -eq 1 ]]; then
   exit 1
 fi
 

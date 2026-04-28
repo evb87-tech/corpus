@@ -1,0 +1,22 @@
+name: pack-incompat
+extends: corpus-core
+core-version: "^99.0.0"
+
+entity-types:
+  - name: future-thing
+    template: templates/future-thing.md
+    sections: [Contexte, Sources]
+    extra-frontmatter: []
+
+review-angles:
+  - name: future-review
+    command: /future-review
+    agent: null
+    target-types: [prd]
+
+beads-handoffs:
+  - name: future-epic
+    command: /future-epic
+    agent: null
+    input-type: prd
+    output-shape: single-issue
