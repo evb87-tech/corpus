@@ -19,7 +19,7 @@ When the user's request matches an available skill, invoke it via the Skill tool
 
 ## corpus-native commands
 
-These are project-local, defined in `.claude/commands/`:
+These are project-local, defined in `corpus-core/commands/`:
 
 - `/ingest [path]` — ingest a raw source into the wiki
 - `/query [posture] <question>` — research / contradictor / synthesis

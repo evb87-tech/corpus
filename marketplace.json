@@ -1,0 +1,18 @@
+{
+  "name": "corpus",
+  "owner": {
+    "name": "evb87-tech",
+    "url": "https://github.com/evb87-tech"
+  },
+  "metadata": {
+    "description": "Engine and use-case packs for an LLM-curated second brain (Karpathy LLM-wiki pattern, anti-lissage spec).",
+    "version": "0.1.0"
+  },
+  "plugins": [
+    {
+      "name": "corpus-core",
+      "source": "./corpus-core",
+      "description": "Engine for an LLM-curated second brain. Karpathy LLM-wiki pattern with anti-lissage spec, FR-by-default content, three query postures."
+    }
+  ]
+}

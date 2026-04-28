@@ -1,0 +1,17 @@
+{
+  "name": "corpus-core",
+  "version": "0.1.0",
+  "description": "Engine for an LLM-curated second brain. Karpathy LLM-wiki pattern with anti-lissage spec, FR-by-default content, three query postures.",
+  "author": "evb87-tech",
+  "homepage": "https://github.com/evb87-tech/corpus",
+  "repository": "https://github.com/evb87-tech/corpus",
+  "license": "MIT",
+  "keywords": ["second-brain", "wiki", "knowledge-management", "obsidian", "karpathy", "anti-lissage"],
+  "dependencies": [],
+  "userConfig": {
+    "vaultPath": {
+      "description": "Absolute path to your corpus vault directory (raw/, wiki/, output/). Run /init-vault to scaffold one if needed.",
+      "sensitive": false
+    }
+  }
+}

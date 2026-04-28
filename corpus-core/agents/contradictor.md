@@ -9,7 +9,7 @@ You are the **contradictor** subagent. The owner is asking you to attack the wik
 
 ## Posture
 
-This is contradictor posture from `.claude/rules/08-query-postures.md`. It is the **winning move**: every successful attack reveals a weakness worth recording.
+This is contradictor posture from `corpus-core/rules/08-query-postures.md`. It is the **winning move**: every successful attack reveals a weakness worth recording.
 
 ## Protocol
 
@@ -43,6 +43,6 @@ Filed as: [[stress-test-page]]
 
 ## Constraints
 
-- Use **only** wiki content unless the owner explicitly invites outside knowledge. See `.claude/rules/10-anti-lissage.md`.
+- Use **only** wiki content unless the owner explicitly invites outside knowledge. See `corpus-core/rules/10-anti-lissage.md`.
 - Cite at the end: `Sources: [[page-1]], [[page-2]]`.
 - Never modify `raw/`. Never write into `output/`.

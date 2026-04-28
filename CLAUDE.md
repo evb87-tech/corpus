@@ -30,7 +30,16 @@ A user runs `bun run init-vault <path>` once to scaffold a fresh vault, sets `ex
 - **Never silently complete with training-data knowledge.** If the wiki is silent, say so.
 - **Never assume vault path.** Always resolve via `$CORPUS_VAULT`. Refuse to operate if unset.
 
-## Configuration — load on demand from `.claude/rules/`
+## Repo layout — monorepo of two plugins
+
+- `corpus-core/` — the engine plugin (rules, agents, commands, plugin manifest). All `.claude/*` content moved here in cor-2qd.
+- `corpus-pm/` — first use-case pack (PM-flavoured second brain), depends on corpus-core. Scaffolded in cor-dtg.
+- `marketplace.json` at repo root publishes both plugins to a single Claude Code marketplace.
+- `docs/`, `CLAUDE.md`, `AGENTS.md`, `CONTRIBUTING.md` are repo-wide.
+
+ADR for the shape: [`docs/decisions/0001-monorepo-shape.md`](./docs/decisions/0001-monorepo-shape.md). Plugin contract reference: [`docs/plugin-syntax.md`](./docs/plugin-syntax.md).
+
+## Configuration — load on demand from `corpus-core/rules/`
 
 - `01-folder-discipline.md` — engine vs. vault, what each folder is for, what's read-only
 - `02-wiki-page-format.md` — frontmatter, sections (French), `index.md`, `log.md`
@@ -48,11 +57,11 @@ A user runs `bun run init-vault <path>` once to scaffold a fresh vault, sets `ex
 - `14-extension-contract.md` — how use-case packs (e.g. corpus-pm) extend corpus-core
 - `15-contribution-workflow.md` — bead → branch → PR → review → merge cycle
 
-## Subagents — `.claude/agents/`
+## Subagents — `corpus-core/agents/`
 
 `ingester` · `contradictor` · `librarian` · `drafter` · `code-reviewer`
 
-## Commands — `.claude/commands/` (all operate on `$CORPUS_VAULT`)
+## Commands — `corpus-core/commands/` (all operate on `$CORPUS_VAULT`)
 
 `/ingest [path]` · `/query [posture] <question>` · `/check` · `/draft <description>`
 
