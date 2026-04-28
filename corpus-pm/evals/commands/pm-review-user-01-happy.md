@@ -42,10 +42,10 @@ Marie mais ne mentionne pas Thomas.
 
 ## Pass criteria (rubric)
 
-- Une page `wiki/stress-test-2026-04-28-feature-decision-log-prd-user-<YYYY-MM-DD>.md`
+- Une page `wiki/stress-test-feature-decision-log-prd-user-<YYYY-MM-DD>.md`
   est créée avec `type: stress-test` et `review-angle: user`. Le STRESS_SLUG dérive
-  du basename complet du PRD (incluant le préfixe de date), conformément au spec
-  `pm-user-advocate`.
+  du basename du PRD **après** suppression du préfixe `YYYY-MM-DD-`, conformément au
+  spec `pm-user-advocate` (aligné avec `pm-strategist` et `review-feasibility`).
 - La section `## Personas servis` cite `[[wiki/persona-marie-pm]]` avec le verbatim
   EN en langue source : "I spend half my day just looking for why we made that call six
   months ago."
