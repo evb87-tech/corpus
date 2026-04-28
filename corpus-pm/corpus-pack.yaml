@@ -31,8 +31,8 @@ entity-types:
 review-angles:
   - name: strategy
     command: /pm-review-strategy
-    agent: null
-    target-types: []
+    agent: pm-strategist
+    target-types: [prd, roadmap]
   - name: user
     command: /pm-review-user
     agent: null
