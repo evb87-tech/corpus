@@ -34,7 +34,7 @@ A user runs `bun run init-vault <path>` once to scaffold a fresh vault, sets `ex
 
 All detail is in modular files loaded on demand:
 
-- `.claude/rules/01-folder-discipline.md` ... `13-vault-structure.md`
+- `.claude/rules/01-folder-discipline.md` ... `15-contribution-workflow.md`
 - `.claude/agents/<name>.md` (subagent definitions, also readable by other agents as role specs)
 - `.claude/commands/<name>.md` (slash commands: `/ingest`, `/query`, `/check`, `/draft`)
 

@@ -45,6 +45,8 @@ A user runs `bun run init-vault <path>` once to scaffold a fresh vault, sets `ex
 - `11-beads.md` — issue tracking via `bd` (engine-only), prefix `cor`
 - `12-skill-routing.md` — gstack skills + corpus commands routing table
 - `13-vault-structure.md` — vault layout, Obsidian conventions, `init-vault` command
+- `14-extension-contract.md` — how use-case packs (e.g. corpus-pm) extend corpus-core
+- `15-contribution-workflow.md` — bead → branch → PR → review → merge cycle
 
 ## Subagents — `.claude/agents/`
 
