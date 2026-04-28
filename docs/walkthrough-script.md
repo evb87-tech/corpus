@@ -51,7 +51,7 @@ Ces quatre fichiers génèrent assez de matière pour produire 4–6 pages wiki,
 **Frame focus :** terminal.
 
 **VO (FR) :**
-> corpus s'installe en deux commandes depuis Claude Code. Le moteur de base s'appelle corpus-core. corpus-pm est le pack use-case orienté gestion de produit — on l'installe en même temps.
+> corpus s'installe en trois commandes depuis Claude Code : on enregistre le marketplace, puis on installe le moteur corpus-core et le pack use-case corpus-pm orienté gestion de produit.
 
 **Action — taper dans le terminal :**
 ```
@@ -322,9 +322,9 @@ claude
 **VO (FR) :**
 > Le récapitulatif affiche l'epic créé — appelons-le `COR-42` — et ses issues enfants liées : `COR-43` pour l'export OAuth, `COR-44` pour le mapping des décisions wiki vers les propriétés Notion. Chaque issue contient une note `PRD: [[2026-04-28-export-des-decisions-vers-notion-prd]]` pour la traçabilité. Les issues P2, jugées différables, sont ignorées par l'agent — seules les P0 et P1 entrent dans le backlog.
 
-> **Note technique :** le format des exigences dans le PRD produit par `/pm-spec` (`- [P0] description`) et le format attendu par `pm-decomposer` (`### P0 — libellé`) peuvent diverger selon la version du SKILL. Vérifier avant tournage que le decomposer identifie bien les blocs P0/P1 dans le PRD généré — sinon le dry run du shot 13 aboutira à zéro issue créée.
+> **⚠️ Bloqueur connu (dry run obligatoire avant tournage) :** le format des exigences produit par `/pm-spec` (`- [P0] description`) ne correspond PAS au format attendu par `pm-decomposer` (`### P0 — libellé`). En l'état, ce shot produira **zéro issue enfant** lors du dry run. Avant de filmer, soit corriger `feature-spec` pour émettre des blocs `### P0`, soit corriger `pm-decomposer` pour parser les puces `- [P0]`. Le bead correspondant doit être résolu sinon ce shot doit être retiré ou remplacé par une variante simulation (lecture d'un PRD pré-formaté à la main).
 
-> **TODO (dry run) :** vérifier que `bd create`, `bd dep add` et `bd lint` sont disponibles et fonctionnels dans l'environnement de tournage. Vérifier que le format des exigences dans le PRD produit (shot 11) est reconnu par le decomposer. Si beads n'est pas installé, le sous-agent échouera au premier appel `bd create` — prévoir dans ce cas une variante en mode simulation.
+> **TODO (dry run) :** vérifier que `bd create`, `bd dep add` et `bd lint` sont disponibles et fonctionnels dans l'environnement de tournage. Si beads n'est pas installé, le sous-agent échouera au premier appel `bd create` — prévoir dans ce cas une variante en mode simulation.
 
 ---
 
