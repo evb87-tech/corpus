@@ -89,7 +89,7 @@ output/YYYY-MM-DD-brainstorm-<idea-slug>.md
 ```markdown
 ---
 type: brainstorm
-idea: <$ARGUMENTS>
+idea: "<$ARGUMENTS>"   # toujours entre guillemets ; échappez tout " interne en \"
 date: YYYY-MM-DD
 status: draft
 verdict: renforcée | à affiner | à challenger
@@ -146,11 +146,11 @@ Verdict : <renforcée | à affiner | à challenger>
 
 ## Comportement en cas de wiki vide
 
-Si le wiki ne contient aucune page `positioning-*`, `decision-*`, `persona-*`, `competitor-*` ni `feature-*` :
+Si le wiki ne contient aucune page PM (`positioning-*`, `decision-*`, `persona-*`, `segment-*`, `competitor-*` ni `feature-*`) :
 
 1. Ne produisez PAS un rapport avec des sections inventées.
 2. Signalez la lacune au propriétaire :
 
-   > Le wiki ne contient aucune entité PM (positionnement, décisions, personas, concurrents, fonctionnalités). Une séance de pression-test fiable nécessite ces données. Options : (a) déposez des sources dans `raw/` et lancez `/ingest` ; (b) demandez explicitement une analyse marquée entièrement `[non vérifié]`.
+   > Le wiki ne contient aucune entité PM (positionnement, décisions, personas, segments, concurrents, fonctionnalités). Une séance de pression-test fiable nécessite ces données. Options : (a) déposez des sources dans `raw/` et lancez `/ingest` ; (b) demandez explicitement une analyse marquée entièrement `[non vérifié]`.
 
 3. Attendez l'accord explicite du propriétaire avant de produire un contenu non tracé.
