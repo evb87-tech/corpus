@@ -67,6 +67,16 @@ Idempotent: running it on an existing vault is a no-op (or asks before overwriti
 
 Vaults do **not** gitignore `raw/`, `wiki/`, or `output/` — that would defeat the point. The vault repo's purpose is to track those.
 
+## Obsidian config shipped with the vault
+
+`init-vault` provides minimal `.obsidian/` config files:
+
+- **`app.json`** — enables live preview and modern editor; attachments stored at vault root
+- **`core-plugins.json`** — enables essentials (file explorer, search, switcher, graph, properties, outline, command palette, etc.); disables optional plugins (daily notes, templates, workspaces, publish, sync)
+- **`community-plugins.json`** — empty by default; users add community plugins as needed
+
+The user's `workspace.json` (Obsidian's UI state) is gitignored and regenerated on first open.
+
 ## Obsidian conventions used by the spec
 
 The wiki page format (see `02-wiki-page-format.md`) is Obsidian-native:
