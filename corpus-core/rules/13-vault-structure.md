@@ -31,7 +31,7 @@ The `.corpus-vault` marker is a 0-byte sentinel written by `init-vault` so the e
 ## `init-vault` command
 
 ```bash
-bun run init-vault ~/Documents/my-vault
+/init-vault ~/Documents/my-vault
 ```
 
 Scaffolds the layout above:
@@ -93,7 +93,7 @@ All file paths in the agent rules are relative to `$CORPUS_VAULT`. When you read
 
 1. Resolve `$CORPUS_VAULT` from the environment.
 2. Verify `$CORPUS_VAULT/.corpus-vault` exists.
-3. Refuse to proceed otherwise. Tell the owner to run `bun run init-vault <path>` and `export CORPUS_VAULT=<path>`.
+3. Refuse to proceed otherwise. Tell the owner to run `/init-vault <path>` and `export CORPUS_VAULT=<path>`.
 
 ## Multiple vaults
 

@@ -3,7 +3,7 @@ description: Query the wiki under one of three postures — research, contradict
 argument-hint: [posture] [question]   e.g. "research What does the wiki say about X?"
 ---
 
-**Pre-flight:** verify `$CORPUS_VAULT` is set and `$CORPUS_VAULT/.corpus-vault` exists. If not, refuse and tell the owner to run `bun run init-vault <path>` then `export CORPUS_VAULT=<path>`. See `corpus-core/rules/13-vault-structure.md`.
+**Pre-flight:** verify `$CORPUS_VAULT` is set and `$CORPUS_VAULT/.corpus-vault` exists. If not, refuse and tell the owner to run `/init-vault <path>` then `export CORPUS_VAULT=<path>`. See `corpus-core/rules/13-vault-structure.md`.
 
 Answer the owner's question against `$CORPUS_VAULT/wiki/`: $ARGUMENTS
 

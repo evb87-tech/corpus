@@ -3,7 +3,7 @@ description: Ingest a source from $CORPUS_VAULT/raw into the vault's wiki (deleg
 argument-hint: [path-to-raw-file or empty for "all unprocessed"]
 ---
 
-**Pre-flight:** verify `$CORPUS_VAULT` is set and `$CORPUS_VAULT/.corpus-vault` exists. If not, refuse and tell the owner to run `bun run init-vault <path>` then `export CORPUS_VAULT=<path>`. See `corpus-core/rules/13-vault-structure.md`.
+**Pre-flight:** verify `$CORPUS_VAULT` is set and `$CORPUS_VAULT/.corpus-vault` exists. If not, refuse and tell the owner to run `/init-vault <path>` then `export CORPUS_VAULT=<path>`. See `corpus-core/rules/13-vault-structure.md`.
 
 Run the ingestion protocol on: $ARGUMENTS
 
