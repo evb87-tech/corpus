@@ -61,3 +61,16 @@ beads-handoffs:
     agent: null
     input-type: prd
     output-shape: epic-with-children
+
+# commands registered below are ordinary Claude Code slash commands that
+# do not fit the review-angle or beads-handoff contracts. They are listed
+# here for documentation and pack-level discoverability only.
+commands:
+  - name: pm-spec
+    command: /pm-spec
+    skill: corpus-pm:feature-spec
+    output-type: prd
+  - name: pm-brainstorm
+    command: /pm-brainstorm
+    skill: corpus-pm:brainstorm
+    output-type: brainstorm
