@@ -66,6 +66,17 @@ Aucune issue n'a été créée.
 
 Ne jamais inventer ni déduire des critères. Ne pas contourner ce refus en mode "best effort".
 
+## Règle anti-lissage — refus strict pour epic sans Métriques de succès
+
+Si le PRD ne contient pas de section `## Métriques de succès` (ou si elle est vide), **arrêter immédiatement** et afficher :
+
+```
+REFUS : Le PRD n'a pas de section « Métriques de succès ».
+Un epic sans critères de succès mesurables ne passe pas `bd lint`.
+Compléter la section avant de relancer /pm-epic.
+Aucune issue n'a été créée.
+```
+
 ## Création des issues beads
 
 ### Étape 1 — Créer l'epic
@@ -74,15 +85,19 @@ Ne jamais inventer ni déduire des critères. Ne pas contourner ce refus en mode
 EPIC_ID=$(bd create \
   --type epic \
   --title "<titre extrait du H1>" \
-  --description "<résumé Problème + Objectifs, 3-5 phrases max>" \
+  --description "<résumé Problème + Objectifs, 3-5 phrases max>
+
+## Success Criteria
+
+<contenu verbatim de la section ## Métriques de succès du PRD>" \
   --design "<contenu de la section Exigences (P0+P1+P2) verbatim>" \
   --silent)
 ```
 
 - `--silent` : affiche uniquement l'ID pour le capturer dans `$EPIC_ID`.
-- `--description` : résumer le problème et les objectifs en prose courte.
+- `--description` : résumer Problème + Objectifs en prose courte, **suivi d'un heading `## Success Criteria`** contenant les Métriques de succès verbatim. Ce heading littéral est exigé par `bd lint` pour les epics ; ne pas le traduire ni le renommer.
 - `--design` : coller le texte de la section Exigences tel quel (toutes priorités).
-- Ne pas mettre de note de succès ici ; attendre la fin de toutes les créations.
+- Si le PRD ne contient pas de section `## Métriques de succès`, **refuser** avec un message équivalent au refus P0-sans-critères : un epic sans critères de succès mesurables ne passe pas la validation. Aucune issue créée.
 
 ### Étape 2 — Créer une issue enfant par exigence P0 et P1
 
