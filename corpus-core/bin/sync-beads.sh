@@ -45,7 +45,11 @@ git fetch "$REMOTE" "$BRANCH":refs/remotes/"$REMOTE"/"$BRANCH" 2>/dev/null || tr
 if git show-ref --verify --quiet "refs/remotes/$REMOTE/$BRANCH"; then
   git worktree add --detach "$WORKTREE" "refs/remotes/$REMOTE/$BRANCH" >/dev/null
   cd "$WORKTREE"
-  git switch -c "$BRANCH" >/dev/null 2>&1 || git switch "$BRANCH" >/dev/null
+  # -C forces the local branch ref to point at HEAD (the freshly-fetched remote
+  # tip), even if a stale local `beads-sync` exists from a previous run.
+  # Without this, multi-clone sync breaks: a stale local branch would shadow
+  # the remote tip and cause non-fast-forward push rejection.
+  git switch -C "$BRANCH" >/dev/null
 else
   git worktree add --detach "$WORKTREE" >/dev/null
   cd "$WORKTREE"
