@@ -17,7 +17,7 @@ Vérifiez que `$CORPUS_VAULT/.corpus-vault` existe. Si absent, refusez et indiqu
 
 Fonctionnalité à spécifier : $ARGUMENTS
 
-Invoquez la skill `feature-spec` pour rédiger le PRD. Toutes les instructions de rédaction, la taxonomie des sections, les règles de citation et le comportement de signalement des lacunes se trouvent dans la skill.
+Invoquez la skill `corpus-pm:feature-spec` pour rédiger le PRD. Le préfixe `corpus-pm:` est obligatoire : Claude Code namespace toujours les skills par plugin et ne résout pas les noms nus, même quand la commande et la skill sont dans le même plugin. Toutes les instructions de rédaction, la taxonomie des sections, les règles de citation et le comportement de signalement des lacunes se trouvent dans la skill.
 
 Chemins : tous relatifs à `$CORPUS_VAULT`.
 
