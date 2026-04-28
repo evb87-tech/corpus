@@ -11,7 +11,7 @@ flowchart LR
     subgraph repo["github.com/evb87-tech/corpus (this repo, monorepo)"]
         core["corpus-core/<br/>(engine plugin)"]
         pm["corpus-pm/<br/>(use-case pack)"]
-        mp["marketplace.json"]
+        mp[".claude-plugin/marketplace.json"]
         mp -.publishes.-> core
         mp -.publishes.-> pm
         pm -- "depends on" --> core

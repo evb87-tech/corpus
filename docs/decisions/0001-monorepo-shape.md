@@ -85,7 +85,7 @@ Locks the layout for cor-2qd (plugin restructure):
 - `src/` (current TS engine) is dropped per cor-7tf.
 - `.claude/` content (rules, agents, commands) moves under `corpus-core/`.
 - A new top-level `corpus-pm/` directory hosts the pack scaffold (cor-dtg).
-- A `marketplace.json` at repo root publishes both plugins to a single Anthropic marketplace.
+- A `.claude-plugin/marketplace.json` (Claude Code's required path for plugin marketplace manifests) publishes both plugins to a single Anthropic marketplace.
 
 CI runs once, tests both. Beads stays at the repo root with prefix `cor-` covering both plugins.
 
