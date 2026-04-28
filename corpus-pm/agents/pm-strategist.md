@@ -91,15 +91,21 @@ Construire le chemin de sortie :
 
 La page doit respecter le format wiki de `corpus-core/rules/02-wiki-page-format.md` avec les sections universelles ET les sections spécifiques à l'angle stratégie.
 
+#### Calculer le champ `sources` (raw/ uniquement)
+
+Per `corpus-core/rules/02-wiki-page-format.md`, le champ `sources:` ne liste que des fichiers de `raw/`. Pour un stress-test, c'est l'**union** des fichiers `raw/` cités par chaque page wiki consultée. Pour chaque page `wiki/decision-*` et `wiki/feature-*` lue, extraire son champ `sources:` via `yq eval '.sources[]'`, accumuler, dédupliquer.
+
+Si une page wiki consultée a un `sources: []` vide, signaler une violation de provenance dans la section `## Questions ouvertes` du stress-test (« la page wiki/X a été consultée mais ne cite aucune source raw/ »). Continuer la génération.
+
 Format attendu :
 
 ```markdown
 ---
 type: stress-test
-sources: [liste des pages wiki citées]
+sources: [<union des fichiers raw/ cités par chaque page wiki/decision-* et wiki/feature-* consultée — voir étape « Calculer sources » ci-dessous>]
 last_updated: YYYY-MM-DD
 draft: <chemin relatif du brouillon sous output/>
-angle: strategy
+review-angle: strategy
 ---
 
 # Stress-test stratégie — <Titre du brouillon>

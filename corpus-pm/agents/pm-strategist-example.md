@@ -118,10 +118,10 @@ Fichier : `wiki/stress-test-export-all-formats-prd-strategy-2026-04-28.md`
 ```markdown
 ---
 type: stress-test
-sources: [wiki/decision-no-xml, wiki/feature-export-csv]
+sources: [raw/architecture-review-2025.md, raw/user-research-export-2025.md]
 last_updated: 2026-04-28
 draft: output/2026-04-28-export-all-formats-prd.md
-angle: strategy
+review-angle: strategy
 ---
 
 # Stress-test stratégie — Export tous formats
@@ -248,10 +248,10 @@ Fichier : `wiki/stress-test-export-csv-prd-strategy-2026-04-28.md`
 ```markdown
 ---
 type: stress-test
-sources: [wiki/decision-no-xml, wiki/feature-export-csv]
+sources: [raw/architecture-review-2025.md, raw/user-research-export-2025.md]
 last_updated: 2026-04-28
 draft: output/2026-04-28-export-csv-prd.md
-angle: strategy
+review-angle: strategy
 ---
 
 # Stress-test stratégie — Export CSV
