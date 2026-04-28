@@ -1,112 +1,122 @@
 # corpus
 
-A Claude Code plugin for an LLM-curated second brain. You drop sources into a folder; Claude compiles them into a wiki you can query under three postures (research, contradictor, synthesis) and from which you draft deliverables. Karpathy's [LLM-wiki gist](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f) pattern, hardened with an anti-lissage spec and an explicit `output/` layer.
+Moteur de second cerveau curé par LLM. Vous déposez des sources dans un dossier ; Claude compile des pages wiki que vous interrogez sous trois postures et dont vous tirez des livrables. Schéma [LLM-wiki de Karpathy](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f) étendu avec une couche `output/` explicite et une spec anti-lissage.
 
-Wiki content is **French by default**, sources can be EN or FR (translated at ingestion). Built for francophone AI strategic thinkers; FR-first is a feature, not an accident.
+## Forme du repo
 
-## Shape: two plugins, one repo
+Deux plugins Claude Code dans un seul monorepo :
 
-This repo is a monorepo of two Claude Code plugins:
+- **`corpus-core/`** — le moteur. Règles, agents, slash commands, spec anti-lissage. Agnostique du cas d'usage.
+- **`corpus-pm/`** — premier pack use-case : second cerveau orienté PM. Ajoute des types d'entités, des angles de revue et des transferts vers beads. Dépend de corpus-core (installé automatiquement).
 
-- **`corpus-core/`** — the engine. Rules, agents, slash commands, the anti-lissage spec. Use-case-agnostic.
-- **`corpus-pm/`** — the first use-case pack: PM-flavoured second brain. Adds entity types, drafters, and prompts for product work. Depends on corpus-core (auto-installs as a marketplace dependency).
-
-A single `marketplace.json` at the repo root publishes both. ADR for the shape: [`docs/decisions/0001-monorepo-shape.md`](./docs/decisions/0001-monorepo-shape.md). Plugin contract reference: [`docs/plugin-syntax.md`](./docs/plugin-syntax.md).
-
-This repo contains **no user content**. The wiki and your sources live in a separate **vault** you own:
-
-```
-$CORPUS_VAULT/                  ← your directory, your private repo
-├── raw/            captured sources (you drop, never sort)
-├── wiki/           compiled knowledge (plugin writes, you read)
-├── output/         your deliverables (briefs, notes, articles)
-├── .obsidian/      Obsidian config
-└── .corpus-vault   marker file
-```
-
-The plugin reads `$CORPUS_VAULT` from the environment to find your vault. One vault per user.
+Un `marketplace.json` à la racine publie les deux. ADR de la forme : [`docs/decisions/0001-monorepo-shape.md`](./docs/decisions/0001-monorepo-shape.md). Contrat plugin : [`docs/plugin-syntax.md`](./docs/plugin-syntax.md). Vue d'ensemble avec diagrammes : [`ARCHITECTURE.md`](./ARCHITECTURE.md).
 
 ```mermaid
 flowchart LR
-    subgraph plugin["corpus (Claude Code plugin)"]
-        core["corpus-core<br/>(engine: rules, agents,<br/>slash commands)"]
-        pm["corpus-pm<br/>(use-case pack)"]
-        pm -- "depends on" --> core
+    subgraph plugin["corpus (plugin Claude Code)"]
+        core["corpus-core<br/>(moteur : règles, agents,<br/>slash commands)"]
+        pm["corpus-pm<br/>(pack use-case)"]
+        pm -- "dépend de" --> core
     end
 
-    subgraph vault["$CORPUS_VAULT (your private repo)"]
-        raw["raw/<br/>sources you drop"]
-        wiki["wiki/<br/>compiled FR pages"]
-        output["output/<br/>your deliverables"]
+    subgraph vault["$CORPUS_VAULT (votre repo privé)"]
+        raw["raw/<br/>sources déposées"]
+        wiki["wiki/<br/>pages compilées FR"]
+        output["output/<br/>vos livrables"]
         raw -- "/ingest" --> wiki
         wiki -- "/query, /draft" --> output
     end
 
-    plugin -- "reads $CORPUS_VAULT" --> vault
+    plugin -- "lit $CORPUS_VAULT" --> vault
 
     style raw fill:#f9f,stroke:#333
     style wiki fill:#bbf,stroke:#333
     style output fill:#bfb,stroke:#333
 ```
 
-Engine ships in this repo; vault and content live separately. See [`ARCHITECTURE.md`](./ARCHITECTURE.md) for the full design with extension-contract and pack-discovery diagrams.
+Le moteur vit dans ce repo. Le vault et son contenu vivent séparément.
 
-## Quick start
+## Installation
 
-corpus ships as a Claude Code plugin. Once the marketplace is published, install with:
-
-```bash
-claude plugin install corpus-core      # engine
-claude plugin install corpus-pm        # PM use-case pack (auto-pulls corpus-core)
-```
-
-Until the marketplace is live, install from a local clone — see [docs/plugin-syntax.md](docs/plugin-syntax.md).
-
-After install, scaffold a vault and point the plugin at it:
+Une fois la marketplace publiée :
 
 ```bash
-/init-vault ~/Documents/my-corpus-vault
-export CORPUS_VAULT=~/Documents/my-corpus-vault
+claude plugin install corpus-core      # moteur seul
+claude plugin install corpus-pm        # pack PM (tire corpus-core automatiquement)
 ```
 
-Then use the slash commands:
+Tant que la marketplace n'est pas publiée, installez depuis un clone local — voir [`docs/plugin-syntax.md`](./docs/plugin-syntax.md).
 
-- `/ingest [path]` — read a source from `$CORPUS_VAULT/raw/`, compile entity pages in `$CORPUS_VAULT/wiki/`
-- `/query [posture] <question>` — ask the wiki (research / contradictor / synthesis)
-- `/check` — full lint pass over the wiki
-- `/draft <description>` — produce a deliverable in `$CORPUS_VAULT/output/`
+## Bootstrap du vault
+
+```bash
+/init-vault ~/Documents/mon-vault
+export CORPUS_VAULT=~/Documents/mon-vault
+```
+
+`/init-vault` crée le dossier, le marker `.corpus-vault`, et la structure suivante :
+
+```
+$CORPUS_VAULT/
+├── raw/            sources (lecture seule pour les agents)
+├── wiki/           pages compilées (écritures agents uniquement, contenu FR)
+├── output/         livrables (briefs, synthèses)
+├── .obsidian/      config Obsidian (locale au vault)
+└── .corpus-vault   marker
+```
+
+Si `$CORPUS_VAULT` n'est pas défini, toutes les commandes refusent de s'exécuter.
+
+## Usage quotidien
+
+- `/ingest [chemin]` — lit une source depuis `raw/`, compile les pages entités dans `wiki/`
+- `/query [posture] <question>` — interroge le wiki (postures : research / contradictor / synthesis)
+- `/check` — passe de lint complet sur le wiki
+- `/draft <description>` — produit un livrable dans `output/`
+
+## corpus-pm — pack produit
+
+corpus-pm est optionnel mais c'est le cas d'usage principal. Il enregistre dans le moteur :
+
+**Six types d'entités wiki** : `persona`, `segment`, `competitor`, `interview`, `feature`, `decision`.
+
+**Trois angles de revue** qui lisent vos drafts dans `output/` et produisent des pages `type: stress-test` dans le wiki : `strategy`, `user`, `feasibility`.
+
+**Un transfert beads** (`pm-epic`) qui décompose un PRD en epics et sous-tâches structurées.
+
+corpus-pm n'existe pas sans corpus-core mais n'en modifie aucune règle — il étend seulement les registres.
 
 ## Spec
 
-The actual rules live in [`corpus-core/rules/`](corpus-core/rules/), loaded on demand:
+Les règles effectives sont dans [`corpus-core/rules/`](corpus-core/rules/), chargées à la demande :
 
-- `01-folder-discipline.md` — engine vs. vault, what's read-only
-- `02-wiki-page-format.md` — frontmatter, fixed sections, French content
-- `03-ingestion-protocol.md` — `/ingest` workflow, EN→FR translation rule
-- `04-output-drafting.md` — `/draft` workflow, output formats
-- `05-query-postures.md` — research / contradictor / synthesis
-- `06-maintenance-check.md` — `/check` lint, full Karpathy scope
-- `07-anti-lissage.md` — five LLM behaviors that destroy the wiki
-- `08-vault-structure.md` — vault layout, Obsidian conventions, `init-vault`
-- `09-extension-contract.md` — how use-case packs extend corpus-core
-- `10-contribution-workflow.md` — bead → branch → PR → review → merge
+- `01-folder-discipline.md` — moteur vs. vault, ce que chaque dossier contient, ce qui est en lecture seule
+- `02-wiki-page-format.md` — frontmatter, sections (FR), `index.md`, `log.md`
+- `03-ingestion-protocol.md` — workflow `/ingest`, règle de traduction EN→FR, ~10–15 pages par source
+- `04-output-drafting.md` — workflow `/draft`, formats de sortie (Marp, tableaux, graphes)
+- `05-query-postures.md` — research / contradictor / synthesis, règles de fichier-retour
+- `06-maintenance-check.md` — lint `/check`, périmètre complet Karpathy
+- `07-anti-lissage.md` — cinq comportements LLM qui détruisent un wiki, supprimés
+- `08-vault-structure.md` — layout du vault, conventions Obsidian, commande `init-vault`
+- `09-extension-contract.md` — comment les packs use-case étendent corpus-core
+- `10-contribution-workflow.md` — cycle bead → branche → PR → revue → merge
 
+[`CLAUDE.md`](./CLAUDE.md) et [`AGENTS.md`](./AGENTS.md) sont les manifestes qui pointent vers ces règles. [`ARCHITECTURE.md`](./ARCHITECTURE.md) couvre les décisions de conception avec des diagrammes du flux de données et du modèle d'extension.
 
-[`CLAUDE.md`](./CLAUDE.md) and [`AGENTS.md`](./AGENTS.md) are the slim manifests that point at those rules. [`ARCHITECTURE.md`](./ARCHITECTURE.md) covers the load-bearing design decisions and includes diagrams of the data flow and the extension model.
+## Règles dures (extrait)
 
-## Hard rules (excerpt)
+- Le contenu du wiki est en **français**. Les sources peuvent être EN ou FR (traduites à l'ingestion). Frontmatter et noms de section restent en anglais.
+- Ne jamais écrire dans `raw/`. Ne jamais écrire dans `output/` depuis l'ingestion. Ne jamais écrire dans `wiki/` depuis le drafting.
+- Ne jamais inventer une source. Ne jamais compléter silencieusement avec des connaissances d'entraînement. Ne jamais harmoniser des contradictions.
+- Ne jamais produire une page `type: synthesis` dans le wiki. La synthèse va dans `output/`.
+- `output/` ne réalimente jamais `wiki/`. Wiki = ce que les sources disent. Output = ce que le propriétaire conclut.
 
-- Wiki content is in **French**. Sources may be EN or FR (translate at ingestion). Frontmatter and section names stay English.
-- Never modify `raw/`. Never write into `output/` from ingestion. Never write into `wiki/` from drafting.
-- Never invent a source. Never silently complete with training-data knowledge. Never harmonize contradictions.
-- Never produce `type: synthesis` as a wiki page. Synthesis goes to `output/`.
+## Outils
 
-## Tooling
+- **Runtime :** Claude Code (format plugin). Pas de build, pas de TypeScript — corpus est des prompts, des règles et des slash commands.
+- **Suivi de travail :** [beads](https://github.com/dogmata-dev/beads) (préfixe `cor-`). Voir [`CONTRIBUTING.md`](./CONTRIBUTING.md).
+- **Licence :** MIT — voir [LICENSE](./LICENSE).
 
-- **Runtime:** Claude Code (plugin format). No bun, no TypeScript, no build — corpus is prompts, rules, and slash commands.
-- **Issue tracking:** [beads](https://github.com/dogmata-dev/beads) (prefix `cor-`). See [`CONTRIBUTING.md`](./CONTRIBUTING.md).
-- **License:** MIT — see [LICENSE](./LICENSE).
+## Inspiration
 
-## Inspired by
-
-[Karpathy's LLM-wiki gist](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f). Extended with: explicit `output/` layer, three query postures (research / contradictor / synthesis), anti-lissage spec.
+[LLM-wiki gist de Karpathy](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f). Extensions apportées par corpus : couche `output/` explicite, trois postures de query (research / contradictor / synthesis), spec anti-lissage.
