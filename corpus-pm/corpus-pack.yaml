@@ -42,6 +42,19 @@ review-angles:
     agent: null
     target-types: []
 
+commands:
+  - name: pm-roadmap-update
+    command: /pm-roadmap-update
+    skill: roadmap-update
+    output-type: roadmap
+    reads: [epics, wiki/decision-*, wiki/feature-*, wiki/segment-*]
+    writes: [output/YYYY-MM-DD-roadmap*.md]
+
+skills:
+  - name: roadmap-update
+    path: skills/roadmap-update/SKILL.md
+    example: skills/roadmap-update/EXAMPLE.md
+
 beads-handoffs:
   - name: pm-epic
     command: /pm-epic
