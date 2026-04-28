@@ -7,6 +7,16 @@ decision-date: 1970-01-01
 
 # Titre de la décision
 
+## Résumé
+
+## Ce que disent les sources
+
+## Connexions
+
+## Contradictions
+
+## Questions ouvertes
+
 ## Date
 
 ## Question

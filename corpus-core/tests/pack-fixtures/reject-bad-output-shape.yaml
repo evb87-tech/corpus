@@ -1,0 +1,12 @@
+# EXPECT: output-shape: must be one of single-issue, epic-with-children, flat-batch
+name: corpus-bad-shape
+extends: corpus-core
+core-version: "^0.1"
+
+entity-types: []
+review-angles: []
+beads-handoffs:
+  - name: bad-handoff
+    command: /bad-handoff
+    input-type: prd
+    output-shape: not-a-real-shape

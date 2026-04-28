@@ -61,9 +61,11 @@ CORE_VERSION="$(yq eval '.core-version // ""' "$PACK_FILE")"
 if [[ -z "$CORE_VERSION" ]]; then
   err "core-version: required top-level field is missing or empty"
 else
-  # Accept strings starting with ^, ~, >=, <=, <, >, =, or a digit
-  if [[ ! "$CORE_VERSION" =~ ^(\^|~|>=|<=|>|<|=|[0-9]) ]]; then
-    err "core-version: must be a semver range string (starting with ^, ~, >=, <=, <, >, =, or a digit); got '${CORE_VERSION}'"
+  # Semver range: optional operator (^, ~, >=, <=, >, <, =) followed by
+  # major(.minor(.patch)?)? with optional -prerelease and +build.
+  SEMVER_RE='^(\^|~|>=|<=|>|<|=)?[0-9]+(\.[0-9]+){0,2}(-[0-9A-Za-z.-]+)?(\+[0-9A-Za-z.-]+)?$'
+  if [[ ! "$CORE_VERSION" =~ $SEMVER_RE ]]; then
+    err "core-version: must be a semver range (e.g. '^0.1', '~1.2.3', '>=0.5'); got '${CORE_VERSION}'"
   fi
 fi
 
@@ -153,6 +155,8 @@ else
     BH_OUTPUT="$(yq eval ".beads-handoffs[${i}].output-shape // \"\"" "$PACK_FILE")"
     if [[ -z "$BH_OUTPUT" ]]; then
       err "beads-handoffs[${i}].output-shape: required string field is missing or empty"
+    elif [[ "$BH_OUTPUT" != "single-issue" && "$BH_OUTPUT" != "epic-with-children" && "$BH_OUTPUT" != "flat-batch" ]]; then
+      err "beads-handoffs[${i}].output-shape: must be one of single-issue, epic-with-children, flat-batch; got '${BH_OUTPUT}'"
     fi
   done
 fi

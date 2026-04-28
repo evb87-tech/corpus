@@ -1,0 +1,8 @@
+# EXPECT: core-version: must be a semver range
+name: corpus-bad-version
+extends: corpus-core
+core-version: "1not-semver"
+
+entity-types: []
+review-angles: []
+beads-handoffs: []

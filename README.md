@@ -65,7 +65,7 @@ $CORPUS_VAULT/
 └── .corpus-vault   marker
 ```
 
-Si `$CORPUS_VAULT` n'est pas défini, toutes les commandes refusent de s'exécuter.
+Les commandes résolvent le vault via `$CORPUS_VAULT` (dev local) ou `$CLAUDE_PLUGIN_OPTION_VAULT_PATH` (option `vaultPath` du plugin installé). Si aucun n'est défini, elles refusent de s'exécuter.
 
 ## Usage quotidien
 

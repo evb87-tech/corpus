@@ -48,6 +48,8 @@ Ce que les sources laissent sans réponse.
 
 ## Reserved files
 
+`wiki/index.md` and `wiki/log.md` are **not entity pages**. They carry no `type:`, no `sources:`, no `last_updated:` frontmatter, and `/check` skips them when validating the type taxonomy and frontmatter requirements. Their content rules are below.
+
 ### `wiki/index.md`
 
 Content-oriented catalog of every wiki page, grouped by type. Updated on every ingest. One line per page: link, one-line summary, optional source count.
