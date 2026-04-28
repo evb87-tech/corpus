@@ -3,11 +3,11 @@ description: Draft an output document, pulling from the wiki
 argument-hint: <description of what to draft>
 ---
 
-**Pre-flight:** verify `$CORPUS_VAULT` is set and `$CORPUS_VAULT/.corpus-vault` exists. If not, refuse and tell the owner to run `bun run init-vault <path>` then `export CORPUS_VAULT=<path>`. See `.claude/rules/13-vault-structure.md`.
+**Pre-flight:** verify `$CORPUS_VAULT` is set and `$CORPUS_VAULT/.corpus-vault` exists. If not, refuse and tell the owner to run `bun run init-vault <path>` then `export CORPUS_VAULT=<path>`. See `corpus-core/rules/13-vault-structure.md`.
 
 Draft the deliverable described in: $ARGUMENTS
 
-Follow `.claude/rules/04-output-drafting.md`. All paths below are relative to `$CORPUS_VAULT`:
+Follow `corpus-core/rules/04-output-drafting.md`. All paths below are relative to `$CORPUS_VAULT`:
 
 1. Identify the entities and questions the deliverable touches.
 2. Read relevant pages from `wiki/`. Use `Glob $CORPUS_VAULT/wiki/*.md` and `Grep` to find them.

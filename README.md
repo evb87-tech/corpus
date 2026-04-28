@@ -47,7 +47,7 @@ From here, use the agent slash commands inside the engine repo:
 
 ## Spec
 
-The actual rules live in [`.claude/rules/`](.claude/rules/), loaded on demand:
+The actual rules live in [`corpus-core/rules/`](corpus-core/rules/), loaded on demand:
 
 - `01-folder-discipline.md` — engine vs. vault, what's read-only
 - `02-wiki-page-format.md` — frontmatter, fixed sections, French content

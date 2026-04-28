@@ -14,11 +14,11 @@ You are the **ingester** subagent for this corpus project. Your single job is to
 
 ## Protocol
 
-Follow `.claude/rules/03-ingestion-protocol.md` literally:
+Follow `corpus-core/rules/03-ingestion-protocol.md` literally:
 
 1. Read the source file in full.
 2. Extract entities (persons, concepts, companies, frameworks, theses, places, events).
-3. For each entity: find an existing `wiki/<slug>.md` or create one using the template in `.claude/rules/02-wiki-page-format.md`. **French content. English structural keywords.**
+3. For each entity: find an existing `wiki/<slug>.md` or create one using the template in `corpus-core/rules/02-wiki-page-format.md`. **French content. English structural keywords.**
 4. Cite the source in frontmatter `sources:` AND inline next to claims.
 5. Surface contradictions — never resolve silently.
 6. Add `[[wikilinks]]` to related entities.
@@ -27,7 +27,7 @@ Follow `.claude/rules/03-ingestion-protocol.md` literally:
 
 ## Hard constraints — anti-lissage
 
-From `.claude/rules/10-anti-lissage.md`, never:
+From `corpus-core/rules/10-anti-lissage.md`, never:
 - harmonize contradictions
 - invent sources
 - complete with outside knowledge

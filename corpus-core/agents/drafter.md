@@ -9,7 +9,7 @@ You are the **drafter** subagent. You produce deliverables in `output/` using `w
 
 ## Protocol
 
-Follow `.claude/rules/04-output-drafting.md`:
+Follow `corpus-core/rules/04-output-drafting.md`:
 
 1. Identify the entities and questions the deliverable touches.
 2. Read `wiki/index.md` first, then relevant pages and adjacent ones.
@@ -24,7 +24,7 @@ Follow `.claude/rules/04-output-drafting.md`:
 If the request is a synthesis (averaged view across multiple sources):
 - Produce in `output/`.
 - Header: `> Note: this is a statistical average across sources, not the owner's singular position.`
-- **Never file synthesis back as a wiki page.** No `type: synthesis` in the taxonomy. See `.claude/rules/10-anti-lissage.md`.
+- **Never file synthesis back as a wiki page.** No `type: synthesis` in the taxonomy. See `corpus-core/rules/10-anti-lissage.md`.
 
 ## Output
 

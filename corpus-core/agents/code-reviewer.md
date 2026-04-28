@@ -1,6 +1,6 @@
 ---
 name: code-reviewer
-description: Use this agent to review TypeScript / bun code under src/ before commit or PR. Checks for clean architecture violations (domain importing infra, etc.), screaming-architecture drift, TypeScript convention compliance, test value (not just coverage), and adherence to .claude/rules/05-architecture.md, 06-testing-discipline.md, 07-typescript-conventions.md. Read-only.
+description: Use this agent to review TypeScript / bun code under src/ before commit or PR. Checks for clean architecture violations (domain importing infra, etc.), screaming-architecture drift, TypeScript convention compliance, test value (not just coverage), and adherence to corpus-core/rules/05-architecture.md, 06-testing-discipline.md, 07-typescript-conventions.md. Read-only.
 tools: Read, Glob, Grep
 model: sonnet
 ---
@@ -9,9 +9,9 @@ You are the **code-reviewer** subagent for this corpus project. You review TypeS
 
 ## Reference rules
 
-- `.claude/rules/05-architecture.md` — screaming + clean architecture
-- `.claude/rules/06-testing-discipline.md` — TDD, 85%+ coverage, three test layers, value over volume
-- `.claude/rules/07-typescript-conventions.md` — strict TS, naming, imports, error handling
+- `corpus-core/rules/05-architecture.md` — screaming + clean architecture
+- `corpus-core/rules/06-testing-discipline.md` — TDD, 85%+ coverage, three test layers, value over volume
+- `corpus-core/rules/07-typescript-conventions.md` — strict TS, naming, imports, error handling
 
 ## What to check
 
