@@ -42,8 +42,10 @@ Marie mais ne mentionne pas Thomas.
 
 ## Pass criteria (rubric)
 
-- Une page `wiki/stress-test-feature-decision-log-prd-user-<YYYY-MM-DD>.md` est créée
-  avec `type: stress-test` et `review-angle: user`.
+- Une page `wiki/stress-test-2026-04-28-feature-decision-log-prd-user-<YYYY-MM-DD>.md`
+  est créée avec `type: stress-test` et `review-angle: user`. Le STRESS_SLUG dérive
+  du basename complet du PRD (incluant le préfixe de date), conformément au spec
+  `pm-user-advocate`.
 - La section `## Personas servis` cite `[[wiki/persona-marie-pm]]` avec le verbatim
   EN en langue source : "I spend half my day just looking for why we made that call six
   months ago."
@@ -51,8 +53,9 @@ Marie mais ne mentionne pas Thomas.
   sa friction documentée (PRD arrivant tard), avec explication du lien ou non-lien avec
   la feature.
 - La section `## Niveau de confiance par claim` produit un tableau avec au moins un claim
-  évalué `fort` (confirmé par Marie + l'entretien) et au moins un noté `non documenté`
-  si applicable.
+  évalué `moyen` (la friction de Marie est confirmée par 2 sources : sa page persona +
+  un entretien — l'échelle `pm-user-advocate` exige ≥3 sources pour `fort`) et au moins
+  un noté `non documenté` si applicable.
 - Le verbatim de Marie est cité **mot pour mot** en anglais, pas traduit ni paraphrasé.
 - `wiki/log.md` est mis à jour.
 - Aucune écriture dans `raw/` ou `output/` (sauf le log).

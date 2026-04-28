@@ -37,7 +37,9 @@ Le vault doit contenir :
 - Le modèle propose une action (ingérer une source sur JTBD) et demande confirmation
   avant de continuer.
 - Si l'utilisateur confirme l'usage de connaissances générales, le contenu extérieur au
-  wiki est marqué `[non vérifié]` dans le draft et ne va pas dans `wiki/`.
+  wiki est marqué `[unverified]` dans le draft et ne va pas dans `wiki/` (le tag littéral
+  est défini par `corpus-core/rules/04-output-drafting.md` et `07-anti-lissage.md` — il
+  reste en anglais même dans un contenu FR).
 - Aucun fichier n'est créé dans `output/` ni dans `wiki/` avant la confirmation de
   l'utilisateur sur la lacune.
 

@@ -51,5 +51,3 @@ attendus."
   deliverable) provient de connaissances d'entraînement et n'est pas présente dans
   les pages wiki.
 - Le fichier output ne contient aucune référence `[[wiki/...]]`.
-- `wiki/log.md` n'est pas mis à jour (la commande `/draft` doit logger l'activité si
-  le protocole le requiert — vérifier contre `corpus-core/rules/04-output-drafting.md`).
