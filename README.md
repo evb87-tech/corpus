@@ -12,7 +12,7 @@ Dans une session Claude Code :
 /plugin install corpus-pm@corpus        # pack PM (tire corpus-core automatiquement)
 ```
 
-`/plugin marketplace add` lit le `marketplace.json` à la racine du repo public ; aucune publication centralisée n'est requise. Pour épingler une version, utilisez un tag : `/plugin marketplace add evb87-tech/corpus@v0.1.0`.
+`/plugin marketplace add` lit le manifeste à `.claude-plugin/marketplace.json` dans le repo public ; aucune publication centralisée n'est requise. Pour épingler une version, utilisez un tag : `/plugin marketplace add evb87-tech/corpus@v0.1.0`.
 
 Pour installer depuis un clone local (dev sur le moteur), voir [`docs/plugin-syntax.md`](./docs/plugin-syntax.md).
 
@@ -30,7 +30,7 @@ Deux plugins Claude Code dans un seul monorepo :
 - **`corpus-core/`** — le moteur. Règles, agents, slash commands, spec anti-lissage. Agnostique du cas d'usage.
 - **`corpus-pm/`** — premier pack use-case : second cerveau orienté PM. Ajoute des types d'entités, des angles de revue et des transferts vers beads. Dépend de corpus-core (installé automatiquement).
 
-Un `marketplace.json` à la racine publie les deux. ADR de la forme : [`docs/decisions/0001-monorepo-shape.md`](./docs/decisions/0001-monorepo-shape.md). Contrat plugin : [`docs/plugin-syntax.md`](./docs/plugin-syntax.md). Vue d'ensemble avec diagrammes : [`ARCHITECTURE.md`](./ARCHITECTURE.md).
+Un `.claude-plugin/marketplace.json` publie les deux. ADR de la forme : [`docs/decisions/0001-monorepo-shape.md`](./docs/decisions/0001-monorepo-shape.md). Contrat plugin : [`docs/plugin-syntax.md`](./docs/plugin-syntax.md). Vue d'ensemble avec diagrammes : [`ARCHITECTURE.md`](./ARCHITECTURE.md).
 
 ```mermaid
 flowchart LR

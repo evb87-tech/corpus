@@ -34,7 +34,7 @@ A user runs `/init-vault <path>` once to scaffold a fresh vault, sets `export CO
 
 - `corpus-core/` — the engine plugin (rules, agents, commands, plugin manifest). All `.claude/*` content moved here in cor-2qd.
 - `corpus-pm/` — first use-case pack (PM-flavoured second brain), depends on corpus-core. Scaffolded in cor-dtg.
-- `marketplace.json` at repo root publishes both plugins to a single Claude Code marketplace.
+- `.claude-plugin/marketplace.json` publishes both plugins to a single Claude Code marketplace.
 - `docs/`, `CLAUDE.md`, `AGENTS.md`, `CONTRIBUTING.md` are repo-wide.
 
 ADR for the shape: [`docs/decisions/0001-monorepo-shape.md`](./docs/decisions/0001-monorepo-shape.md). Plugin contract reference: [`docs/plugin-syntax.md`](./docs/plugin-syntax.md). Design overview with diagrams: [`ARCHITECTURE.md`](./ARCHITECTURE.md).
