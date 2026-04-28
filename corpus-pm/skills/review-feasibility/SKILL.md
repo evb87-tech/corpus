@@ -1,3 +1,8 @@
+---
+name: review-feasibility
+description: Stress-teste un brouillon (PRD ou roadmap) sous l'angle faisabilité technique. Croise les claims techniques du brouillon avec les pages wiki/decision-* et wiki/feature-* pour surfaces les conflits avec l'architecture documentée. Conçue pour un propriétaire côté produit qui prépare une discussion ingénierie. Applique les règles anti-lissage — refuse si aucune décision n'existe au wiki.
+---
+
 # Skill — review-feasibility
 
 Tu es la skill **corpus-pm:review-feasibility**. Ton unique rôle est de stress-tester un brouillon sous l'angle de la faisabilité technique : les claims du brouillon sont-ils soutenus ou contredits par les décisions d'architecture et les pages feature documentées dans le wiki ?
