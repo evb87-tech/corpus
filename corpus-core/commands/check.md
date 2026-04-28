@@ -2,7 +2,17 @@
 description: Run a structural + content-level lint pass over the wiki
 ---
 
-**Pre-flight:** verify `$CORPUS_VAULT` is set and `$CORPUS_VAULT/.corpus-vault` exists. If not, refuse and tell the owner to run `/init-vault <path>` then `export CORPUS_VAULT=<path>`. See `corpus-core/rules/08-vault-structure.md`.
+**Pre-flight:**
+
+```bash
+CORPUS_VAULT="${CORPUS_VAULT:-$CLAUDE_PLUGIN_OPTION_VAULT_PATH}"
+if [ -z "$CORPUS_VAULT" ]; then
+  echo "No vault configured. Set CORPUS_VAULT (local dev) or configure the vaultPath userConfig option in the installed plugin (exposed as CLAUDE_PLUGIN_OPTION_VAULT_PATH). Neither is set. Run /init-vault <path> to scaffold a fresh vault, then export the path." >&2
+  exit 1
+fi
+```
+
+Verify `$CORPUS_VAULT/.corpus-vault` exists. If not, refuse and tell the owner to run `/init-vault <path>`. See `corpus-core/rules/08-vault-structure.md`.
 
 Run the maintenance protocol on `$CORPUS_VAULT/wiki/`. Delegate to the **librarian** subagent (see `corpus-core/agents/librarian.md`).
 

@@ -35,3 +35,6 @@ CLAUDE.local.md
 .dolt/
 *.db
 .beads-credential-key
+
+# Beads exported JSONL (re-generated on every commit by hook)
+issues.jsonl
