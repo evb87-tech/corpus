@@ -26,9 +26,34 @@ $CORPUS_VAULT/                  ← your directory, your private repo
 
 The plugin reads `$CORPUS_VAULT` from the environment to find your vault. One vault per user.
 
+```mermaid
+flowchart LR
+    subgraph plugin["corpus (Claude Code plugin)"]
+        core["corpus-core<br/>(engine: rules, agents,<br/>slash commands)"]
+        pm["corpus-pm<br/>(use-case pack)"]
+        pm -- "depends on" --> core
+    end
+
+    subgraph vault["$CORPUS_VAULT (your private repo)"]
+        raw["raw/<br/>sources you drop"]
+        wiki["wiki/<br/>compiled FR pages"]
+        output["output/<br/>your deliverables"]
+        raw -- "/ingest" --> wiki
+        wiki -- "/query, /draft" --> output
+    end
+
+    plugin -- "reads $CORPUS_VAULT" --> vault
+
+    style raw fill:#f9f,stroke:#333
+    style wiki fill:#bbf,stroke:#333
+    style output fill:#bfb,stroke:#333
+```
+
+Engine ships in this repo; vault and content live separately. See [`ARCHITECTURE.md`](./ARCHITECTURE.md) for the full design with extension-contract and pack-discovery diagrams.
+
 ## Quick start
 
-corpus ships as a Claude Code plugin. Once the marketplace is published (cor-NEW), install with:
+corpus ships as a Claude Code plugin. Once the marketplace is published, install with:
 
 ```bash
 claude plugin install corpus-core      # engine
