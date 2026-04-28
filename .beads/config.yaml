@@ -56,3 +56,7 @@ issue-prefix: "cor"
 sync.remote: "git+https://github.com/evb87-tech/corpus.git"
 
 sync.branch: "beads-sync"
+
+export.path: "issues.jsonl"
+
+export.git-add: false
