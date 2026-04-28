@@ -35,7 +35,7 @@ When sources in `raw/` are authored by the owner (personal notes, takeaways, pos
 A synthesis across multiple sources, written as if it were the owner's own conclusion, is a statistical average dressed up as a position. It does not belong in the wiki.
 
 **Forbidden:** filing back synthesis-posture answers as wiki pages.
-**Required:** synthesis lives in `output/`, flagged as a statistical average. See `08-query-postures.md`.
+**Required:** synthesis lives in `output/`, flagged as a statistical average. See `05-query-postures.md`.
 
 ## Why this matters
 

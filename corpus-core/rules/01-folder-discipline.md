@@ -62,7 +62,7 @@ The engine reads `$CORPUS_VAULT` from the environment. Refuse to operate if unse
 ### `.obsidian/` — Obsidian config
 
 - The vault is an Obsidian vault. `.obsidian/` holds themes, hotkeys, community plugins.
-- Selective tracking: commit `community-plugins.json`, `app.json`, `core-plugins.json`. Gitignore `workspace.json`, `workspace-mobile.json` (machine-specific). See `13-vault-structure.md`.
+- Selective tracking: commit `community-plugins.json`, `app.json`, `core-plugins.json`. Gitignore `workspace.json`, `workspace-mobile.json` (machine-specific). See `08-vault-structure.md`.
 
 ## Mental model
 

@@ -77,7 +77,7 @@ Source: [Plugin dependencies](https://code.claude.com/docs/en/plugin-dependencie
 
 **There is no official API for "list installed plugins" or "read another plugin's manifest at runtime."** The only documented runtime references to other plugins are at install/load time, internal to Claude Code.
 
-**For corpus this means**: the pack discovery protocol in `corpus-core/rules/14-extension-contract.md` cannot rely on a built-in API. Implementation in cor-7el must glob a known cache path:
+**For corpus this means**: the pack discovery protocol in `corpus-core/rules/09-extension-contract.md` cannot rely on a built-in API. Implementation in cor-7el must glob a known cache path:
 
 ```bash
 ~/.claude/plugins/cache/*/corpus-pack.yaml

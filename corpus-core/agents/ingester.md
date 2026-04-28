@@ -27,7 +27,7 @@ Follow `corpus-core/rules/03-ingestion-protocol.md` literally:
 
 ## Hard constraints — anti-lissage
 
-From `corpus-core/rules/10-anti-lissage.md`, never:
+From `corpus-core/rules/07-anti-lissage.md`, never:
 - harmonize contradictions
 - invent sources
 - complete with outside knowledge

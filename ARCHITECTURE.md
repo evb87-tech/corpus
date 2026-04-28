@@ -49,7 +49,7 @@ The cost: corpus is bound to Claude Code as a runtime. If the plugin contract ch
 
 `corpus-pm` is the **first use-case pack**: PM-flavoured second brain. It adds entity types (`persona`, `segment`, `competitor`, `interview`, `feature`, `decision`), review angles (strategy, user, feasibility), and a beads handoff for turning PRDs into structured issues.
 
-Future packs (`corpus-research`, `corpus-legal`, etc.) extend corpus-core without forking it. The contract that makes this work is in [`corpus-core/rules/14-extension-contract.md`](./corpus-core/rules/14-extension-contract.md). Four extension points:
+Future packs (`corpus-research`, `corpus-legal`, etc.) extend corpus-core without forking it. The contract that makes this work is in [`corpus-core/rules/09-extension-contract.md`](./corpus-core/rules/09-extension-contract.md). Four extension points:
 
 ```mermaid
 flowchart TB
@@ -112,7 +112,7 @@ The synthesis-doesn't-go-to-wiki rule is the second load-bearing constraint. It'
 
 ## Anti-lissage as differentiator
 
-The anti-lissage spec ([`corpus-core/rules/10-anti-lissage.md`](./corpus-core/rules/10-anti-lissage.md)) names five LLM behaviors that destroy a knowledge base over time:
+The anti-lissage spec ([`corpus-core/rules/07-anti-lissage.md`](./corpus-core/rules/07-anti-lissage.md)) names five LLM behaviors that destroy a knowledge base over time:
 
 1. **Smoothing contradictions** into a unified view that no source actually held.
 2. **Inventing sources** when the wiki is silent rather than admitting silence.
@@ -147,5 +147,5 @@ A future cor-ydk decides whether editor integrations (Obsidian especially) auto-
 - [`CONTRIBUTING.md`](./CONTRIBUTING.md) — how to add work, beads workflow, dispatch tiers.
 - [`docs/plugin-syntax.md`](./docs/plugin-syntax.md) — the Claude Code plugin contract facts corpus depends on.
 - [`docs/decisions/0001-monorepo-shape.md`](./docs/decisions/0001-monorepo-shape.md) — why one repo for two plugins.
-- [`corpus-core/rules/14-extension-contract.md`](./corpus-core/rules/14-extension-contract.md) — the full pack contract specification.
-- [`corpus-core/rules/10-anti-lissage.md`](./corpus-core/rules/10-anti-lissage.md) — the five suppressed behaviors.
+- [`corpus-core/rules/09-extension-contract.md`](./corpus-core/rules/09-extension-contract.md) — the full pack contract specification.
+- [`corpus-core/rules/07-anti-lissage.md`](./corpus-core/rules/07-anti-lissage.md) — the five suppressed behaviors.

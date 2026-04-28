@@ -3,7 +3,7 @@ description: Query the wiki under one of three postures — research, contradict
 argument-hint: [posture] [question]   e.g. "research What does the wiki say about X?"
 ---
 
-**Pre-flight:** verify `$CORPUS_VAULT` is set and `$CORPUS_VAULT/.corpus-vault` exists. If not, refuse and tell the owner to run `/init-vault <path>` then `export CORPUS_VAULT=<path>`. See `corpus-core/rules/13-vault-structure.md`.
+**Pre-flight:** verify `$CORPUS_VAULT` is set and `$CORPUS_VAULT/.corpus-vault` exists. If not, refuse and tell the owner to run `/init-vault <path>` then `export CORPUS_VAULT=<path>`. See `corpus-core/rules/08-vault-structure.md`.
 
 Answer the owner's question against `$CORPUS_VAULT/wiki/`: $ARGUMENTS
 
@@ -13,7 +13,7 @@ Detect the posture (research | contradictor | synthesis) from the wording, OR ho
 - `contradictor <target>` — attack the wiki, surface weaknesses.
 - `synthesis <question>` — produce a statistical average across sources.
 
-Follow `corpus-core/rules/08-query-postures.md`:
+Follow `corpus-core/rules/05-query-postures.md`:
 
 1. Read `wiki/index.md` first.
 2. Read identified pages and adjacent ones.
@@ -31,4 +31,4 @@ Follow `corpus-core/rules/08-query-postures.md`:
    Filed as: [[result-page]]   (research/contradictor only)
    ```
 
-Hard rules: never invent sources, never harmonize contradictions, never silently complete with training-data knowledge. See `corpus-core/rules/10-anti-lissage.md`.
+Hard rules: never invent sources, never harmonize contradictions, never silently complete with training-data knowledge. See `corpus-core/rules/07-anti-lissage.md`.

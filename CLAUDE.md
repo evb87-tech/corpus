@@ -45,14 +45,14 @@ ADR for the shape: [`docs/decisions/0001-monorepo-shape.md`](./docs/decisions/00
 - `02-wiki-page-format.md` — frontmatter, sections (French), `index.md`, `log.md`
 - `03-ingestion-protocol.md` — `/ingest` workflow, EN→FR translation, ~10–15 pages per source
 - `04-output-drafting.md` — `/draft` workflow, output formats (Marp, charts, tables)
-- `08-query-postures.md` — research / contradictor / synthesis, file-back rules
-- `09-maintenance-check.md` — `/check` workflow, full Karpathy lint scope
-- `10-anti-lissage.md` — five LLM behaviors that destroy the wiki, suppressed
-- `13-vault-structure.md` — vault layout, Obsidian conventions, `init-vault` command
-- `14-extension-contract.md` — how use-case packs (e.g. corpus-pm) extend corpus-core
-- `15-contribution-workflow.md` — bead → branch → PR → review → merge cycle
+- `05-query-postures.md` — research / contradictor / synthesis, file-back rules
+- `06-maintenance-check.md` — `/check` workflow, full Karpathy lint scope
+- `07-anti-lissage.md` — five LLM behaviors that destroy the wiki, suppressed
+- `08-vault-structure.md` — vault layout, Obsidian conventions, `init-vault` command
+- `09-extension-contract.md` — how use-case packs (e.g. corpus-pm) extend corpus-core
+- `10-contribution-workflow.md` — bead → branch → PR → review → merge cycle
 
-Rules will be renumbered contiguously in cor-cqa. Engine-dev concerns (beads, contribution workflow) live in [`CONTRIBUTING.md`](./CONTRIBUTING.md).
+Engine-dev concerns (beads, contribution workflow) live in [`CONTRIBUTING.md`](./CONTRIBUTING.md).
 
 ## Subagents — `corpus-core/agents/`
 

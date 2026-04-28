@@ -1,6 +1,6 @@
 # Maintenance — `/check`
 
-> All paths below are relative to `$CORPUS_VAULT`. Refuse to operate if unset or the vault marker is missing. See [13-vault-structure.md](./13-vault-structure.md).
+> All paths below are relative to `$CORPUS_VAULT`. Refuse to operate if unset or the vault marker is missing. See [08-vault-structure.md](./08-vault-structure.md).
 
 When the owner runs `/check`, run a structural lint of the wiki.
 

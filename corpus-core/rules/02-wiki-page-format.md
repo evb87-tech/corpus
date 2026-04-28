@@ -1,6 +1,6 @@
 # Wiki page format
 
-> All paths below are relative to `$CORPUS_VAULT`. The engine refuses to operate if the env var is unset or the vault marker (`$CORPUS_VAULT/.corpus-vault`) is missing. See [13-vault-structure.md](./13-vault-structure.md).
+> All paths below are relative to `$CORPUS_VAULT`. The engine refuses to operate if the env var is unset or the vault marker (`$CORPUS_VAULT/.corpus-vault`) is missing. See [08-vault-structure.md](./08-vault-structure.md).
 
 Every page in `wiki/` follows this exact format. Deviations break querying and re-ingestion.
 
