@@ -2,7 +2,10 @@
   "name": "corpus-pm",
   "version": "0.2.0",
   "description": "Pack orienté gestion de produit pour corpus : types d'entités PM, angles de revue et transferts beads adaptés aux équipes produit francophones.",
-  "author": "evb87-tech",
+  "author": {
+    "name": "evb87-tech",
+    "url": "https://github.com/evb87-tech"
+  },
   "homepage": "https://github.com/evb87-tech/corpus",
   "repository": "https://github.com/evb87-tech/corpus",
   "license": "MIT",
