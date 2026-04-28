@@ -41,7 +41,7 @@ Listez explicitement ce que cette fonctionnalité ne couvre PAS. Appuyez-vous su
 
 Format : `En tant que <persona>, je veux <action> afin de <bénéfice>.`
 
-**Contrainte forte** : chaque persona nommé ici doit correspondre à une page `persona-*` existante dans le wiki. Citez la page en ligne : `([[persona-nom]])`. Si aucun persona wiki n'existe, remplacez cette section par :
+**Contrainte forte** : chaque persona nommé ici doit correspondre à une page `persona-*` existante dans le wiki. Citez la page en ligne avec le préfixe `wiki/` (rule 04-output-drafting) : `([[wiki/persona-nom]])`. Si aucun persona wiki n'existe, remplacez cette section par :
 
 > [lacune — aucun persona documenté dans le wiki. Déposez une source dans `raw/` et lancez `/ingest` avant de compléter cette section.]
 
@@ -67,13 +67,13 @@ Si aucune métrique n'est documentée dans le wiki : `[lacune — métriques de 
 
 ## Positionnement concurrentiel (section optionnelle)
 
-Si des pages `competitor-*` existent dans le wiki et sont pertinentes pour la fonctionnalité, ajoutez une section `## Positionnement` après `## Métriques de succès`. Résumez comment cette fonctionnalité se différencie des concurrents documentés. Citez chaque page `[[competitor-nom]]` utilisée.
+Si des pages `competitor-*` existent dans le wiki et sont pertinentes pour la fonctionnalité, ajoutez une section `## Positionnement` après `## Métriques de succès`. Résumez comment cette fonctionnalité se différencie des concurrents documentés. Citez chaque page `[[wiki/competitor-nom]]` utilisée.
 
 Si aucune page `competitor-*` n'existe : omettez la section ou écrivez `[lacune — aucun concurrent documenté dans le wiki]`.
 
 ## Engagements préalables (section optionnelle)
 
-Si des pages `decision-*` pertinentes existent, ajoutez une section `## Décisions liées` listant les décisions passées qui contraignent ou orientent cette fonctionnalité. Citez chaque page `[[decision-nom]]`.
+Si des pages `decision-*` pertinentes existent, ajoutez une section `## Décisions liées` listant les décisions passées qui contraignent ou orientent cette fonctionnalité. Citez chaque page `[[wiki/decision-nom]]`.
 
 ## Citations wiki
 

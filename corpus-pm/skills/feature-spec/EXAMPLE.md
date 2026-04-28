@@ -39,24 +39,24 @@ wiki-sources: [persona-chef-de-projet, persona-analyste-donnees, competitor-data
 
 ## Problème
 
-Les utilisateurs actuels ne peuvent pas exporter leurs données en dehors du produit sans manipulation manuelle ([[persona-chef-de-projet]] : « exports manuels » comme friction principale). Les analystes données rencontrent des problèmes d'interopérabilité avec leurs outils externes ([[persona-analyste-donnees]]).
+Les utilisateurs actuels ne peuvent pas exporter leurs données en dehors du produit sans manipulation manuelle ([[wiki/persona-chef-de-projet]] : « exports manuels » comme friction principale). Les analystes données rencontrent des problèmes d'interopérabilité avec leurs outils externes ([[wiki/persona-analyste-donnees]]).
 
 ## Objectifs
 
 - Permettre l'export en format CSV en moins de 3 clics depuis n'importe quelle vue de données.
-- Réduire le temps consacré aux exports manuels (friction documentée : [[persona-chef-de-projet]]).
-- Atteindre l'interopérabilité avec les outils d'analyse courants (objectif documenté : [[persona-analyste-donnees]]).
+- Réduire le temps consacré aux exports manuels (friction documentée : [[wiki/persona-chef-de-projet]]).
+- Atteindre l'interopérabilité avec les outils d'analyse courants (objectif documenté : [[wiki/persona-analyste-donnees]]).
 
 ## Hors périmètre
 
-- Export au format XML : écarté explicitement par [[decision-no-xml]] (v1).
-- Export au format XLSX : écarté explicitement par [[decision-no-xml]] (v1).
+- Export au format XML : écarté explicitement par [[wiki/decision-no-xml]] (v1).
+- Export au format XLSX : écarté explicitement par [[wiki/decision-no-xml]] (v1).
 - Import depuis CSV : non couvert par cette fonctionnalité.
 
 ## User stories
 
-- En tant que chef de projet ([[persona-chef-de-projet]]), je veux exporter mes tableaux de bord en CSV afin de les intégrer à mes rapports hebdomadaires sans saisie manuelle.
-- En tant qu'analyste données ([[persona-analyste-donnees]]), je veux télécharger les données brutes en CSV afin de les importer directement dans mon outil d'analyse.
+- En tant que chef de projet ([[wiki/persona-chef-de-projet]]), je veux exporter mes tableaux de bord en CSV afin de les intégrer à mes rapports hebdomadaires sans saisie manuelle.
+- En tant qu'analyste données ([[wiki/persona-analyste-donnees]]), je veux télécharger les données brutes en CSV afin de les importer directement dans mon outil d'analyse.
 
 ## Exigences
 
@@ -80,11 +80,11 @@ Les utilisateurs actuels ne peuvent pas exporter leurs données en dehors du pro
 
 ## Positionnement
 
-[[competitor-databird]] propose déjà un export natif Excel/CSV, identifié comme l'une de ses forces principales. La parité sur l'export CSV est donc une exigence de compétitivité minimale. La différenciation devra venir sur d'autres axes (prix, intégration, UX).
+[[wiki/competitor-databird]] propose déjà un export natif Excel/CSV, identifié comme l'une de ses forces principales. La parité sur l'export CSV est donc une exigence de compétitivité minimale. La différenciation devra venir sur d'autres axes (prix, intégration, UX).
 
 ## Décisions liées
 
-- [[decision-no-xml]] : XML et XLSX sont explicitement hors périmètre pour la v1. Cette décision doit être réexaminée si des utilisateurs demandent XLSX après le lancement CSV.
+- [[wiki/decision-no-xml]] : XML et XLSX sont explicitement hors périmètre pour la v1. Cette décision doit être réexaminée si des utilisateurs demandent XLSX après le lancement CSV.
 
 ## Sources wiki
 
