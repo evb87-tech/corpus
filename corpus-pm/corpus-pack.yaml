@@ -1,0 +1,50 @@
+name: corpus-pm
+extends: corpus-core
+core-version: "^0.1.0"
+
+entity-types:
+  - name: persona
+    template: templates/persona.md
+    sections: []
+    extra-frontmatter: []
+  - name: segment
+    template: templates/segment.md
+    sections: []
+    extra-frontmatter: []
+  - name: competitor
+    template: templates/competitor.md
+    sections: []
+    extra-frontmatter: []
+  - name: interview
+    template: templates/interview.md
+    sections: []
+    extra-frontmatter: []
+  - name: feature
+    template: templates/feature.md
+    sections: []
+    extra-frontmatter: []
+  - name: decision
+    template: templates/decision.md
+    sections: []
+    extra-frontmatter: []
+
+review-angles:
+  - name: strategy
+    command: /pm-review-strategy
+    agent: null
+    target-types: []
+  - name: user
+    command: /pm-review-user
+    agent: null
+    target-types: []
+  - name: feasibility
+    command: /pm-review-feasibility
+    agent: null
+    target-types: []
+
+beads-handoffs:
+  - name: pm-epic
+    command: /pm-epic
+    agent: null
+    input-type: prd
+    output-shape: epic-with-children

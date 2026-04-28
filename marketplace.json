@@ -13,6 +13,11 @@
       "name": "corpus-core",
       "source": "./corpus-core",
       "description": "Engine for an LLM-curated second brain. Karpathy LLM-wiki pattern with anti-lissage spec, FR-by-default content, three query postures."
+    },
+    {
+      "name": "corpus-pm",
+      "source": "./corpus-pm",
+      "description": "Pack orienté gestion de produit pour corpus : types d'entités PM, angles de revue et transferts beads adaptés aux équipes produit francophones."
     }
   ]
 }
