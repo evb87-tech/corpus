@@ -6,9 +6,36 @@ argument-hint: <path>
 ```bash
 set -euo pipefail
 
-# Resolve plugin root (CLAUDE_PLUGIN_ROOT set by Claude Code; fallback for local dev)
-PLUGIN_ROOT="${CLAUDE_PLUGIN_ROOT:-$(cd "$(dirname "$0")/.." && pwd)}"
+# Resolve plugin root.
+#
+# Claude Code sets CLAUDE_PLUGIN_ROOT for plugin scripts/hooks, but Bash blocks
+# inside slash-command bodies are not always invoked with that env populated.
+# Fall back to globbing the marketplace cache and known dev locations.
+#
+# Note: do NOT use $0 as a fallback — Claude Code's slash-command renderer
+# substitutes $0 with the first positional argument before bash sees it.
+PLUGIN_ROOT="${CLAUDE_PLUGIN_ROOT:-}"
+if [ -z "$PLUGIN_ROOT" ] || [ ! -d "$PLUGIN_ROOT/templates/vault" ]; then
+  for candidate in \
+    "$HOME/.claude/plugins/cache/corpus/corpus-core"/*/templates/vault \
+    "$HOME/.claude/plugins/marketplaces/corpus/corpus-core/templates/vault" \
+    "$(pwd)/corpus-core/templates/vault" \
+    "$(git rev-parse --show-toplevel 2>/dev/null)/corpus-core/templates/vault"
+  do
+    if [ -d "$candidate" ]; then
+      PLUGIN_ROOT="$(cd "$candidate/../.." && pwd)"
+      break
+    fi
+  done
+fi
 TEMPLATES_DIR="${PLUGIN_ROOT}/templates/vault"
+
+if [ ! -d "$TEMPLATES_DIR" ]; then
+  echo "Error: cannot locate corpus-core templates."
+  echo "  Looked under \$CLAUDE_PLUGIN_ROOT, ~/.claude/plugins/cache/corpus/corpus-core/<version>/templates/vault, and the local repo."
+  echo "  If you installed corpus-core via the marketplace, set CLAUDE_PLUGIN_ROOT to the install path explicitly."
+  exit 1
+fi
 
 # 1. Require an argument
 if [ -z "${ARGUMENTS:-}" ]; then
